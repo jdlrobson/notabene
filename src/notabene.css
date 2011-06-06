@@ -136,3 +136,7 @@ a:hover {
 	outline: none;
 	text-shadow: 3px 3px 3px #CCC;
 }
+
+.note_title:focus {
+	text-shadow: none;
+}
