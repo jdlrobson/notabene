@@ -130,3 +130,9 @@ a:hover {
 	padding: 10px;
 }
 
+.note_title {
+	border: none;
+	font-size: 3em;
+	outline: none;
+	text-shadow: 3px 3px 3px #CCC;
+}
