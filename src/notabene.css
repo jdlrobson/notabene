@@ -1,0 +1,132 @@
+body {
+	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
+}
+
+h2,h3,h4,h5 {
+	margin-bottom: 0px;
+}
+
+a {
+	color: royalBlue;
+}
+
+a:hover {
+	color:#4169C8;
+}
+
+.header {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F7F7F7), color-stop(1, #EEE));
+	background: -moz-linear-gradient(top, #F7F7F7 0%, #EEE 100%);
+	background: linear-gradient(top, #F7F7F7 0%, #EEE 100%);
+	border: solid 1px #CCC;
+	min-height: 120px;
+	padding-top: 6px;
+	padding-left: 8px;
+}
+
+#container {
+	width: 900px;
+	margin: auto;
+	position: relative;
+}
+
+#container {
+	width: 80%;
+	margin: 24px auto 0;
+}
+
+#note {
+	width: 500px;
+	margin: 0 auto;
+}
+
+#container h1 {
+	font-size: 3em;
+}
+
+#notebody {
+	position: relative;
+	border: 1px solid gray;
+	height: 300px;
+	margin-top: 18px;
+	padding: 1em 1em 2em;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#newnote {
+	height: 32px; width: 32px;
+	border: 1px solid gray;
+	border-width: 1px 1px 0 1px;
+	border-radius: 5px 5px 0 0;
+	position: absolute;
+	top: -43px;
+	right: -1px;
+	padding: 5px;
+}
+
+.notedate {
+	float: right;
+	color: rgba(0,0,0, 0.5);
+	margin-left: 32px;
+}
+
+#notebody textarea {
+	background: transparent;
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	clear: both;
+	margin-top: 0.5em;
+}
+
+#metabutton {
+	background: gray;
+	width: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0.3;
+	border-radius: 0 0 5px 5px;
+	padding: 10px;
+	position: absolute;
+	bottom: -52px;
+	left: 224px;
+	-webkit-transition: height 0.2s ease-in-out, bottom 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	-moz-transition: height 0.2s ease-in-out, bottom 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	-o-transition: height 0.2s ease-in-out, bottom 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	-ms-transition: height 0.2s ease-in-out, bottom 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	transition: height 0.2s ease-in-out, bottom 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+#metabutton:hover {
+	opacity: 0.7;
+	height: 35px;
+	bottom: -55px;
+}
+
+#newnote:hover,
+#metabutton:hover {
+	cursor: pointer;
+}
+
+#notemeta {
+	background: gray;
+	background: rgba(0,0,0,0.2);
+	background-image: -moz-repeating-linear-gradient(-45deg,
+		transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
+	background-image: -webkit-repeating-linear-gradient(-45deg,
+		transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
+	background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+	border: 1px dashed rgba(0,0,0,0.4);
+	border-width: 0 1px 1px 1px;
+	border-radius: 0 0 5px 5px;
+	margin: 0 24px;
+	overflow: hidden;
+}
+
+#notemeta .paddedbox {
+	padding: 10px;
+}
+
