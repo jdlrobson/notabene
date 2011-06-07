@@ -5,3 +5,8 @@ $(".note_title").blur(function(ev){
 		$(".note_title").attr("disabled", true);
 	}
 });
+
+// on clicking the "clear" button provide a blank note
+$("#newnote").click(function(ev) {
+	$(".note_title, .note_text").val("").attr("disabled", false);
+});
