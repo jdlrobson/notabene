@@ -10,6 +10,9 @@ $(".note_title").blur(function(ev){
 	note.title = val;
 });
 
+$(".note_text").keyup(function(ev) {
+	note.text = $(ev.target).val();
+})
 // on clicking the "clear" button provide a blank note
 $("#newnote").click(function(ev) {
 	$(".note_title, .note_text").val("").attr("disabled", false);
