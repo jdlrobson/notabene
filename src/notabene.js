@@ -1,8 +1,10 @@
 var store =  new tiddlyweb.Store();
 var tempTitle = "untitled note " + Math.random()
 var note = new tiddlyweb.Tiddler(tempTitle);
+note.created = new Date();
 
 function storeNote() {
+	note.modified = new Date();
 	store.addTiddler(note);
 }
 
