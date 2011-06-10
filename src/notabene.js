@@ -28,5 +28,6 @@ $(".note_text").keyup(function(ev) {
 // on clicking the "clear" button provide a blank note
 $("#newnote").click(function(ev) {
 	$(".note_title, .note_text").val("").attr("disabled", false);
+	tempTitle = "untitled note " + Math.random();
 	note = new tiddlyweb.Tiddler(tempTitle);
 });
