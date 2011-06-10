@@ -1,7 +1,12 @@
+var bag = new tiddlyweb.Bag(bagname, host);
 var store =  new tiddlyweb.Store();
-var tempTitle = "untitled note " + Math.random()
-var note = new tiddlyweb.Tiddler(tempTitle);
-note.created = new Date();
+var note;
+function newNote() {
+	var tempTitle = "untitled note " + Math.random();
+	note = new tiddlyweb.Tiddler(tempTitle);
+	note.created = new Date();
+}
+newNote();
 
 function storeNote() {
 	note.modified = new Date();
@@ -28,6 +33,5 @@ $(".note_text").keyup(function(ev) {
 // on clicking the "clear" button provide a blank note
 $("#newnote").click(function(ev) {
 	$(".note_title, .note_text").val("").attr("disabled", false);
-	tempTitle = "untitled note " + Math.random();
-	note = new tiddlyweb.Tiddler(tempTitle);
+	newNote();
 });
