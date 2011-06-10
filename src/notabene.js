@@ -5,6 +5,9 @@ note.created = new Date();
 
 function storeNote() {
 	note.modified = new Date();
+	if(note.title != tempTitle) {
+		store.remove(tempTitle);
+	}
 	store.addTiddler(note);
 }
 
