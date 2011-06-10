@@ -9,5 +9,7 @@ dev:
 		https://raw.github.com/bengillies/chrjs.store/master/chrjs-store.js
 	curl -o src/lib/jquery.min.js \
 		http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.js
+	curl -o src/lib/jquery-json.min.js \
+		http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js
 
 
