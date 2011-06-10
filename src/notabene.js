@@ -1,9 +1,9 @@
 function notes(bagname, host) {
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
-	var note;
+	var note, tempTitle;
 	function newNote() {
-		var tempTitle = "untitled note " + Math.random();
+		tempTitle = "untitled note " + Math.random();
 		note = new tiddlyweb.Tiddler(tempTitle);
 		note.created = new Date();
 	}
@@ -41,7 +41,9 @@ function notes(bagname, host) {
 			$("#note").removeClass("active");
 			$(".note_title").focus();
 		}, 1000);
-		store.save();
+		store.save(function() {
+			// do nothing for time being
+		});
 		newNote();
 	});
 }
