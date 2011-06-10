@@ -1,3 +1,19 @@
+@-webkit-keyframes flip {
+	from {
+		-webkit-transform: rotatey(0deg);
+	}
+	to {
+		-webkit-transform: rotatey(360deg);
+	}
+}
+
+#note.active {
+	-webkit-transform-style: preserve-3d;
+	-webkit-animation-name: flip;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-timing-function: ease-out;
+}
+
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
 }
@@ -28,6 +44,7 @@ a:hover {
 	width: 900px;
 	margin: auto;
 	position: relative;
+	-webkit-perspective: 0.6;
 }
 
 #container {
@@ -59,7 +76,7 @@ a:hover {
 	border-width: 1px 1px 0 1px;
 	border-radius: 5px 5px 0 0;
 	position: absolute;
-	top: -43px;
+	bottom: 0px;
 	right: -1px;
 	padding: 5px;
 }
