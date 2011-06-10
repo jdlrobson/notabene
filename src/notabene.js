@@ -13,9 +13,9 @@ $(".note_title").blur(function(ev){
 	var val = $(ev.target).val();
 	if($.trim(val).length > 0) {
 		$(".note_title").attr("disabled", true);
+		note.title = val;
+		storeNote();
 	}
-	note.title = val;
-	storeNote();
 });
 
 $(".note_text").keyup(function(ev) {
