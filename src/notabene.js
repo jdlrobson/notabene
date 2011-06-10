@@ -33,7 +33,14 @@ function notes(bagname, host) {
 	})
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
-		$(".note_title, .note_text").val("").attr("disabled", false);
+		$("#note").addClass("active");
+		window.setTimeout(function() {
+			$(".note_title, .note_text").val("").attr("disabled", false);
+		}, 500);
+		window.setTimeout(function() {
+			$("#note").removeClass("active");
+			$(".note_title").focus();
+		}, 1000);
 		store.save();
 		newNote();
 	});
