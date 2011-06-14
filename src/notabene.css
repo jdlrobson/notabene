@@ -44,7 +44,7 @@ a:hover {
 	width: 900px;
 	margin: auto;
 	position: relative;
-	-webkit-perspective: 0.6;
+	-webkit-perspective: 400;
 }
 
 #container {
