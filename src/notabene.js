@@ -8,7 +8,7 @@ function notes(bagname, host) {
 	var note, tempTitle;
 	function newNote() {
 		tempTitle = "untitled note " + Math.random();
-		note = new tiddlyweb.Tiddler(tempTitle);
+		note = new tiddlyweb.Tiddler(tempTitle, bag);
 		note.fields = {};
 		note.fields.created = new Date();
 	}
