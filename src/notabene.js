@@ -3,14 +3,14 @@ function notes(bagname, host) {
 	var store =  new tiddlyweb.Store();
 	store.retrieveCached();
 	var tiddlers = store().sort(function(a, b) {
-		return a.modified < b.modified ? 1 : -1;
+		return a.fields.modified < b.fields.modified ? 1 : -1;
 	});
 	var note, tempTitle;
 	function newNote() {
 		tempTitle = "untitled note " + Math.random();
 		note = new tiddlyweb.Tiddler(tempTitle);
 		note.fields = {};
-		note.created = new Date();
+		note.fields.created = new Date();
 	}
 	if(tiddlers[0]) {
 		note = tiddlers[0];
@@ -21,7 +21,7 @@ function notes(bagname, host) {
 	}
 
 	function storeNote() {
-		note.modified = new Date();
+		note.fields.modified = new Date();
 		if(note.title != tempTitle) {
 			store.remove(tempTitle);
 		}
