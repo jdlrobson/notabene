@@ -46,4 +46,11 @@ function notes(bagname, host) {
 		});
 		newNote();
 	});
+
+	//tie delete button to delete event
+	$("#deletenote").click(function(ev) {
+		if(note) {
+			store.remove({ tiddler: note, delete: true }); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
+		}
+	});
 }
