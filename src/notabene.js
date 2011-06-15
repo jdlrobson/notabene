@@ -12,17 +12,23 @@ function notes(bagname, host) {
 		note.fields = {};
 		note.fields.created = new Date();
 	}
+
+	// load the current note into the display
+	function loadNote() {
+		$(".note_text").val(note.text);
+		$(".note_title").val(note.title).blur();
+	}
+
 	if(tiddlers[0]) {
 		note = tiddlers[0];
-		$(".note_title").val(note.title).blur();
-		$(".note_text").val(note.text);
+		loadNote();
 	} else {
 		newNote();
 	}
 
 	function storeNote() {
 		note.fields.modified = new Date();
-		if(note.title != tempTitle) {
+		if(tempTitle && note.title != tempTitle) {
 			store.remove(tempTitle);
 		}
 		store.addTiddler(note);
