@@ -19,7 +19,20 @@ function notes(bagname, host) {
 		$(".note_title").val(note.title).blur();
 	}
 
-	if(tiddlers[0]) {
+	var currentUrl = window.location.pathname;
+	var match = currentUrl.match(/tiddler\/([^\/]*)$/);
+	if(match && match[1]) {
+		note = new tiddlyweb.Tiddler(match[1]);
+		note.fields = {};
+		note.bag = new tiddlyweb.Bag(bagname, host);
+		$("#container").hide();
+		var handler = function(tid) {
+			note = tid;
+			loadNote();
+			$("#container").show();
+		};
+		note.get(handler, handler);
+	} else if(tiddlers[0]) {
 		note = tiddlers[0];
 		loadNote();
 	} else {
