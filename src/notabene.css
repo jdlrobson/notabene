@@ -224,6 +224,7 @@ a:hover {
 }
 
 #deletenote {
+	cursor: pointer;
 	position: absolute;
 	top: 4px;
 	opacity: 0.3;
