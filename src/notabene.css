@@ -63,9 +63,11 @@
 @-webkit-keyframes flip {
 	from {
 		-webkit-transform: rotatey(0deg);
+		top: 0px;
 	}
 	to {
 		-webkit-transform: rotatey(360deg);
+		top: -500px;
 	}
 }
 
