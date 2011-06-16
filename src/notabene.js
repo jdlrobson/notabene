@@ -40,7 +40,7 @@ function notes(bagname, host) {
 		window.setTimeout(function() {
 			$("#note").removeClass("active");
 			$(".note_title").focus();
-		}, 1000);
+		}, 4000);
 		store.save(function() {
 			// do nothing for time being
 		});
