@@ -7,6 +7,15 @@
 	}
 }
 
+@-webkit-keyframes drop {
+	0% {
+		top: -300px;
+	}
+	100% {
+		top: 0px;
+	}
+}
+
 #note.active {
 	-webkit-transform-style: preserve-3d;
 	-webkit-animation-name: flip;
@@ -53,8 +62,11 @@ a:hover {
 }
 
 #note {
+	position: relative;
 	width: 500px;
 	margin: 0 auto;
+	-webkit-animation-name: drop;
+	-webkit-animation-duration: 2s;
 }
 
 #container h1 {
