@@ -124,6 +124,12 @@ a:hover {
 	margin: 0 auto;
 	-webkit-animation-name: drop;
 	-webkit-animation-duration: 2s;
+	border: solid 1px black;
+}
+
+#note,
+.note_title {
+	background-color: white;
 }
 
 .takenotecontainer h1 {
