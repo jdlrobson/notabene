@@ -226,7 +226,7 @@ a:hover {
 	background-repeat: no-repeat;
 	height: 30px;
 	width: 20px;
-	text-indent: -999px;
+	text-indent: -9999px;
 }
 
 #deletenote:hover {
