@@ -141,14 +141,16 @@ a:hover {
 }
 
 #newnote {
-	height: 32px; width: 32px;
-	border: 1px solid gray;
-	border-width: 1px 1px 0 1px;
-	border-radius: 5px 5px 0 0;
+	height: 24px;
+	width: 30px;
 	position: absolute;
 	bottom: 0px;
 	right: -1px;
 	padding: 5px;
+	background-repeat: no-repeat;
+	text-indent: -999px;
+	overflow: hidden;
+	background-image: url(saveTiddler.png);
 }
 
 .notedate {
