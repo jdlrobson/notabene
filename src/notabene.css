@@ -7,6 +7,15 @@
 	}
 }
 
+@-webkit-keyframes drop {
+	0% {
+		top: -300px;
+	}
+	100% {
+		top: 0px;
+	}
+}
+
 @-webkit-keyframes floataway {
 	0% {
 		-webkit-transform: scale(0.5, 0.5) rotate(15deg) rotateY(15deg);
@@ -113,6 +122,8 @@ a:hover {
 	position: relative;
 	width: 500px;
 	margin: 0 auto;
+	-webkit-animation-name: drop;
+	-webkit-animation-duration: 2s;
 }
 
 #container h1 {
