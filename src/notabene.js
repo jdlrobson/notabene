@@ -11,12 +11,15 @@ function notes(bagname, host) {
 		note = new tiddlyweb.Tiddler(tempTitle, bag);
 		note.fields = {};
 		note.fields.created = new Date();
+		loadNote();
 	}
 
 	// load the current note into the display
 	function loadNote() {
 		$(".note_text").val(note.text);
-		$(".note_title").val(note.title).blur();
+		if(note.title != tempTitle) {
+			$(".note_title").val(note.title).blur();
+		}
 	}
 
 	var currentUrl = window.location.pathname;
@@ -31,7 +34,10 @@ function notes(bagname, host) {
 			loadNote();
 			$("#container").show();
 		};
-		note.get(handler, handler);
+		var error = function() {
+			handler(note);
+		};
+		note.get(handler, error);
 	} else if(tiddlers[0]) {
 		note = tiddlers[0];
 		loadNote();
