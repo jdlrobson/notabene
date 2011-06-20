@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="notabene.css" />
 	</head>
 	<body>
-		<div id="container">
+		<div class="takenotecontainer">
 			<div id="note">
 				<input type="text" class="note_title" placeholder="Note Title" />
 				<div id="notebody">
@@ -24,7 +24,7 @@
 		<script src="lib/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			notes("test_public", "/")
+			notes("test_public", "/", $(".takenotecontainer")[0]);
 		</script>
 	</body>
 </html>

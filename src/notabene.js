@@ -1,4 +1,4 @@
-function notes(bagname, host) {
+function notes(bagname, host, container) {
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
 	store.retrieveCached();
@@ -28,11 +28,11 @@ function notes(bagname, host) {
 		note = new tiddlyweb.Tiddler(match[1]);
 		note.fields = {};
 		note.bag = new tiddlyweb.Bag(bagname, host);
-		$("#container").hide();
+		$(container).hide();
 		var handler = function(tid) {
 			note = tid;
 			loadNote();
-			$("#container").show();
+			$(container).show();
 		};
 		var error = function() {
 			handler(note);

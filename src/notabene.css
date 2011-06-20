@@ -106,14 +106,14 @@ a:hover {
 	padding-left: 8px;
 }
 
-#container {
+.takenotecontainer {
 	width: 900px;
 	margin: auto;
 	position: relative;
 	-webkit-perspective: 400;
 }
 
-#container {
+.takenotecontainer {
 	width: 80%;
 	margin: 24px auto 0;
 }
@@ -126,7 +126,7 @@ a:hover {
 	-webkit-animation-duration: 2s;
 }
 
-#container h1 {
+.takenotecontainer h1 {
 	font-size: 3em;
 }
 
