@@ -53,7 +53,7 @@ function notes(bagname, host) {
 		setTimeout(function() {
 			$("#note").removeClass("deleting");
 			$(".note_title, .note_text").val("").attr("disabled", false);
-		}, 3000);
+		}, 2000);
 		if(note) {
 			store.remove({ tiddler: note, delete: true }); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
