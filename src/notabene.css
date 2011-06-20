@@ -113,11 +113,6 @@ a:hover {
 	-webkit-perspective: 400;
 }
 
-.takenotecontainer {
-	width: 80%;
-	margin: 24px auto 0;
-}
-
 #note {
 	position: relative;
 	width: 500px;
