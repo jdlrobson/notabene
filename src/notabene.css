@@ -144,8 +144,8 @@ a:hover {
 	height: 24px;
 	width: 30px;
 	position: absolute;
-	bottom: 0px;
-	right: -1px;
+	top: 6px;
+	right: 4px;
 	padding: 5px;
 	background-repeat: no-repeat;
 	text-indent: -999px;
@@ -224,6 +224,7 @@ a:hover {
 	font-size: 3em;
 	outline: none;
 	text-shadow: 3px 3px 3px #CCC;
+	width: 380px;
 }
 
 .note_title:focus {
@@ -235,7 +236,7 @@ a:hover {
 	position: absolute;
 	top: 4px;
 	opacity: 0.3;
-	right: 4px;
+	right: 70px;
 	background-image: url(delete.png);
 	background-repeat: no-repeat;
 	height: 30px;
