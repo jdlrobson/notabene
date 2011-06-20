@@ -12,6 +12,22 @@ function notes(bagname, host, container) {
 		if(note.title != tempTitle) {
 			$(".note_title").val(note.title).blur();
 		}
+
+		// print meta information
+		var fieldInfo = {
+			created: { label: "created on" },
+			modified: { label: "last modified on" }
+		};
+		$("#notemeta").empty();
+		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
+		var list = $("<ul />").appendTo(container)[0];
+		for(var fieldname in note.fields) {
+			var val = note.fields[fieldname];
+			if(val) {
+				var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
+				$("<li />").text(label + ": " + val).appendTo(list);
+			}
+		}
 	}
 	
 	function newNote() {
