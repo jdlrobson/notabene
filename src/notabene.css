@@ -56,10 +56,10 @@
 
 @-webkit-keyframes shrink {
 	0% {
-		-webkit-transform: scale(1, 1);
+		-webkit-transform: scale(1, 1) rotateX(0deg);
 	}
 	100% {
-		-webkit-transform: scale(0.0001, 0.0001);
+		-webkit-transform: scale(0.0001, 0.0001) rotateX(1028deg);
 	}
 }
 #note.deleting {
