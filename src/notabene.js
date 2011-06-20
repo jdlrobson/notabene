@@ -66,14 +66,26 @@ function notes(bagname, host) {
 		$("#note").addClass("active");
 		window.setTimeout(function() {
 			$(".note_title, .note_text").val("").attr("disabled", false);
-		}, 500);
+		}, 4000);
 		window.setTimeout(function() {
 			$("#note").removeClass("active");
 			$(".note_title").focus();
-		}, 1000);
+		}, 4000);
 		store.save(function() {
 			// do nothing for time being
 		});
 		newNote();
+	});
+
+	//tie delete button to delete event
+	$("#deletenote").click(function(ev) {
+		$("#note").addClass("deleting");
+		setTimeout(function() {
+			$("#note").removeClass("deleting");
+			$(".note_title, .note_text").val("").attr("disabled", false);
+		}, 2000);
+		if(note) {
+			store.remove({ tiddler: note, delete: true }); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
+		}
 	});
 }
