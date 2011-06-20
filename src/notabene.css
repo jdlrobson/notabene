@@ -217,6 +217,10 @@ a:hover {
 	padding: 10px;
 }
 
+#notemeta ul {
+	list-style: none;
+}
+
 .note_title {
 	border: none;
 	font-size: 3em;
