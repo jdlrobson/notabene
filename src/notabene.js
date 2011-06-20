@@ -6,20 +6,20 @@ function notes(bagname, host, container) {
 		return a.fields.modified < b.fields.modified ? 1 : -1;
 	});
 	var note, tempTitle;
-	function newNote() {
-		tempTitle = "untitled note " + Math.random();
-		note = new tiddlyweb.Tiddler(tempTitle, bag);
-		note.fields = {};
-		note.fields.created = new Date();
-		loadNote();
-	}
-
 	// load the current note into the display
 	function loadNote() {
 		$(".note_text").val(note.text);
 		if(note.title != tempTitle) {
 			$(".note_title").val(note.title).blur();
 		}
+	}
+	
+	function newNote() {
+		tempTitle = "untitled note " + Math.random();
+		note = new tiddlyweb.Tiddler(tempTitle, bag);
+		note.fields = {};
+		note.fields.created = new Date();
+		loadNote();
 	}
 
 	var currentUrl = window.location.pathname;
@@ -66,7 +66,7 @@ function notes(bagname, host, container) {
 	$(".note_text").keyup(function(ev) {
 		note.text = $(ev.target).val();
 		storeNote();
-	})
+	});
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
 		$("#note").addClass("active");
@@ -91,7 +91,7 @@ function notes(bagname, host, container) {
 			$(".note_title, .note_text").val("").attr("disabled", false);
 		}, 2000);
 		if(note) {
-			store.remove({ tiddler: note, delete: true }); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
+			store.remove({ tiddler: note, "delete": true }); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
 }
