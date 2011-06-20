@@ -52,6 +52,10 @@
 	-webkit-animation-timing-function: ease-out;
 }
 
+#note.active #deletenote {
+	display: none;
+}
+
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
 }
