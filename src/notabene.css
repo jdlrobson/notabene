@@ -196,3 +196,20 @@ a:hover {
 .note_title:focus {
 	text-shadow: none;
 }
+
+#deletenote {
+	position: absolute;
+	top: 4px;
+	opacity: 0.3;
+	right: 4px;
+	background-image: url(delete.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 20px;
+	text-indent: -999px;
+}
+
+#deletenote:hover {
+	opacity: 1;
+}
+
