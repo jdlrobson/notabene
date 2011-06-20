@@ -148,8 +148,6 @@ a:hover {
 	right: 4px;
 	padding: 5px;
 	background-repeat: no-repeat;
-	text-indent: -999px;
-	overflow: hidden;
 	background-image: url(saveTiddler.png);
 }
 
@@ -232,18 +230,24 @@ a:hover {
 }
 
 #deletenote {
-	cursor: pointer;
 	position: absolute;
 	top: 4px;
-	opacity: 0.3;
 	right: 70px;
 	background-image: url(delete.png);
 	background-repeat: no-repeat;
 	height: 30px;
 	width: 20px;
+}
+
+#deletenote,
+#newnote {
+	cursor: pointer;
+	opacity: 0.3;
+	overflow: hidden;
 	text-indent: -9999px;
 }
 
+#newnote:hover,
 #deletenote:hover {
 	opacity: 1;
 }
