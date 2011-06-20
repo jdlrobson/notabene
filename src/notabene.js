@@ -49,6 +49,10 @@ function notes(bagname, host) {
 
 	//tie delete button to delete event
 	$("#deletenote").click(function(ev) {
+		$("#note").addClass("deleting");
+		setTimeout(function() {
+			$("#note").removeClass("deleting");
+		}, 3000);
 		if(note) {
 			store.remove({ tiddler: note, delete: true }); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
