@@ -44,7 +44,7 @@ function notes(bagname, host) {
 		if(tempTitle && note.title != tempTitle) {
 			store.remove(tempTitle);
 		}
-		store.addTiddler(note);
+		store.add(note);
 	}
 
 	// on a blur event fix the title.
