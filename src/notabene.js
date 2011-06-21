@@ -71,7 +71,6 @@ function notes(bagname, host, container) {
 			store.remove(tempTitle);
 		}
 		store.add(note);
-		printMessage("Note saved locally.");
 	}
 
 	// on a blur event fix the title.
