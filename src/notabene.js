@@ -113,8 +113,12 @@ function notes(bagname, host, container) {
 			$(".note_title, .note_text").val("").attr("disabled", false);
 		}, 2000);
 		if(note) {
-			store.remove({ tiddler: note, "delete": true }, function(r) {
-				printMessage("Note deleted.");
+			store.remove({ tiddler: note, "delete": true }, function(tid) {
+				if(tid) {
+					printMessage("Note deleted.");
+				} else {
+					printMessage("Error deleting note. Please try again.");
+				}
 			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
