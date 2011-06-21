@@ -12,5 +12,5 @@ dev:
 	curl -o src/lib/jquery-json.min.js \
 		http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js
 
-dist:
-	./upload.sh takenote 'src/notabene.js' 'src/notabene.css'
+dist: dev
+	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/lib/chrjs-store.js' 'src/lib/chrjs.js'
