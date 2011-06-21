@@ -98,8 +98,12 @@ function notes(bagname, host, container) {
 			$("#note").removeClass("active");
 			$(".note_title").focus();
 		}, 4000);
-		store.save(function() {
-			printMessage("Saved successfully.");
+		store.save(function(tid) {
+			if(tid) {
+				printMessage("Saved successfully.");
+			} else {
+				printMessage("Error saving note. Please try again.");
+			}
 		});
 		newNote();
 	});
