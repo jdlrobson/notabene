@@ -65,14 +65,14 @@
 #note.deleting {
 	-webkit-transform-style: preserve-3d;
 	-webkit-animation-name: shrink;
-	-webkit-animation-duration: 2s;
+	-webkit-animation-duration: 1s;
 	-webkit-animation-timing-function: ease-out;
 }
 
 #note.active {
 	-webkit-transform-style: preserve-3d;
 	-webkit-animation-name: floataway;
-	-webkit-animation-duration: 5s;
+	-webkit-animation-duration: 1s;
 	-webkit-animation-timing-function: ease-out;
 }
 

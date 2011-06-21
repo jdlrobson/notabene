@@ -90,12 +90,10 @@ function notes(bagname, host, container) {
 		printMessage("Saving note...");
 		$("#note").addClass("active");
 		window.setTimeout(function() {
-			$(".note_title, .note_text").val("").attr("disabled", false);
-		}, 4000);
-		window.setTimeout(function() {
 			$("#note").removeClass("active");
+			$(".note_title, .note_text").val("").attr("disabled", false);
 			$(".note_title").focus();
-		}, 4000);
+		}, 1000);
 		store.save(function(tid) {
 			if(tid) {
 				printMessage("Saved successfully.");
@@ -117,7 +115,7 @@ function notes(bagname, host, container) {
 		setTimeout(function() {
 			$("#note").removeClass("deleting");
 			$(".note_title, .note_text").val("").attr("disabled", false);
-		}, 2000);
+		}, 1000);
 		if(note) {
 			store.remove({ tiddler: note, "delete": true }, function(tid) {
 				if(tid) {
