@@ -114,16 +114,16 @@ function notes(bagname, host, container) {
 		if(!ok) {
 			return;
 		}
-		$("#note").addClass("deleting");
 		printMessage("Deleting note...");
-		setTimeout(function() {
-			$("#note").removeClass("deleting");
-			$(".note_title, .note_text").val("").attr("disabled", false);
-		}, 1000);
 		if(note) {
 			store.remove({ tiddler: note, "delete": true }, function(tid) {
 				if(tid) {
+					$("#note").addClass("deleting");
 					printMessage("Note deleted.");
+					setTimeout(function() {
+						$("#note").removeClass("deleting");
+						$(".note_title, .note_text").val("").attr("disabled", false);
+					}, 1000);
 				} else {
 					printMessage("Error deleting note. Please try again.");
 				}
