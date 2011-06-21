@@ -90,6 +90,7 @@ function notes(bagname, host, container) {
 	});
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
+		printMessage("Saving note...");
 		$("#note").addClass("active");
 		window.setTimeout(function() {
 			$(".note_title, .note_text").val("").attr("disabled", false);
