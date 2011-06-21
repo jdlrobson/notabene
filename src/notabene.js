@@ -108,6 +108,10 @@ function notes(bagname, host, container) {
 
 	//tie delete button to delete event
 	$("#deletenote").click(function(ev) {
+		var ok = confirm("Delete this note?");
+		if(!ok) {
+			return;
+		}
 		$("#note").addClass("deleting");
 		printMessage("Deleting note...");
 		setTimeout(function() {
