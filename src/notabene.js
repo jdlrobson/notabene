@@ -38,8 +38,12 @@ function notes(bagname, host, container) {
 		loadNote();
 	}
 
-	function printMessage(html) {
-		$(".messageArea", container).html(html).stop(false, false).show().css({ opacity: 1 }).fadeOut(3000);
+	function printMessage(html, className) {
+		var area = $(".messageArea", container);
+		area.html(html).stop(false, false).show().css({ opacity: 1 }).fadeOut(3000);
+		if(className) {
+			$(area).addClass(className);
+		}
 	}
 
 	var currentUrl = window.location.pathname;
