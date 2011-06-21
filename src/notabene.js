@@ -45,15 +45,13 @@ function notes(bagname, host, container) {
 		note.fields = {};
 		note.bag = new tiddlyweb.Bag(bagname, host);
 		$(container).hide();
-		var handler = function(tid) {
-			note = tid;
+		store.get(note, function(tid) {
+			if(tid) {
+				note = tid;
+			}
 			loadNote();
 			$(container).show();
-		};
-		var error = function() {
-			handler(note);
-		};
-		note.get(handler, error);
+		});
 	} else if(tiddlers[0]) {
 		note = tiddlers[0];
 		loadNote();
