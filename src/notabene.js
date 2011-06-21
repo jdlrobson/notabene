@@ -104,7 +104,7 @@ function notes(bagname, host, container) {
 			if(tid) {
 				$("#note").addClass("active");
 				printMessage("Saved successfully.");
-				setTimeout(reset, 1000);
+				reset();
 			} else {
 				// TODO: give more useful error messages (currently options doesn't provide this)
 				printMessage("Error saving note. Please try again.", "error");
@@ -124,10 +124,8 @@ function notes(bagname, host, container) {
 				if(tid) {
 					$("#note").addClass("deleting");
 					printMessage("Note deleted.");
-					setTimeout(function() {
-						$("#note").removeClass("deleting");
-						$(".note_title, .note_text").val("").attr("disabled", false);
-					}, 1000);
+					$("#note").removeClass("deleting");
+					$(".note_title, .note_text").val("").attr("disabled", false);
 				} else {
 					printMessage("Error deleting note. Please try again.", "error");
 				}
