@@ -48,19 +48,21 @@ function notes(bagname, host, container) {
 		note = new tiddlyweb.Tiddler(match[1]);
 		note.fields = {};
 		note.bag = new tiddlyweb.Bag(bagname, host);
-		$(container).hide();
 		store.get(note, function(tid) {
 			if(tid) {
 				note = tid;
 			}
 			loadNote();
-			$(container).show();
+			$(container).addClass("ready");
 		});
-	} else if(tiddlers[0]) {
-		note = tiddlers[0];
-		loadNote();
 	} else {
-		newNote();
+		if(tiddlers[0]) {
+			note = tiddlers[0];
+			loadNote();
+		} else {
+			newNote();
+		}
+		$(container).addClass("ready");
 	}
 
 	function storeNote() {
