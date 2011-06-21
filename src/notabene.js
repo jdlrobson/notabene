@@ -107,7 +107,7 @@ function notes(bagname, host, container) {
 				setTimeout(reset, 1000);
 			} else {
 				// TODO: give more useful error messages (currently options doesn't provide this)
-				printMessage("Error saving note. Please try again.");
+				printMessage("Error saving note. Please try again.", "error");
 			}
 		});
 	});
@@ -129,7 +129,7 @@ function notes(bagname, host, container) {
 						$(".note_title, .note_text").val("").attr("disabled", false);
 					}, 1000);
 				} else {
-					printMessage("Error deleting note. Please try again.");
+					printMessage("Error deleting note. Please try again.", "error");
 				}
 			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}

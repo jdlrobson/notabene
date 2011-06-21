@@ -140,6 +140,10 @@ a:hover {
 	color: green;
 }
 
+.messageArea.error {
+	color: red;
+}
+
 #note,
 .note_title {
 	background-color: white;
