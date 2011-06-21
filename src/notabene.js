@@ -38,6 +38,10 @@ function notes(bagname, host, container) {
 		loadNote();
 	}
 
+	function printMessage(html) {
+		$(".messageArea", container).html(html).stop(false, false).show().css({ opacity: 1 }).fadeOut(3000);
+	}
+
 	var currentUrl = window.location.pathname;
 	var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 	if(match && match[1]) {
@@ -67,6 +71,7 @@ function notes(bagname, host, container) {
 			store.remove(tempTitle);
 		}
 		store.add(note);
+		printMessage("Note saved locally.");
 	}
 
 	// on a blur event fix the title.
@@ -94,7 +99,7 @@ function notes(bagname, host, container) {
 			$(".note_title").focus();
 		}, 4000);
 		store.save(function() {
-			// do nothing for time being
+			printMessage("Saved successfully.");
 		});
 		newNote();
 	});
@@ -102,12 +107,15 @@ function notes(bagname, host, container) {
 	//tie delete button to delete event
 	$("#deletenote").click(function(ev) {
 		$("#note").addClass("deleting");
+		printMessage("Deleting note...");
 		setTimeout(function() {
 			$("#note").removeClass("deleting");
 			$(".note_title, .note_text").val("").attr("disabled", false);
 		}, 2000);
 		if(note) {
-			store.remove({ tiddler: note, "delete": true }); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
+			store.remove({ tiddler: note, "delete": true }, function(r) {
+				printMessage("Note deleted.");
+			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
 }
