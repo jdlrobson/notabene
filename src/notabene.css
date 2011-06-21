@@ -115,11 +115,24 @@ a:hover {
 
 #note {
 	position: relative;
-	width: 500px;
-	margin: 0 auto;
 	-webkit-animation-name: drop;
 	-webkit-animation-duration: 2s;
 	border: solid 1px black;
+}
+
+#note,
+.messageArea {
+	width: 500px;
+	margin: 0 auto;
+}
+
+.messageArea {
+	font-family: monospace;
+	border: solid 1px #ccc;
+	color: #333;
+	padding: 10px 0px;
+	text-indent: 4px;
+	color: green;
 }
 
 #note,
@@ -255,4 +268,3 @@ a:hover {
 #deletenote:hover {
 	opacity: 1;
 }
-
