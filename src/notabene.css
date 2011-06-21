@@ -1,81 +1,3 @@
-@-webkit-keyframes flip {
-	from {
-		-webkit-transform: rotatey(0deg);
-	}
-	to {
-		-webkit-transform: rotatey(360deg);
-	}
-}
-
-@-webkit-keyframes drop {
-	0% {
-		top: -300px;
-	}
-	100% {
-		top: 0px;
-	}
-}
-
-@-webkit-keyframes floataway {
-	0% {
-		-webkit-transform: scale(0.5, 0.5) rotate(15deg) rotateY(15deg);
-	}
-	10% {
-		-webkit-transform: scale(0.5, 0.5) rotateY(-15deg);
-	}
-	20% {
-		-webkit-transform: scale(0.25, 0.25) rotateY(10deg);
-	}
-	30% {
-		-webkit-transform: scale(0.125, 0.125) rotateY(-5deg);
-	}
-	40% {
-		-webkit-transform: scale(0.125, 0.125) rotate(15deg) rotateY(15deg);
-	}
-	50% {
-		-webkit-transform: scale(0.005, 0.005) rotateY(-10deg);
-	}
-	60% {
-		-webkit-transform: scale(0.005, 0.005) rotateY(5deg);
-	}
-	70% {
-		-webkit-transform: scale(0.125, 0.125) rotateY(-15deg);
-	}
-	80% {
-		-webkit-transform: scale(0.5, 0.5) rotate(-15deg) rotateY(15deg);
-	}
-	90% {
-		-webkit-transform: scale(0.75, 0.75) rotateY(-15deg);
-	}
-	100% {
-		-webkit-transform: scale(1, 1) rotateY(15deg);
-		left: 300px;
-		top: -450px; 
-	}
-}
-
-@-webkit-keyframes shrink {
-	0% {
-		-webkit-transform: scale(1, 1) rotateX(0deg);
-	}
-	100% {
-		-webkit-transform: scale(0.0001, 0.0001) rotateX(1028deg);
-	}
-}
-#note.deleting {
-	-webkit-transform-style: preserve-3d;
-	-webkit-animation-name: shrink;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-timing-function: ease-out;
-}
-
-#note.active {
-	-webkit-transform-style: preserve-3d;
-	-webkit-animation-name: floataway;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-timing-function: ease-out;
-}
-
 #note.active #deletenote {
 	display: none;
 }
@@ -120,8 +42,6 @@ a:hover {
 
 #note {
 	position: relative;
-	-webkit-animation-name: drop;
-	-webkit-animation-duration: 2s;
 	border: solid 1px black;
 }
 
