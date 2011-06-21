@@ -90,20 +90,22 @@ function notes(bagname, host, container) {
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
 		printMessage("Saving note...");
-		$("#note").addClass("active");
-		window.setTimeout(function() {
+		var reset = function() {
 			$("#note").removeClass("active");
 			$(".note_title, .note_text").val("").attr("disabled", false);
 			$(".note_title").focus();
-		}, 1000);
-		store.save(function(tid) {
+			newNote();
+		};
+		store.save(function(tid, options) {
 			if(tid) {
+				$("#note").addClass("active");
 				printMessage("Saved successfully.");
+				setTimeout(reset, 1000);
 			} else {
+				// TODO: give more useful error messages (currently options doesn't provide this)
 				printMessage("Error saving note. Please try again.");
 			}
 		});
-		newNote();
 	});
 
 	//tie delete button to delete event
