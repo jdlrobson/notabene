@@ -13,6 +13,9 @@ $.ajax = function(options) {
 				fields: {}
 			};
 			options.success(tid, "tests", xhr);
+		},
+		"/bags/test_public/tiddlers/Test": function(options) {
+			options.error();
 		}
 	};
 	if (options && handlers[options.url]) {
