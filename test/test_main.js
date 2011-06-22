@@ -50,6 +50,13 @@ test('printMessage (no message area)', function() {
 		"check the class has been set in message area");
 });
 
+test('printMessage twice', function() {
+	note.printMessage("foo", "bar");
+	note.printMessage("foo", "dum");
+	strictEqual($(".messageArea", container).hasClass("bar"), false,
+		"classes should get reset every call to printMessage");
+});
+
 test('loadServerNote', function() {
 	note.loadServerNote("bar");
 	strictEqual($(container).hasClass("ready"), true,
