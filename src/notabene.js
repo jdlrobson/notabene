@@ -100,10 +100,25 @@ function notes(container, options) {
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
-			$(".note_title").attr("disabled", true);
-			note.title = val;
-			note.fields._title_validated = "yes";
-			storeNote();
+			var tid = new tiddlyweb.Tiddler(val, bag);
+
+			var fixTitle = function() {
+				$(".note_title").attr("disabled", true);
+				note.title = val;
+				note.fields._title_validated = "yes";
+				storeNote();
+			}
+
+			if(note.fields._title_validated) {
+				fixTitle();
+			} else {
+				tid.get(function() {
+					printMessage("A note with this name already exists. Please provide another name.");
+					storeNote();
+				}, function() {
+					fixTitle();
+				});
+			}
 		}
 	});
 
