@@ -40,6 +40,7 @@ function notes(bagname, host, container) {
 
 	function printMessage(html, className) {
 		var area = $(".messageArea", container);
+		area = area.length > 0 ? area : $("<div class='messageArea' />").appendTo(container);
 		area.html(html).stop(false, false).show().css({ opacity: 1 }).fadeOut(3000);
 		if(className) {
 			$(area).addClass(className);
