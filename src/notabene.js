@@ -61,12 +61,11 @@ function notes(container, options) {
 		note.fields = {};
 		note.bag = new tiddlyweb.Bag(bagname, host);
 		store.get(note, function(tid) {
-			if(!tid.fields._title_validated) {
-				tid.fields._title_validated = "yes";
-			}
 			if(tid) {
 				note = tid;
 			}
+			// the note title is validated in this situation regardless
+			note.fields._title_validated = "yes";
 			loadNote();
 			$(container).addClass("ready");
 		});

@@ -14,6 +14,9 @@ $.ajax = function(options) {
 			};
 			options.success(tid, "tests", xhr);
 		},
+		"/bags/bag/tiddlers/bar%20dum": function(options) {
+			options.error();
+		},
 		"/bags/test_public/tiddlers/Test": function(options) {
 			options.error();
 		}

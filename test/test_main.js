@@ -115,3 +115,28 @@ test('startup behaviour (load a note on the server NOT in cache)', function() {
 	strictEqual($(".note_text", container).val(), "The correct text",
 		"The correct text is loaded from the server via ajax");
 });
+
+module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
+	setup: function() {
+		localStorage.clear();
+		container = $("<div />").appendTo(document.body)[0];
+		$("<textarea class='note_title' />").appendTo(container);
+		$("<textarea class='note_text' />").appendTo(container);
+		note = notes(container, { pathname: "notabene/tiddler/bar dum",
+			host: "/",
+			bag: "bag"
+		});
+	},
+	teardown: function() {
+		$(container).remove();
+		container = null;
+		note = null;
+		localStorage.clear();
+	}
+});
+
+test('startup behaviour (load a note with preset name not on the server)', function() {
+	strictEqual($(".note_title", container).attr("disabled"), true, "check title gets accepted thus disabled");
+	strictEqual($(".note_text", container).attr("disabled"), false, "can still edit the text though");
+	strictEqual($(".note_title", container).val(), "bar dum", "check the value of title is correct");
+});
