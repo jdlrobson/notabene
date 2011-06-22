@@ -2,7 +2,10 @@ var container, note;
 module('notabene', {
 	setup: function() {
 		container = $("<div />")[0];
-		note = notes("bag", "/", container);
+		note = notes(container, {
+			host: "/",
+			bag: "bag"
+		});
 		localStorage.clear();
 	},
 	teardown: function() {
@@ -51,7 +54,10 @@ module('notabene (notes in cache)', {
 		$("<textarea class='note_text' />").appendTo(container);
 		localStorage.setItem("test_public/Test",
 			'{"fields":{"created":"2011-06-22T11:49:03.951Z","modified":"2011-06-22T11:49:16.977Z"},"text":"foo"}');
-		note = notes("test_public", "/", container);
+		note = notes(container, {
+			host: "/",
+			bag: "test_public"
+		});
 	},
 	teardown: function() {
 		$(container).remove();
@@ -75,7 +81,10 @@ module('notabene (as visited from /notabene/tiddler/bar)', {
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
-		note = notes("bag", "/", container, { pathname: "notabene/tiddler/bar" });
+		note = notes(container, { pathname: "notabene/tiddler/bar",
+			host: "/",
+			bag: "bag"
+		});
 	},
 	teardown: function() {
 		$(container).remove();
