@@ -1,14 +1,17 @@
 var container, note;
 module('notabene', {
 	setup: function() {
-		container = $("<div />")[0];
+		container = $("<div />").appendTo(document.body)[0];
+		$("<textarea class='note_title' />").appendTo(container);
+		$("<textarea class='note_text' />").appendTo(container);
+		localStorage.clear();
 		note = notes(container, {
 			host: "/",
 			bag: "bag"
 		});
-		localStorage.clear();
 	},
 	teardown: function() {
+		$(container).remove();
 		container = null;
 		note = null;
 		localStorage.clear();
@@ -16,8 +19,6 @@ module('notabene', {
 });
 
 test('startup behaviour (no notes in storage)', function() {
-	$("<textarea class='note_title' />").appendTo(container);
-	$("<textarea class='note_text' />").appendTo(container);
 	strictEqual($(".note_title", container).attr("disabled"), false, "check title is not disabled");
 	strictEqual($(".note_text", container).attr("disabled"), false, "check text is not disabled");
 	strictEqual($(".note_title", container).val(), "", "check no value for title");
