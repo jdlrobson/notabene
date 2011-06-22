@@ -46,9 +46,14 @@ a:hover {
 	.takenotecontainer {
 		width: 300px;
 	}
+
 	#note,
 	.messageArea {
 		width: 300px;
+	}
+
+	.note_title {
+		width: 180px; /* 300 - 120 */
 	}
 }
 
@@ -57,9 +62,14 @@ a:hover {
 	.takenotecontainer {
 		width: 460px;
 	}
+
 	#note,
 	.messageArea {
 		width: 460px;
+	}
+
+	.note_title {
+		width: 340px; /* 300 - 120 */
 	}
 }
 
