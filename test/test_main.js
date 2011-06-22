@@ -24,6 +24,18 @@ test('startup behaviour (no notes in storage)', function() {
 	strictEqual($(".note_title", container).val(), "", "check no value for title");
 });
 
+test('name clashes', function() {
+	// user suggests a name and triggers a focus event
+	$(".note_title", container).val("bar").blur();
+
+	//however a tiddler with this name already exists on the server thus..
+	strictEqual($(".note_title", container).attr("disabled"), false, "the title remains enabled ready for input");
+	strictEqual($(".messageArea:visible", container).length, 1, "message area should be visible");
+	strictEqual($(".messageArea", container).html() != "", true, "message area should have some text");
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, undefined, "This field should not be set");
+});
+
 test('printMessage (with message area)', function() {
 	$("<div class='messageArea' />").appendTo(container);
 	note.printMessage("foo", "bar");
