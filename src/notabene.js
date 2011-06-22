@@ -47,7 +47,7 @@ function notes(container, options) {
 	function printMessage(html, className, fadeout) {
 		var area = $(".messageArea", container);
 		area = area.length > 0 ? area : $("<div class='messageArea' />").appendTo(container);
-		area.html(html).stop(false, false).show();
+		area.attr("class", "messageArea").html(html).stop(false, false).show();
 		if(fadeout) {
 			area.css({ opacity: 1 }).fadeOut(3000);
 		}
