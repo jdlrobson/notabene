@@ -12,7 +12,9 @@ function notes(container, options) {
 	// load the current note into the display
 	function loadNote() {
 		$(".note_text").val(note.text);
-		$(".note_title").val(note.title);
+		if(note.title != tempTitle) {
+			$(".note_title").val(note.title);
+		}
 		if(note.fields._title_validated) {
 			$(".note_title").blur();
 		}
