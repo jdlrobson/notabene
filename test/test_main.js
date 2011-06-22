@@ -42,3 +42,29 @@ test('loadServerNote', function() {
 	strictEqual(activeNote.text, "The correct text",
 		"The correct text was loaded via ajax into the current note");
 });
+
+module('notabene (notes in cache)', {
+	setup: function() {
+		localStorage.clear();
+		container = $("<div />").appendTo(document.body)[0];
+		$("<textarea class='note_title' />").appendTo(container);
+		$("<textarea class='note_text' />").appendTo(container);
+		localStorage.setItem("test_public/Test",
+			'{"fields":{"created":"2011-06-22T11:49:03.951Z","modified":"2011-06-22T11:49:16.977Z"},"text":"foo"}');
+		note = notes("test_public", "/", container);
+	},
+	teardown: function() {
+		$(container).remove();
+		container = null;
+		note = null;
+		localStorage.clear();
+	}
+});
+
+test('startup behaviour (load last note from cache)', function() {
+	strictEqual($(".note_title", container).attr("disabled"), true, "check title is disabled (has been set previously)");
+	strictEqual($(".note_text", container).attr("disabled"), false, "can still edit the text though");
+	strictEqual($(".note_title", container).val(), "Test", "check the value of title is correct");
+	strictEqual($(".note_text", container).val(), "foo",
+		"check the value of text is preset to the one in cache");
+});
