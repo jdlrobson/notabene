@@ -97,12 +97,17 @@ function notes(container, options) {
 	}
 
 	// on a blur event fix the title.
+	var renaming;
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
 			var tid = new tiddlyweb.Tiddler(val, bag);
 
 			var fixTitle = function() {
+				if(renaming) {
+					printMessage("Note title set.", "", true);
+					renaming = false;
+				}
 				$(".note_title").attr("disabled", true);
 				note.title = val;
 				note.fields._title_validated = "yes";
@@ -113,6 +118,7 @@ function notes(container, options) {
 				fixTitle();
 			} else {
 				tid.get(function() {
+					renaming = true;
 					printMessage("A note with this name already exists. Please provide another name.");
 					storeNote();
 				}, function() {
