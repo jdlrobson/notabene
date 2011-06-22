@@ -38,9 +38,12 @@ function notes(bagname, host, container) {
 		loadNote();
 	}
 
-	function printMessage(html, className) {
+	function printMessage(html, className, fadeout) {
 		var area = $(".messageArea", container);
-		area.html(html).stop(false, false).show().css({ opacity: 1 }).fadeOut(3000);
+		area.html(html).stop(false, false).show();
+		if(fadeout) {
+			area.css({ opacity: 1 }).fadeOut(3000);
+		}
 		if(className) {
 			$(area).addClass(className);
 		}
@@ -103,7 +106,7 @@ function notes(bagname, host, container) {
 		store.save(function(tid, options) {
 			if(tid) {
 				$("#note").addClass("active");
-				printMessage("Saved successfully.");
+				printMessage("Saved successfully.", null, true);
 				reset();
 			} else {
 				// TODO: give more useful error messages (currently options doesn't provide this)
@@ -123,7 +126,7 @@ function notes(bagname, host, container) {
 			store.remove({ tiddler: note, "delete": true }, function(tid) {
 				if(tid) {
 					$("#note").addClass("deleting");
-					printMessage("Note deleted.");
+					printMessage("Note deleted.", null, true);
 					$("#note").removeClass("deleting");
 					$(".note_title, .note_text").val("").attr("disabled", false);
 				} else {
