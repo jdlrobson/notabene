@@ -1,4 +1,7 @@
-function notes(bagname, host, container) {
+function notes(container, options) {
+	options = options || {};
+	var bagname = options.bag;
+	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
 	store.retrieveCached();
@@ -39,27 +42,36 @@ function notes(bagname, host, container) {
 		loadNote();
 	}
 
-	function printMessage(html, className) {
+	function printMessage(html, className, fadeout) {
 		var area = $(".messageArea", container);
-		area.html(html).stop(false, false).show().css({ opacity: 1 }).fadeOut(3000);
+		area = area.length > 0 ? area : $("<div class='messageArea' />").appendTo(container);
+		area.html(html).stop(false, false).show();
+		if(fadeout) {
+			area.css({ opacity: 1 }).fadeOut(3000);
+		}
 		if(className) {
 			$(area).addClass(className);
 		}
 	}
+
+	function loadServerNote(title) {
+		note = new tiddlyweb.Tiddler(title);
+		note.fields = {};
+		note.bag = new tiddlyweb.Bag(bagname, host);
+		store.get(note, function(tid) {
+			if(tid) {
+				note = tid;
+			}
+			loadNote();
+			$(container).addClass("ready");
+		});
+	}
+
 	function init() {
-		var currentUrl = window.location.pathname;
+		var currentUrl = options.pathname || window.location.pathname;
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
-			note = new tiddlyweb.Tiddler(match[1]);
-			note.fields = {};
-			note.bag = new tiddlyweb.Bag(bagname, host);
-			store.get(note, function(tid) {
-				if(tid) {
-					note = tid;
-				}
-				loadNote();
-				$(container).addClass("ready");
-			});
+			loadServerNote(match[1]);
 		} else {
 			if(tiddlers[0]) {
 				note = tiddlers[0];
@@ -106,7 +118,7 @@ function notes(bagname, host, container) {
 		store.save(function(tid, options) {
 			if(tid) {
 				$("#note").addClass("active");
-				printMessage("Saved successfully.");
+				printMessage("Saved successfully.", null, true);
 				reset();
 			} else {
 				// TODO: give more useful error messages (currently options doesn't provide this)
@@ -126,7 +138,7 @@ function notes(bagname, host, container) {
 			store.remove({ tiddler: note, "delete": true }, function(tid) {
 				if(tid) {
 					$("#note").addClass("deleting");
-					printMessage("Note deleted.");
+					printMessage("Note deleted.", null, true);
 					$("#note").removeClass("deleting");
 					$(".note_title, .note_text").val("").attr("disabled", false);
 				} else {
@@ -136,4 +148,15 @@ function notes(bagname, host, container) {
 		}
 	});
 	init();
+	return {
+		init: init,
+		printMessage: printMessage,
+		newNote: newNote,
+		loadNote: loadNote,
+		getNote: function() {
+			return note
+		},
+		tempTitle: tempTitle,
+		loadServerNote: loadServerNote,
+	}
 }

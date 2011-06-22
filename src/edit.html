@@ -3,14 +3,15 @@
 	<head>
 		<title>notabene</title>
 		<link rel="stylesheet" href="notabene.css" />
+		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
 	</head>
 	<body>
 		<div class="takenotecontainer">
 			<div class='messageArea'></div>
 			<div id="note">
 				<div class="toolbar">
-					<div id="deletenote">delete</div>
-					<div id="newnote">clear</div>
+					<a id="deletenote" title="delete this note">delete</a>
+					<a id="newnote" title="complete this note">complete</a>
 				</div>
 				<input type="text" class="note_title" placeholder="Note Title" />
 				<div id="notebody">
@@ -26,7 +27,10 @@
 		<script src="lib/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			notes("test_public", "/", $(".takenotecontainer")[0]);
+			notes($(".takenotecontainer")[0], {
+				bag: "test_public",
+				host: "/"
+			});
 		</script>
 	</body>
 </html>
