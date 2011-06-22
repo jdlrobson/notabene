@@ -1,4 +1,5 @@
-function notes(bagname, host, container) {
+function notes(bagname, host, container, options) {
+	options = options || {};
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
 	store.retrieveCached();
@@ -40,6 +41,7 @@ function notes(bagname, host, container) {
 
 	function printMessage(html, className, fadeout) {
 		var area = $(".messageArea", container);
+		area = area.length > 0 ? area : $("<div class='messageArea' />").appendTo(container);
 		area.html(html).stop(false, false).show();
 		if(fadeout) {
 			area.css({ opacity: 1 }).fadeOut(3000);
@@ -48,20 +50,25 @@ function notes(bagname, host, container) {
 			$(area).addClass(className);
 		}
 	}
+
+	function loadServerNote(title) {
+		note = new tiddlyweb.Tiddler(title);
+		note.fields = {};
+		note.bag = new tiddlyweb.Bag(bagname, host);
+		store.get(note, function(tid) {
+			if(tid) {
+				note = tid;
+			}
+			loadNote();
+			$(container).addClass("ready");
+		});
+	}
+
 	function init() {
-		var currentUrl = window.location.pathname;
+		var currentUrl = options.pathname || window.location.pathname;
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
-			note = new tiddlyweb.Tiddler(match[1]);
-			note.fields = {};
-			note.bag = new tiddlyweb.Bag(bagname, host);
-			store.get(note, function(tid) {
-				if(tid) {
-					note = tid;
-				}
-				loadNote();
-				$(container).addClass("ready");
-			});
+			loadServerNote(match[1]);
 		} else {
 			if(tiddlers[0]) {
 				note = tiddlers[0];
@@ -137,4 +144,15 @@ function notes(bagname, host, container) {
 		}
 	});
 	init();
+	return {
+		init: init,
+		printMessage: printMessage,
+		newNote: newNote,
+		loadNote: loadNote,
+		getNote: function() {
+			return note
+		},
+		tempTitle: tempTitle,
+		loadServerNote: loadServerNote,
+	}
 }
