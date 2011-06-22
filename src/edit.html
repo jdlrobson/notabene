@@ -27,7 +27,10 @@
 		<script src="lib/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			notes("test_public", "/", $(".takenotecontainer")[0]);
+			notes($(".takenotecontainer")[0], {
+				bag: "test_public",
+				host: "/"
+			});
 		</script>
 	</body>
 </html>

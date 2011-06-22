@@ -1,5 +1,7 @@
-function notes(bagname, host, container, options) {
+function notes(container, options) {
 	options = options || {};
+	var bagname = options.bag;
+	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
 	store.retrieveCached();
