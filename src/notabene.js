@@ -9,8 +9,9 @@ function notes(bagname, host, container) {
 	// load the current note into the display
 	function loadNote() {
 		$(".note_text").val(note.text);
-		if(note.title != tempTitle) {
-			$(".note_title").val(note.title).blur();
+		$(".note_title").val(note.title);
+		if(note.fields._title_validated) {
+			$(".note_title").blur();
 		}
 
 		// print meta information
@@ -84,6 +85,7 @@ function notes(bagname, host, container) {
 		if($.trim(val).length > 0) {
 			$(".note_title").attr("disabled", true);
 			note.title = val;
+			note.fields._title_validated = "yes";
 			storeNote();
 		}
 	});
