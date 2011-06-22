@@ -38,35 +38,39 @@ function notes(bagname, host, container) {
 		loadNote();
 	}
 
-	function printMessage(html, className) {
+	function printMessage(html, className, fadeout) {
 		var area = $(".messageArea", container);
-		area.html(html).stop(false, false).show().css({ opacity: 1 }).fadeOut(3000);
+		area.html(html).stop(false, false).show();
+		if(fadeout) {
+			area.css({ opacity: 1 }).fadeOut(3000);
+		}
 		if(className) {
 			$(area).addClass(className);
 		}
 	}
-
-	var currentUrl = window.location.pathname;
-	var match = currentUrl.match(/tiddler\/([^\/]*)$/);
-	if(match && match[1]) {
-		note = new tiddlyweb.Tiddler(match[1]);
-		note.fields = {};
-		note.bag = new tiddlyweb.Bag(bagname, host);
-		store.get(note, function(tid) {
-			if(tid) {
-				note = tid;
-			}
-			loadNote();
-			$(container).addClass("ready");
-		});
-	} else {
-		if(tiddlers[0]) {
-			note = tiddlers[0];
-			loadNote();
+	function init() {
+		var currentUrl = window.location.pathname;
+		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
+		if(match && match[1]) {
+			note = new tiddlyweb.Tiddler(match[1]);
+			note.fields = {};
+			note.bag = new tiddlyweb.Bag(bagname, host);
+			store.get(note, function(tid) {
+				if(tid) {
+					note = tid;
+				}
+				loadNote();
+				$(container).addClass("ready");
+			});
 		} else {
-			newNote();
+			if(tiddlers[0]) {
+				note = tiddlers[0];
+				loadNote();
+			} else {
+				newNote();
+			}
+			$(container).addClass("ready");
 		}
-		$(container).addClass("ready");
 	}
 
 	function storeNote() {
@@ -103,7 +107,7 @@ function notes(bagname, host, container) {
 		store.save(function(tid, options) {
 			if(tid) {
 				$("#note").addClass("active");
-				printMessage("Saved successfully.");
+				printMessage("Saved successfully.", null, true);
 				reset();
 			} else {
 				// TODO: give more useful error messages (currently options doesn't provide this)
@@ -123,7 +127,7 @@ function notes(bagname, host, container) {
 			store.remove({ tiddler: note, "delete": true }, function(tid) {
 				if(tid) {
 					$("#note").addClass("deleting");
-					printMessage("Note deleted.");
+					printMessage("Note deleted.", null, true);
 					$("#note").removeClass("deleting");
 					$(".note_title, .note_text").val("").attr("disabled", false);
 				} else {
@@ -132,4 +136,5 @@ function notes(bagname, host, container) {
 			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
+	init();
 }
