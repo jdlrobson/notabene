@@ -119,7 +119,8 @@ function notes(container, options) {
 			} else {
 				tid.get(function() {
 					renaming = true;
-					printMessage("A note with this name already exists. Please provide another name.");
+					printMessage("A note with this name already exists. Please provide another name.",
+						"error");
 					storeNote();
 				}, function() {
 					fixTitle();
