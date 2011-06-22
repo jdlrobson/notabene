@@ -12,6 +12,14 @@ module('notabene', {
 	}
 });
 
+test('startup behaviour (no notes in storage)', function() {
+	$("<textarea class='note_title' />").appendTo(container);
+	$("<textarea class='note_text' />").appendTo(container);
+	strictEqual($(".note_title", container).attr("disabled"), false, "check title is not disabled");
+	strictEqual($(".note_text", container).attr("disabled"), false, "check text is not disabled");
+	strictEqual($(".note_title", container).val(), "", "check no value for title");
+});
+
 test('printMessage (with message area)', function() {
 	$("<div class='messageArea' />").appendTo(container);
 	note.printMessage("foo", "bar");
