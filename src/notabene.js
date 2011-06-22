@@ -1,4 +1,5 @@
-function notes(bagname, host, container) {
+function notes(bagname, host, container, options) {
+	options = options || {};
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
 	store.retrieveCached();
@@ -61,7 +62,7 @@ function notes(bagname, host, container) {
 	}
 
 	function init() {
-		var currentUrl = window.location.pathname;
+		var currentUrl = options.pathname || window.location.pathname;
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
 			loadServerNote(match[1]);
