@@ -122,7 +122,7 @@ module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
-		note = notes(container, { pathname: "notabene/tiddler/bar dum",
+		note = notes(container, { pathname: "notabene/tiddler/bar%20dum",
 			host: "/",
 			bag: "bag"
 		});

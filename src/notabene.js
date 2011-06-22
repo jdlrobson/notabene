@@ -72,7 +72,7 @@ function notes(container, options) {
 	}
 
 	function init() {
-		var currentUrl = options.pathname || window.location.pathname;
+		var currentUrl = decodeURIComponent(options.pathname || window.location.pathname);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
 			loadServerNote(match[1]);
