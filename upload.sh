@@ -18,6 +18,10 @@ do
 		content="text/plain"
 		tiddler=$(basename "$file" .tid)
 		;;
+	*.mf)
+		content="text/cache-manifest"
+		tiddler=$(basename "$file" .tid)
+		;;
 	*.html)
 		content="text/html;charset=utf-8"
 		tiddler=$(basename "$file" .html)
