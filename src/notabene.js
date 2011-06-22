@@ -45,28 +45,29 @@ function notes(bagname, host, container) {
 			$(area).addClass(className);
 		}
 	}
-
-	var currentUrl = window.location.pathname;
-	var match = currentUrl.match(/tiddler\/([^\/]*)$/);
-	if(match && match[1]) {
-		note = new tiddlyweb.Tiddler(match[1]);
-		note.fields = {};
-		note.bag = new tiddlyweb.Bag(bagname, host);
-		store.get(note, function(tid) {
-			if(tid) {
-				note = tid;
-			}
-			loadNote();
-			$(container).addClass("ready");
-		});
-	} else {
-		if(tiddlers[0]) {
-			note = tiddlers[0];
-			loadNote();
+	function init() {
+		var currentUrl = window.location.pathname;
+		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
+		if(match && match[1]) {
+			note = new tiddlyweb.Tiddler(match[1]);
+			note.fields = {};
+			note.bag = new tiddlyweb.Bag(bagname, host);
+			store.get(note, function(tid) {
+				if(tid) {
+					note = tid;
+				}
+				loadNote();
+				$(container).addClass("ready");
+			});
 		} else {
-			newNote();
+			if(tiddlers[0]) {
+				note = tiddlers[0];
+				loadNote();
+			} else {
+				newNote();
+			}
+			$(container).addClass("ready");
 		}
-		$(container).addClass("ready");
 	}
 
 	function storeNote() {
@@ -132,4 +133,5 @@ function notes(bagname, host, container) {
 			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
+	init();
 }
