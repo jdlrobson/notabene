@@ -12,10 +12,13 @@ remotes:
 	curl -o src/lib/jquery-json.min.js \
 		http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js
 
-dev: remotes
+devlocal: remotes
 	echo "open http://0.0.0.0:8080/static/edit.html"
 	twanager bag test_public < bag.json
 	echo "\n\nrun twanager server && open http://0.0.0.0:8080/static/edit.html\n\n"
+
+dev: remotes
+	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/lib/chrjs-store.js' 'src/lib/chrjs.js' 'src/touchicon.png'
 
 dist: remotes
 	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/lib/chrjs-store.js' 'src/lib/chrjs.js' 'src/touchicon.png'
