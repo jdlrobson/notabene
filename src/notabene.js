@@ -1,5 +1,15 @@
+var notabene = {
+	setUrl: function(url) {
+		history.pushState(null, null, url);
+		return url;
+	}
+};
+
 function notes(container, options) {
 	options = options || {};
+	var path = options.pathname || window.location.pathname;
+	var app_path = "/" + path.split("/")[1];
+
 	var bagname = options.bag;
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
@@ -72,7 +82,7 @@ function notes(container, options) {
 	}
 
 	function init() {
-		var currentUrl = decodeURIComponent(options.pathname || window.location.pathname);
+		var currentUrl = decodeURIComponent(path);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
 			loadServerNote(match[1]);
@@ -139,6 +149,11 @@ function notes(container, options) {
 			$("#note").removeClass("active");
 			$(".note_title, .note_text").val("").attr("disabled", false);
 			$(".note_title").focus();
+
+			// reset url
+			if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
+				path = notabene.setUrl(app_path);
+			}
 			newNote();
 		};
 		store.save(function(tid, options) {
