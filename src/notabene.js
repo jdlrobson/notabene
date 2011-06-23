@@ -1,7 +1,11 @@
 // some helper functions
 var notabene = {
 	setUrl: function(url) {
-		history.pushState(null, null, url);
+		if(window.history && history.pushState) {
+			history.pushState(null, null, url);
+		} else { // history not supported use the old fashion way
+			window.location = url;
+		}
 		return url;
 	}
 };
