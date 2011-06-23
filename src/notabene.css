@@ -1,3 +1,19 @@
+.syncButton {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	font-size: 2em;
+	border: solid 1px #CCC;
+	padding: 5px;
+	-moz-border-radius: 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px;
+	width: 2em;
+	text-align: center;
+	cursor: pointer;
+	background-color: black;
+	color: white;
+}
+
 #note.active #deletenote {
 	display: none;
 }
