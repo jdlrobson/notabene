@@ -73,3 +73,29 @@ test('test deletion (from local storage)', function() {
 	strictEqual($(".note_title").val(), "", "note title should be reset (no longer 'Test')");
 	strictEqual($(".note_title").attr("disabled"), false, "note title should no longer be disabled");
 });
+
+module('notabene ui refresh', {
+	setup: uisetup, teardown:  uiteardown
+});
+
+test('issue 18', function() {
+	strictEqual(localStorage.length, 0, "at start there is nothing locally cached.");
+	// trigger a cache of a new tiddler into localStorage
+	note = notes(container, {
+		host: "/",
+		bag: "test_public",
+		pathname: "notabene/tiddler/Test"
+	});
+	$(".note_text").val("foo").keyup();
+	strictEqual(localStorage.length, 1,
+		"notes app is loaded, text entered (foo) and a cache is trigger. Now we should have something in localStorage");
+
+	// we simulate a reboot
+	$(".note_text,.note_title").val("");
+	note = notes(container, {
+		host: "/",
+		bag: "test_public",
+		pathname: "notabene/tiddler/Test"
+	});
+	strictEqual($(".note_text").val(), "foo", "check the cached text has been loaded");
+});

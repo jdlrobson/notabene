@@ -23,6 +23,7 @@ $.ajax = function(options) {
 			}
 			options.error();
 		},
+		// a tiddler that is not on the server
 		"/bags/test_public/tiddlers/Test": function(options) {
 			options.error();
 		}
