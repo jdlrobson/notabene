@@ -95,6 +95,13 @@ function notes(container, options) {
 		}
 	}
 
+	// tell the user what the current state of the store is
+	function syncStatus() {
+		var area = $(".syncButton", container);
+		var unsynced = store().dirty();
+		$(area).text(unsynced.length);
+	}
+
 	// this loads the note with the given title from the active bag and loads it into the display
 	function loadServerNote(title) {
 		note = new tiddlyweb.Tiddler(title);
@@ -113,6 +120,10 @@ function notes(container, options) {
 
 	// this initialises notabene, loading either the requested note, the last worked on note or a new note
 	function init() {
+		var syncButton = $(".syncButton", container);
+		syncButton = syncButton.length > 0 ? syncButton :
+			$("<div class='syncButton' />").prependTo(container);
+		syncStatus();
 		var currentUrl = decodeURIComponent(path);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
@@ -135,6 +146,7 @@ function notes(container, options) {
 			store.remove(tempTitle);
 		}
 		store.add(note);
+		syncStatus();
 	}
 
 	// on a blur event fix the title.
