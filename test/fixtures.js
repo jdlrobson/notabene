@@ -11,7 +11,8 @@ $.ajax = function(options) {
 			var tid = { title: "bar", text: "The correct text",
 				modified: "201001131203",
 				created: "201001120803",
-				fields: {}
+				fields: {},
+				bag: "bag"
 			};
 			options.success(tid, "tests", xhr);
 		},
