@@ -16,5 +16,6 @@ dev: remotes
 	echo "open http://0.0.0.0:8080/static/edit.html"
 	twanager bag test_public < bag.json
 	echo "\n\nrun twanager server && open http://0.0.0.0:8080/static/edit.html\n\n"
-dist: dev
-	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/lib/chrjs-store.js' 'src/lib/chrjs.js'
+
+dist: remotes
+	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/lib/chrjs-store.js' 'src/lib/chrjs.js' 'src/touchicon.png'
