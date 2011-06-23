@@ -32,6 +32,12 @@ module('notabene ui (deletion from existing tiddler)', {
 	teardown: uiteardown
 });
 
+test('syncButton present', function() {
+	// the setup has loaded the note with the name bar
+	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
+	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.");
+});
+
 test('test deletion (from server and localStorage)', function() {
 	// the setup has loaded the note with the name bar
 	strictEqual(localStorage.length, 1, "a preloaded tiddler 'bar' should be saved locally.");
