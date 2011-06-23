@@ -1,3 +1,4 @@
+// some helper functions
 var notabene = {
 	setUrl: function(url) {
 		history.pushState(null, null, url);
@@ -6,18 +7,21 @@ var notabene = {
 };
 
 function notes(container, options) {
+	// configure notabene
 	options = options || {};
 	var path = options.pathname || window.location.pathname;
 	var app_path = "/" + path.split("/")[1];
-
 	var bagname = options.bag;
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
+
+	// retrieve last created note
 	store.retrieveCached();
 	var tiddlers = store().sort(function(a, b) {
 		return a.fields.modified < b.fields.modified ? 1 : -1;
 	});
+	
 	var note, tempTitle;
 	// load the current note into the display
 	function loadNote() {
@@ -45,7 +49,8 @@ function notes(container, options) {
 			}
 		}
 	}
-	
+
+	// creates a new note with a randomly generated title and loads it into the ui
 	function newNote() {
 		tempTitle = "untitled note " + Math.random();
 		note = new tiddlyweb.Tiddler(tempTitle, bag);
@@ -54,6 +59,7 @@ function notes(container, options) {
 		loadNote();
 	}
 
+	// prints a message to the user. This could be an error or a notification.
 	function printMessage(html, className, fadeout) {
 		var area = $(".messageArea", container);
 		area = area.length > 0 ? area : $("<div class='messageArea' />").appendTo(container);
@@ -66,6 +72,7 @@ function notes(container, options) {
 		}
 	}
 
+	// this loads the note with the given title from the active bag and loads it into the display
 	function loadServerNote(title) {
 		note = new tiddlyweb.Tiddler(title);
 		note.fields = {};
@@ -81,6 +88,7 @@ function notes(container, options) {
 		});
 	}
 
+	// this initialises notabene, loading either the requested note, the last worked on note or a new note
 	function init() {
 		var currentUrl = decodeURIComponent(path);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
@@ -97,6 +105,7 @@ function notes(container, options) {
 		}
 	}
 
+	// this stores the note locally (but not on the server)
 	function storeNote() {
 		note.fields.modified = new Date();
 		if(tempTitle && note.title != tempTitle) {
@@ -138,10 +147,12 @@ function notes(container, options) {
 		}
 	});
 
+	// every key press triggers a 'local' save
 	$(".note_text").keyup(function(ev) {
 		note.text = $(ev.target).val();
 		storeNote();
 	});
+
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
 		printMessage("Saving note...");
