@@ -71,5 +71,5 @@ test('test deletion (from local storage)', function() {
 	// this should clear the note from localStorage
 	strictEqual(localStorage.length, 0, "after a delete there should no longer be anything in local storage.");
 	strictEqual($(".note_title").val(), "", "note title should be reset (no longer 'Test')");
-	strictEqual($(".note_title").attr("disabled"), false, "note title should no longer be disabled");
+	strictEqual($(".note_title").attr("disabled"), undefined, "note title should no longer be disabled");
 });
