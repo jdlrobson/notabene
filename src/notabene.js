@@ -42,10 +42,12 @@ function notes(container, options) {
 		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
 		var list = $("<ul />").appendTo(container)[0];
 		for(var fieldname in note.fields) {
-			var val = note.fields[fieldname];
-			if(val) {
-				var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
-				$("<li />").text(label + ": " + val).appendTo(list);
+			if(true) {
+				var val = note.fields[fieldname];
+				if(val) {
+					var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
+					$("<li />").text(label + ": " + val).appendTo(list);
+				}
 			}
 		}
 	}
@@ -130,7 +132,7 @@ function notes(container, options) {
 				note.title = val;
 				note.fields._title_validated = "yes";
 				storeNote();
-			}
+			};
 
 			if(note.fields._title_validated) {
 				fixTitle();
@@ -205,10 +207,11 @@ function notes(container, options) {
 		printMessage: printMessage,
 		newNote: newNote,
 		loadNote: loadNote,
+		store: store,
 		getNote: function() {
-			return note
+			return note;
 		},
 		tempTitle: tempTitle,
-		loadServerNote: loadServerNote,
-	}
+		loadServerNote: loadServerNote
+	};
 }
