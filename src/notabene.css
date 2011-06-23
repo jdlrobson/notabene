@@ -76,7 +76,6 @@ a:hover {
 .takenotecontainer {
 	margin: auto;
 	position: relative;
-	-webkit-perspective: 400;
 	display: none;
 }
 

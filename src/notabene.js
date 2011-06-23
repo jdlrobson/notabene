@@ -1,13 +1,48 @@
+// some helper functions
+var notabene = {
+	setUrl: function(url) {
+		if(window.history && history.pushState) {
+			history.pushState(null, null, url);
+		} else { // history not supported use the old fashion way
+			window.location = url;
+		}
+		return url;
+	},
+	supports_local_storage: function() {
+		try {
+			return 'localStorage' in window && window['localStorage'] !== null;
+		} catch(e) {
+			return false;
+		}
+	}
+};
+
 function notes(container, options) {
+	// configure notabene
 	options = options || {};
+	var path = options.pathname || window.location.pathname;
+	var app_path = "/" + path.split("/")[1];
 	var bagname = options.bag;
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
+
+	// setup onleave event
+	window.onbeforeunload = function() {
+		// TODO: chrjs.store should probably provide a helper method for this situation
+		if(!notabene.supports_local_storage() && !store().dirty().length) {
+	  	return ["There are unsynced changes. Are you sure you want to leave?\n\n",
+				"Please upgrade your browser if possible to make sure you never lose a note."
+				].join("");
+		}
+	}
+
+	// retrieve last created note
 	store.retrieveCached();
 	var tiddlers = store().sort(function(a, b) {
 		return a.fields.modified < b.fields.modified ? 1 : -1;
 	});
+	
 	var note, tempTitle;
 	// load the current note into the display
 	function loadNote() {
@@ -28,14 +63,17 @@ function notes(container, options) {
 		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
 		var list = $("<ul />").appendTo(container)[0];
 		for(var fieldname in note.fields) {
-			var val = note.fields[fieldname];
-			if(val) {
-				var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
-				$("<li />").text(label + ": " + val).appendTo(list);
+			if(true) {
+				var val = note.fields[fieldname];
+				if(val) {
+					var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
+					$("<li />").text(label + ": " + val).appendTo(list);
+				}
 			}
 		}
 	}
-	
+
+	// creates a new note with a randomly generated title and loads it into the ui
 	function newNote() {
 		tempTitle = "untitled note " + Math.random();
 		note = new tiddlyweb.Tiddler(tempTitle, bag);
@@ -44,10 +82,11 @@ function notes(container, options) {
 		loadNote();
 	}
 
+	// prints a message to the user. This could be an error or a notification.
 	function printMessage(html, className, fadeout) {
 		var area = $(".messageArea", container);
 		area = area.length > 0 ? area : $("<div class='messageArea' />").appendTo(container);
-		area.html(html).stop(false, false).show();
+		area.attr("class", "messageArea").html(html).stop(false, false).show();
 		if(fadeout) {
 			area.css({ opacity: 1 }).fadeOut(3000);
 		}
@@ -56,24 +95,25 @@ function notes(container, options) {
 		}
 	}
 
+	// this loads the note with the given title from the active bag and loads it into the display
 	function loadServerNote(title) {
 		note = new tiddlyweb.Tiddler(title);
 		note.fields = {};
 		note.bag = new tiddlyweb.Bag(bagname, host);
 		store.get(note, function(tid) {
-			if(!tid.fields._title_validated) {
-				tid.fields._title_validated = "yes";
-			}
 			if(tid) {
 				note = tid;
 			}
+			// the note title is validated in this situation regardless
+			note.fields._title_validated = "yes";
 			loadNote();
 			$(container).addClass("ready");
 		});
 	}
 
+	// this initialises notabene, loading either the requested note, the last worked on note or a new note
 	function init() {
-		var currentUrl = options.pathname || window.location.pathname;
+		var currentUrl = decodeURIComponent(path);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
 			loadServerNote(match[1]);
@@ -88,6 +128,7 @@ function notes(container, options) {
 		}
 	}
 
+	// this stores the note locally (but not on the server)
 	function storeNote() {
 		note.fields.modified = new Date();
 		if(tempTitle && note.title != tempTitle) {
@@ -112,7 +153,7 @@ function notes(container, options) {
 				note.title = val;
 				note.fields._title_validated = "yes";
 				storeNote();
-			}
+			};
 
 			if(note.fields._title_validated) {
 				fixTitle();
@@ -129,10 +170,12 @@ function notes(container, options) {
 		}
 	});
 
+	// every key press triggers a 'local' save
 	$(".note_text").keyup(function(ev) {
 		note.text = $(ev.target).val();
 		storeNote();
 	});
+
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
 		printMessage("Saving note...");
@@ -140,6 +183,11 @@ function notes(container, options) {
 			$("#note").removeClass("active");
 			$(".note_title, .note_text").val("").attr("disabled", false);
 			$(".note_title").focus();
+
+			// reset url
+			if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
+				path = notabene.setUrl(app_path);
+			}
 			newNote();
 		};
 		store.save(function(tid, options) {
@@ -180,10 +228,11 @@ function notes(container, options) {
 		printMessage: printMessage,
 		newNote: newNote,
 		loadNote: loadNote,
+		store: store,
 		getNote: function() {
-			return note
+			return note;
 		},
 		tempTitle: tempTitle,
-		loadServerNote: loadServerNote,
-	}
+		loadServerNote: loadServerNote
+	};
 }

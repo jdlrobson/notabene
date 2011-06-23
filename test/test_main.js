@@ -50,6 +50,13 @@ test('printMessage (no message area)', function() {
 		"check the class has been set in message area");
 });
 
+test('printMessage twice', function() {
+	note.printMessage("foo", "bar");
+	note.printMessage("foo", "dum");
+	strictEqual($(".messageArea", container).hasClass("bar"), false,
+		"classes should get reset every call to printMessage");
+});
+
 test('loadServerNote', function() {
 	note.loadServerNote("bar");
 	strictEqual($(container).hasClass("ready"), true,
@@ -114,4 +121,48 @@ test('startup behaviour (load a note on the server NOT in cache)', function() {
 	strictEqual($(".note_title", container).val(), "bar", "check the value of title is correct");
 	strictEqual($(".note_text", container).val(), "The correct text",
 		"The correct text is loaded from the server via ajax");
+});
+
+var currentUrl, _notabene;
+module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
+	setup: function() {
+		localStorage.clear();
+		container = $("<div />").appendTo(document.body)[0];
+		$("<textarea class='note_title' />").appendTo(container);
+		$("<textarea class='note_text' />").appendTo(container);
+		$("<a id='newnote'>save</a>").appendTo(container);
+		currentUrl = false;
+		_notabene = notabene;
+		notabene = {
+			setUrl: function(url) {
+				currentUrl = url;
+			}
+		};
+		note = notes(container, { pathname: "/notabene/tiddler/bar%20dum",
+			host: "/",
+			bag: "bag"
+		});
+	},
+	teardown: function() {
+		$(container).remove();
+		container = null;
+		note = null;
+		localStorage.clear();
+		currentUrl = false;
+		notabene = _notabene;
+	}
+});
+
+test('startup behaviour (load a note with preset name not on the server)', function() {
+	strictEqual($(".note_title", container).attr("disabled"), true, "check title gets accepted thus disabled");
+	strictEqual($(".note_text", container).attr("disabled"), false, "can still edit the text though");
+	strictEqual($(".note_title", container).val(), "bar dum", "check the value of title is correct");
+});
+
+test('saving a pre-existing note', function() {
+	$("#newnote").click();
+
+	strictEqual($(".note_title", container).attr("disabled"), false, "title no longer disabled");
+	strictEqual($(".note_title", container).val(), "", "empty input waiting for user input");
+	strictEqual(currentUrl, "/notabene");
 });
