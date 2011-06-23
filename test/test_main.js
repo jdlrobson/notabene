@@ -19,8 +19,8 @@ module('notabene', {
 });
 
 test('startup behaviour (no notes in storage)', function() {
-	strictEqual($(".note_title", container).attr("disabled"), false, "check title is not disabled");
-	strictEqual($(".note_text", container).attr("disabled"), false, "check text is not disabled");
+	strictEqual($(".note_title", container).attr("disabled"), undefined, "check title is not disabled");
+	strictEqual($(".note_text", container).attr("disabled"), undefined, "check text is not disabled");
 	strictEqual($(".note_title", container).val(), "", "check no value for title");
 });
 
@@ -29,7 +29,7 @@ test('name clashes', function() {
 	$(".note_title", container).val("bar").blur();
 
 	//however a tiddler with this name already exists on the server thus..
-	strictEqual($(".note_title", container).attr("disabled"), false, "the title remains enabled ready for input");
+	strictEqual($(".note_title", container).attr("disabled"), undefined, "the title remains enabled ready for input");
 	strictEqual($(".messageArea:visible", container).length, 1, "message area should be visible");
 	strictEqual($(".messageArea", container).html() != "", true, "message area should have some text");
 	var tid = note.getNote();
@@ -89,8 +89,8 @@ module('notabene (notes in cache)', {
 });
 
 test('startup behaviour (load last note from cache)', function() {
-	strictEqual($(".note_title", container).attr("disabled"), true, "check title is disabled (has been set previously)");
-	strictEqual($(".note_text", container).attr("disabled"), false, "can still edit the text though");
+	strictEqual($(".note_title", container).attr("disabled"), "disabled", "check title is disabled (has been set previously)");
+	strictEqual($(".note_text", container).attr("disabled"), undefined, "can still edit the text though");
 	strictEqual($(".note_title", container).val(), "Test", "check the value of title is correct");
 	strictEqual($(".note_text", container).val(), "foo",
 		"check the value of text is preset to the one in cache");
@@ -116,8 +116,8 @@ module('notabene (as visited from /notabene/tiddler/bar)', {
 });
 
 test('startup behaviour (load a note on the server NOT in cache)', function() {
-	strictEqual($(".note_title", container).attr("disabled"), true, "check title is disabled (has been set previously)");
-	strictEqual($(".note_text", container).attr("disabled"), false, "can still edit the text though");
+	strictEqual($(".note_title", container).attr("disabled"), "disabled", "check title is disabled (has been set previously)");
+	strictEqual($(".note_text", container).attr("disabled"), undefined, "can still edit the text though");
 	strictEqual($(".note_title", container).val(), "bar", "check the value of title is correct");
 	strictEqual($(".note_text", container).val(), "The correct text",
 		"The correct text is loaded from the server via ajax");
@@ -154,15 +154,15 @@ module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
 });
 
 test('startup behaviour (load a note with preset name not on the server)', function() {
-	strictEqual($(".note_title", container).attr("disabled"), true, "check title gets accepted thus disabled");
-	strictEqual($(".note_text", container).attr("disabled"), false, "can still edit the text though");
+	strictEqual($(".note_title", container).attr("disabled"), "disabled", "check title gets accepted thus disabled");
+	strictEqual($(".note_text", container).attr("disabled"), undefined, "can still edit the text though");
 	strictEqual($(".note_title", container).val(), "bar dum", "check the value of title is correct");
 });
 
 test('saving a pre-existing note', function() {
 	$("#newnote").click();
 
-	strictEqual($(".note_title", container).attr("disabled"), false, "title no longer disabled");
+	strictEqual($(".note_title", container).attr("disabled"), undefined, "title no longer disabled");
 	strictEqual($(".note_title", container).val(), "", "empty input waiting for user input");
 	strictEqual(currentUrl, "/notabene");
 });
