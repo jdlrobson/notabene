@@ -7,6 +7,13 @@ var notabene = {
 			window.location = url;
 		}
 		return url;
+	},
+	supports_local_storage: function() {
+		try {
+			return 'localStorage' in window && window['localStorage'] !== null;
+		} catch(e) {
+			return false;
+		}
 	}
 };
 
@@ -19,6 +26,16 @@ function notes(container, options) {
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
+
+	// setup onleave event
+	window.onbeforeunload = function() {
+		// TODO: chrjs.store should probably provide a helper method for this situation
+		if(!notabene.supports_local_storage() && !store().dirty().length) {
+	  	return ["There are unsynced changes. Are you sure you want to leave?\n\n",
+				"Please upgrade your browser if possible to make sure you never lose a note."
+				].join("");
+		}
+	}
 
 	// retrieve last created note
 	store.retrieveCached();
