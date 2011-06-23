@@ -143,7 +143,7 @@ function notes(container, options) {
 	function storeNote() {
 		note.fields.modified = new Date();
 		if(tempTitle && note.title != tempTitle) {
-			store.remove(tempTitle);
+			store.remove(new tiddlyweb.Tiddler(tempTitle, bag));
 		}
 		store.add(note);
 		syncStatus();
