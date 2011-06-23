@@ -38,6 +38,22 @@ test('syncButton present', function() {
 	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.");
 });
 
+test('syncButton and successful save', function() {
+	// the setup has loaded the note with the name bar
+	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
+	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.");
+
+	// trigger save
+	$("#newnote").click();
+	strictEqual($(".syncButton", container).text(), "0",
+		"a successful save will result in the number of notes to be synced to be 0");
+	
+	// edit text
+	$(".note_text").keyup();
+	strictEqual($(".syncButton", container).text(), "1",
+		"Now the number of notes to be synced to be 1 as text has been entered");
+});
+
 test('test deletion (from server and localStorage)', function() {
 	// the setup has loaded the note with the name bar
 	strictEqual(localStorage.length, 1, "a preloaded tiddler 'bar' should be saved locally.");
