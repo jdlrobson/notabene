@@ -3,6 +3,11 @@ CACHE MANIFEST
 takenote
 notabene.css
 notabene.js
+jquery-json.min.js
+jquery.min.js
+chrjs.js
+chrjs-store.js
+touchicon.png
 saveTiddler.png
 delete.png
 

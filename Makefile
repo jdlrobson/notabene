@@ -19,4 +19,5 @@ dev: remotes
 
 dist: remotes
 	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/lib/chrjs-store.js'  \
+		'src/lib/jquery-json.min.js' 'src/lib/jquery.min.js' \
 		'src/lib/chrjs.js' 'src/touchicon.png' 'src/manifest.mf'
