@@ -210,7 +210,7 @@ function notes(container, options) {
 			syncStatus();
 			newNote();
 		};
-		store.save(function(tid, options) {
+		store.save(note, function(tid, options) {
 			if(tid) {
 				$("#note").addClass("active");
 				printMessage("Saved successfully.", null, true);
