@@ -131,6 +131,12 @@ test('issue 18', function() {
 });
 
 test('test failed save', function() {
+	$(".note_text,.note_title").val("");
+	note = notes(container, {
+		host: "/",
+		bag: "test_public"
+	});
+	strictEqual($(".syncButton", container).length, 1, "make sure a sync button is present");
 	strictEqual($(".syncButton", container).text(), "0", "no tiddlers need syncing at start");
 
 	// note tiddler Test is not on the server accord to fixtures.js thus the title will be validated
