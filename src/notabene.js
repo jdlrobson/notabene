@@ -200,6 +200,7 @@ function notes(container, options) {
 			if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
 				path = notabene.setUrl(app_path);
 			}
+			syncStatus();
 			newNote();
 		};
 		store.save(function(tid, options) {
