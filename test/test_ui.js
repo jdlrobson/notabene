@@ -174,6 +174,24 @@ test('test failed save', function() {
 	strictEqual($(".note_title").attr("disabled"), undefined, "and title should no longer be disabled");
 });
 
+test("issue 23", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	// edit text
+	$(".note_text").val("hello").keyup();
+
+	// we simulate a reboot
+	$(".note_text,.note_title").val("");
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	strictEqual($(".note_title").val(), "",
+		"The title of the note is still blank as hasn't been set yet.")
+});
+
 test('issue 27', function() {
 	// trigger a cache of a new tiddler into localStorage
 	note = notes(container, {
