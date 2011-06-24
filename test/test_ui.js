@@ -1,4 +1,4 @@
-var container, note, _confirm;
+var container, note, _confirm, _notabene;
 function uisetup() {
 	container = $("<div />").appendTo(document.body)[0];
 	$("<textarea class='note_title' />").appendTo(container);
@@ -10,6 +10,12 @@ function uisetup() {
 	window.confirm = function() {
 		return true;
 	};
+	_notabene = notabene;
+	notabene = {
+		setUrl: function(url) {
+			return url;
+		}
+	};
 }
 
 function uiteardown() {
@@ -18,6 +24,7 @@ function uiteardown() {
 	note = null;
 	localStorage.clear();
 	window.confirm = _confirm;
+	notabene = _notabene;
 }
 
 module('notabene ui (deletion from existing tiddler)', {
