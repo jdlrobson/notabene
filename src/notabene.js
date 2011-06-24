@@ -187,8 +187,10 @@ function notes(container, options) {
 					printMessage("A note with this name already exists. Please provide another name.",
 						"error");
 					storeNote();
-				}, function() {
-					fixTitle();
+				}, function(xhr) {
+					if(xhr.status == 404) {
+						fixTitle();
+					}
 				});
 			}
 		}
