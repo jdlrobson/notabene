@@ -52,7 +52,7 @@ function notes(container, options) {
 	// load the current note into the display
 	function loadNote() {
 		$(".note_text").val(note.text);
-		if(note.title != tempTitle) {
+		if(note.title != tempTitle && note.fields._title_set) {
 			$(".note_title").val(note.title);
 		}
 		if(note.fields._title_validated) {
@@ -116,8 +116,9 @@ function notes(container, options) {
 			if(tid) {
 				note = tid;
 			}
-			// the note title is validated in this situation regardless
+			// the note title is validated and provided by user in this situation regardless
 			note.fields._title_validated = "yes";
+			note.fields._title_set = "yes";
 			loadNote();
 			$(container).addClass("ready");
 		});
@@ -167,6 +168,7 @@ function notes(container, options) {
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
 			var tid = new tiddlyweb.Tiddler(val, bag);
+			note.fields._title_set = "yes";
 
 			var fixTitle = function() {
 				if(renaming) {

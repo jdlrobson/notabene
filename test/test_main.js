@@ -74,6 +74,7 @@ module('notabene (notes in cache)', {
 		$("<textarea class='note_text' />").appendTo(container);
 		localStorage.setItem("test_public/Test",
 			['{"fields":{"created":"2011-06-22T11:49:03.951Z",',
+				'"_title_set": "yes", ',
 				'"_title_validated":"yes","modified":"2011-06-22T11:49:16.977Z"},"text":"foo"}'].join(""));
 		note = notes(container, {
 			host: "/",
