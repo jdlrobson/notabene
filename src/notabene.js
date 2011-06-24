@@ -231,7 +231,7 @@ function notes(container, options) {
 		}
 		printMessage("Deleting note...");
 		if(note) {
-			store.remove({ tiddler: note, "delete": true }, function(tid) {
+			store.remove({ tiddler: note, server: true }, function(tid,a,b) {
 				syncStatus();
 				if(tid) {
 					$("#note").addClass("deleting");
