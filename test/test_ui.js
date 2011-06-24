@@ -173,3 +173,44 @@ test('test failed save', function() {
 	strictEqual($(".syncButton", container).text(), "2", "two tiddlers still needs syncing");
 	strictEqual($(".note_title").attr("disabled"), undefined, "and title should no longer be disabled");
 });
+
+test('issue 27', function() {
+	// trigger a cache of a new tiddler into localStorage
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	// kill internet
+	setConnectionStatus(false);
+
+	// set the title
+	$(".note_title", container).val("bar").blur();
+
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, undefined, "The title should not be validated.");
+
+	// turn on internet
+	setConnectionStatus(true);
+
+	// set the title with internet
+	$(".note_title", container).val("bar").blur();
+	strictEqual(tid.fields._title_validated, undefined, "A note already has this name.");
+	strictEqual($(".messageArea").text() != "", true,
+		"a message should be printed notifying the user of this situation.");
+	strictEqual($(".note_title", container).attr("disabled"), undefined,
+		"should be possible to still edit title");
+
+	// we simulate a reboot
+	$(".note_text,.note_title").val("");
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	strictEqual($(".note_title", container).attr("disabled"), undefined,
+		"should ***still*** be possible to still edit title");
+
+	// change name to something which DOESN'T exist on server 
+	$(".note_title", container).val("bar dum").blur();
+	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
+});
