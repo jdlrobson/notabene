@@ -30,7 +30,7 @@ function notes(container, options) {
 	// setup onleave event
 	window.onbeforeunload = function() {
 		// TODO: chrjs.store should probably provide a helper method for this situation
-		if(!notabene.supports_local_storage() && !store().dirty().length) {
+		if(!notabene.supports_local_storage() && store().dirty().length) {
 	  	return ["There are unsynced changes. Are you sure you want to leave?\n\n",
 				"Please upgrade your browser if possible to make sure you never lose a note."
 				].join("");
@@ -95,6 +95,13 @@ function notes(container, options) {
 		}
 	}
 
+	// tell the user what the current state of the store is
+	function syncStatus() {
+		var area = $(".syncButton", container);
+		var unsynced = store().dirty();
+		$(area).text(unsynced.length);
+	}
+
 	// this loads the note with the given title from the active bag and loads it into the display
 	function loadServerNote(title) {
 		note = new tiddlyweb.Tiddler(title);
@@ -113,6 +120,17 @@ function notes(container, options) {
 
 	// this initialises notabene, loading either the requested note, the last worked on note or a new note
 	function init() {
+		var syncButton = $(".syncButton", container);
+		syncButton = syncButton.length > 0 ? syncButton :
+			$("<div class='syncButton' />").prependTo(container);
+		syncStatus();
+		syncButton.click(function(ev) {
+			printMessage("Syncing to server");
+			store.save(function(tid) {
+				printMessage("Sync completed.", "", true);
+				syncStatus();
+			});
+		});
 		var currentUrl = decodeURIComponent(path);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
@@ -132,9 +150,10 @@ function notes(container, options) {
 	function storeNote() {
 		note.fields.modified = new Date();
 		if(tempTitle && note.title != tempTitle) {
-			store.remove(tempTitle);
+			store.remove(new tiddlyweb.Tiddler(tempTitle, bag));
 		}
 		store.add(note);
+		syncStatus();
 	}
 
 	// on a blur event fix the title.
@@ -188,6 +207,7 @@ function notes(container, options) {
 			if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
 				path = notabene.setUrl(app_path);
 			}
+			syncStatus();
 			newNote();
 		};
 		store.save(function(tid, options) {
@@ -197,7 +217,8 @@ function notes(container, options) {
 				reset();
 			} else {
 				// TODO: give more useful error messages (currently options doesn't provide this)
-				printMessage("Error saving note. Please try again.", "error");
+				printMessage("Saved locally. Unable to post to web at current time.", "warning");
+				reset();
 			}
 		});
 	});
@@ -211,6 +232,7 @@ function notes(container, options) {
 		printMessage("Deleting note...");
 		if(note) {
 			store.remove({ tiddler: note, "delete": true }, function(tid) {
+				syncStatus();
 				if(tid) {
 					$("#note").addClass("deleting");
 					printMessage("Note deleted.", null, true);
