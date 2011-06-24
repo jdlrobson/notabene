@@ -30,7 +30,7 @@ function notes(container, options) {
 	// setup onleave event
 	window.onbeforeunload = function() {
 		// TODO: chrjs.store should probably provide a helper method for this situation
-		if(!notabene.supports_local_storage() && !store().dirty().length) {
+		if(!notabene.supports_local_storage() && store().dirty().length) {
 	  	return ["There are unsynced changes. Are you sure you want to leave?\n\n",
 				"Please upgrade your browser if possible to make sure you never lose a note."
 				].join("");
