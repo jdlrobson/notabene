@@ -95,3 +95,31 @@ test('test deletion (from local storage)', function() {
 	strictEqual($(".note_title").val(), "", "note title should be reset (no longer 'Test')");
 	strictEqual($(".note_title").attr("disabled"), false, "note title should no longer be disabled");
 });
+
+test('test failed save', function() {
+	strictEqual($(".syncButton", container).text(), "0", "no tiddlers need syncing at start");
+
+	// note tiddler Test is not on the server accord to fixtures.js thus the title will be validated
+	$(".note_title").val("Test").blur();
+	strictEqual($(".syncButton", container).text(), "1", "this should mean one tiddler needs syncing");
+
+	// trigger a 'cache' to localStorage by typing in the textarea.
+	$(".note_text").val("foo").keyup();
+
+	// trigger a sync
+	$("#newnote").click();
+
+	// the save fails but we should be able to see the following
+	strictEqual($(".messageArea:visible").text() != "", true, "a message should be printed");
+	strictEqual($(".note_title").attr("disabled"), undefined, "note title should no longer be disabled");
+	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.")
+
+	// trigger a save of another tiddler;
+	$(".note_title").val("Test2").blur();
+	strictEqual($(".syncButton", container).text(), "2", "two tiddlers now needs syncing");
+
+	// trigger another failed save
+	$("#newnote").click();
+	strictEqual($(".syncButton", container).text(), "2", "two tiddlers still needs syncing");
+	strictEqual($(".note_title").attr("disabled"), undefined, "and title should no longer be disabled");
+});
