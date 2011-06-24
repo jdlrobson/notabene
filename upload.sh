@@ -20,7 +20,6 @@ do
 		;;
 	*.mf)
 		content="text/cache-manifest"
-		tiddler=$(basename "$file" .tid)
 		;;
 	*.html)
 		content="text/html;charset=utf-8"
