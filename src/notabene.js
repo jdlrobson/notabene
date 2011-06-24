@@ -125,7 +125,9 @@ function notes(container, options) {
 			$("<div class='syncButton' />").prependTo(container);
 		syncStatus();
 		syncButton.click(function(ev) {
+			printMessage("Syncing to server");
 			store.save(function(tid) {
+				printMessage("Sync completed.", "", true);
 				syncStatus();
 			});
 		});

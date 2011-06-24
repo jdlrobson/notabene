@@ -66,6 +66,7 @@ test("test clicking sync button", function() {
 	strictEqual($(".syncButton", container).text(), "1", "a sync button shows up in the ui");
 
 	$(".syncButton").click();
+	strictEqual($(".messageArea", container).text() != "", true, "a message is shown on a sync command");
 	strictEqual($(".syncButton", container).text(), "0", "syncing pushes all tiddlers up to server");
 });
 
