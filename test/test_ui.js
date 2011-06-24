@@ -209,6 +209,8 @@ test('issue 27', function() {
 	});
 	strictEqual($(".note_title", container).attr("disabled"), undefined,
 		"should ***still*** be possible to still edit title");
+	strictEqual($(".note_title", container).val(), "bar",
+		"even though title was not validated should still be displayed/stored");
 
 	// change name to something which DOESN'T exist on server 
 	$(".note_title", container).val("bar dum").blur();
