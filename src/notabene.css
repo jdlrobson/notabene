@@ -164,7 +164,7 @@ a:hover {
 #notebody textarea {
 	background: transparent;
 	width: 100%;
-	height: 100%;
+	height: 300px;
 	border: none;
 	outline: none;
 	clear: both;
