@@ -192,6 +192,9 @@ function notes(container, options) {
 				}, function(xhr) {
 					if(xhr.status == 404) {
 						fixTitle();
+					} else {
+						note.title = val;
+						storeNote();
 					}
 				});
 			}
