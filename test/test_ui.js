@@ -72,6 +72,7 @@ test("test clicking sync button", function() {
 test('test deletion (from server and localStorage)', function() {
 	// the setup has loaded the note with the name bar
 	strictEqual(localStorage.length, 1, "a preloaded tiddler 'bar' should be saved locally.");
+	strictEqual($(".syncButton", container).text(), "1", "a sync button shows up in the ui");
 
 	// trigger a delete
 	$("#deletenote").click();
@@ -79,6 +80,7 @@ test('test deletion (from server and localStorage)', function() {
 	// this should delete the tiddler on the server (any ajax request to bar is successful - even delete)
 	// and it should also delete the local version
 	strictEqual(localStorage.length, 0, "there should no longer be anything in local storage.");
+	strictEqual($(".syncButton", container).text(), "0", "sync button should show 0");
 });
 
 module('notabene ui (deletion from brand new tiddler)', {
