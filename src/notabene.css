@@ -118,6 +118,10 @@ a:hover {
 	color: green;
 }
 
+.messageArea.warning {
+	color: #FFBF00;
+}
+
 .messageArea.error {
 	color: red;
 }

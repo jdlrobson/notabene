@@ -209,7 +209,8 @@ function notes(container, options) {
 				reset();
 			} else {
 				// TODO: give more useful error messages (currently options doesn't provide this)
-				printMessage("Error saving note. Please try again.", "error");
+				printMessage("Saved locally. Unable to post to web at current time.", "warning");
+				reset();
 			}
 		});
 	});
