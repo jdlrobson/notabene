@@ -131,9 +131,15 @@ function notes(container, options) {
 			$("<div class='syncButton' />").prependTo(container);
 		syncStatus();
 		syncButton.click(function(ev) {
+			var error;
 			printMessage("Syncing to server");
 			store.save(function(tid) {
-				printMessage("Sync completed.", "", true);
+				if(tid && !error) {
+					printMessage("Sync completed.", "", true);
+				} else {
+					error = true;
+					printMessage("Unable to fully sync at current time.", "warning");
+				}
 				syncStatus();
 			});
 		});

@@ -39,6 +39,25 @@ module('notabene ui (deletion from existing tiddler)', {
 	teardown: uiteardown
 });
 
+test("sync without internet connection - issue 25", function() {
+	// the setup has loaded the note with the name bar
+	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
+	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.");
+
+	// kill internet
+	setConnectionStatus(false);
+
+	// attempt sync
+	$(".syncButton").click();
+
+	// check a sync error is shown
+	strictEqual($(".messageArea", container).hasClass("warning"),
+		true, "make sure the message reports that syncing was not possible.");
+
+	strictEqual($(".syncButton", container).text(), "1",
+		"Tiddler remains unsynced");
+});
+
 test('syncButton present', function() {
 	// the setup has loaded the note with the name bar
 	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
@@ -234,3 +253,4 @@ test('issue 27', function() {
 	$(".note_title", container).val("bar dum").blur();
 	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
 });
+
