@@ -1,3 +1,8 @@
+/***
+|''Name''|notabene|
+|''Version''|0.1.0|
+***/
+
 // some helper functions
 var notabene = {
 	setUrl: function(url) {
