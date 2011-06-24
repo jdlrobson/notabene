@@ -4,7 +4,7 @@ function uisetup() {
 	$("<textarea class='note_title' />").appendTo(container);
 	$("<textarea class='note_text' />").appendTo(container);
 	$("<a id='deletenote'>delete</a>").appendTo(container);
-	$("<a id='#newnote'>add</a>").appendTo(container);
+	$("<a id='newnote'>add</a>").appendTo(container);
 	localStorage.clear();
 	_confirm = window.confirm;
 	window.confirm = function() {
