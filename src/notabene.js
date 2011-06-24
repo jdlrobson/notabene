@@ -124,6 +124,11 @@ function notes(container, options) {
 		syncButton = syncButton.length > 0 ? syncButton :
 			$("<div class='syncButton' />").prependTo(container);
 		syncStatus();
+		syncButton.click(function(ev) {
+			store.save(function(tid) {
+				syncStatus();
+			});
+		});
 		var currentUrl = decodeURIComponent(path);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {

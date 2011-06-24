@@ -63,10 +63,10 @@ test('syncButton and successful save', function() {
 
 test("test clicking sync button", function() {
 	// the setup has loaded the note with the name bar
-	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
+	strictEqual($(".syncButton", container).text(), "1", "a sync button shows up in the ui");
 
 	$(".syncButton").click();
-	strictEqual($(".syncButton", container).length, 0, "syncing pushes all tiddlers up to server");
+	strictEqual($(".syncButton", container).text(), "0", "syncing pushes all tiddlers up to server");
 });
 
 test('test deletion (from server and localStorage)', function() {
