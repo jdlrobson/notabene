@@ -54,6 +54,14 @@ test('syncButton and successful save', function() {
 		"Now the number of notes to be synced to be 1 as text has been entered");
 });
 
+test("test clicking sync button", function() {
+	// the setup has loaded the note with the name bar
+	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
+
+	$(".syncButton").click();
+	strictEqual($(".syncButton", container).length, 0, "syncing pushes all tiddlers up to server");
+});
+
 test('test deletion (from server and localStorage)', function() {
 	// the setup has loaded the note with the name bar
 	strictEqual(localStorage.length, 1, "a preloaded tiddler 'bar' should be saved locally.");
