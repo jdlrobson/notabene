@@ -176,42 +176,46 @@ function notes(container, options) {
 		syncStatus();
 	}
 
+	function validateTitle(title) {
+		var tid = new tiddlyweb.Tiddler(title, bag);
+		note.fields._title_set = "yes";
+
+		var fixTitle = function() {
+			if(renaming) {
+				printMessage("Note title set.", "", true);
+				renaming = false;
+			}
+			$(".note_title").attr("disabled", true);
+			note.title = title;
+			note.fields._title_validated = "yes";
+			storeNote();
+		};
+
+		if(note.fields._title_validated) {
+			fixTitle();
+		} else {
+			tid.get(function() {
+				renaming = true;
+				printMessage("A note with this name already exists. Please provide another name.",
+					"error");
+				storeNote();
+			}, function(xhr) {
+				if(xhr.status == 404) {
+					fixTitle();
+				} else {
+					note.title = title;
+					storeNote();
+				}
+			});
+		}
+	}
+
 	// on a blur event fix the title.
 	var renaming;
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
-			var tid = new tiddlyweb.Tiddler(val, bag);
-			note.fields._title_set = "yes";
-
-			var fixTitle = function() {
-				if(renaming) {
-					printMessage("Note title set.", "", true);
-					renaming = false;
-				}
-				$(".note_title").attr("disabled", true);
-				note.title = val;
-				note.fields._title_validated = "yes";
-				storeNote();
-			};
-
-			if(note.fields._title_validated) {
-				fixTitle();
-			} else {
-				tid.get(function() {
-					renaming = true;
-					printMessage("A note with this name already exists. Please provide another name.",
-						"error");
-					storeNote();
-				}, function(xhr) {
-					if(xhr.status == 404) {
-						fixTitle();
-					} else {
-						note.title = val;
-						storeNote();
-					}
-				});
-			}
+			validateTitle(val);
 		}
 	});
 
