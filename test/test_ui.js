@@ -235,3 +235,66 @@ test('issue 27', function() {
 	$(".note_title", container).val("bar dum").blur();
 	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
 });
+
+test('name a note after existing note without connection, prevent overwriting', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	strictEqual(note.store().dirty().length, 0, "no dirty tiddlers to start with");
+	// kill internet
+	setConnectionStatus(false);
+
+	// set the title without internet - wont be able to validate.
+	$(".note_title", container).val("bar").blur();
+	$(".note_text", container).val("Hello there!");
+
+	strictEqual(note.store().dirty().length, 1,
+		"the store is now dirty with this note");
+
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, undefined, "No connection so cannot validate note.");
+
+	// try to save.
+	$("#newnote", container).click();
+
+	// note cannot be validated, so make sure the note is not synced
+	strictEqual(note.store().dirty().length, 1,
+		"the note is still dirty as the title has not been validated and without internet connection cannot sync");
+	strictEqual($(".messageArea").text() != "", true,
+		"a message should be printed notifying the user of this situation.");
+	strictEqual($(".note_title", container).val(), "", "A new note can be started");
+});
+
+
+test('saving a tiddler with unvalidated title', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	strictEqual(note.store().dirty().length, 0, "no dirty tiddlers to start with");
+	// kill internet
+	setConnectionStatus(false);
+
+	// set the title without internet
+	$(".note_title", container).val("bar").blur();
+
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, undefined, "No connection so cannot validate note.");
+	
+	// internet back on
+	setConnectionStatus(true);
+
+	// try to save.
+	$("#newnote", container).click();
+
+	// note cannot be validated, so make sure the note is not synced
+	strictEqual(note.store().dirty().length, 1, "the note is still dirty as the title has not been validated");
+	strictEqual($(".messageArea").text() != "", true,
+		"a message should be printed notifying the user of this situation.");
+	strictEqual($(".messageArea", container).hasClass("error"), true,
+		"an error message should prompt the note to be renamed.");
+	strictEqual($(".note_title").val(), "bar", "the note should still be in view");
+});
