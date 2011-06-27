@@ -12,6 +12,7 @@ function uisetup() {
 	};
 	_notabene = notabene;
 	notabene = {
+		watchPosition: NOP,
 		setUrl: function(url) {
 			return url;
 		}
