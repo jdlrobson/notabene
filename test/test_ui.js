@@ -6,6 +6,7 @@ function uisetup() {
 	$("<a id='deletenote'>delete</a>").appendTo(container);
 	$("<a id='newnote'>add</a>").appendTo(container);
 	localStorage.clear();
+	setConnectionStatus(true);
 	_confirm = window.confirm;
 	window.confirm = function() {
 		return true;
@@ -20,6 +21,7 @@ function uisetup() {
 }
 
 function uiteardown() {
+	setConnectionStatus(true);
 	$(container).remove();
 	container = null;
 	note = null;
@@ -281,9 +283,11 @@ test('saving a tiddler with unvalidated title', function() {
 	// set the title without internet
 	$(".note_title", container).val("bar").blur();
 
+	strictEqual(note.store().dirty().length, 1, "now one dirty tiddler");
 	var tid = note.getNote();
 	strictEqual(tid.fields._title_validated, undefined, "No connection so cannot validate note.");
-	
+	strictEqual(tid.title, "bar", "The note has the name bar");
+
 	// internet back on
 	setConnectionStatus(true);
 
