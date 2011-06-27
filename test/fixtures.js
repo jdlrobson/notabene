@@ -9,6 +9,9 @@ var xhr = {
 	status: 200
 };
 
+function NOP() {
+}
+
 var xhr404 = {
 	status: 404
 };
