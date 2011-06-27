@@ -13,6 +13,12 @@ var notabene = {
 		}
 		return url;
 	},
+	defaultFields: {},
+	watchPosition: function(handler) {
+		if(!!navigator.geolocation) {
+			navigator.geolocation.watchPosition(handler);
+		}
+	},
 	supports_local_storage: function() {
 		try {
 			return 'localStorage' in window && window['localStorage'] !== null;
@@ -76,6 +82,14 @@ function notes(container, options) {
 				}
 			}
 		}
+
+		notabene.watchPosition(function(data) {
+			if(data) {
+				var coords = data.coords;
+				note.fields['geo.lat'] = String(coords.latitude);
+				note.fields['geo.long'] = String(coords.longitude);
+			}
+		});
 	}
 
 	// creates a new note with a randomly generated title and loads it into the ui
