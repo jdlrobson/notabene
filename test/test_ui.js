@@ -297,4 +297,13 @@ test('saving a tiddler with unvalidated title', function() {
 	strictEqual($(".messageArea", container).hasClass("error"), true,
 		"an error message should prompt the note to be renamed.");
 	strictEqual($(".note_title").val(), "bar", "the note should still be in view");
+
+	$(".note_title", container).val("bar dum").blur();
+	// this doesnt exist so will be validated
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, "yes", "Note validated");
+	var dirty = note.store().dirty();
+	strictEqual(dirty.length, 1,
+		"only one tiddler dirty");
+	strictEqual(dirty[0].title, "bar dum", "the title of the dirty note is bar dum");
 });
