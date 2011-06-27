@@ -176,7 +176,10 @@ function notes(container, options) {
 		syncStatus();
 	}
 
-	function validateTitle(title) {
+	/* the callback is passed true if the title is unique on the server,
+	false if the title already exists and null if it is not known */
+	function validateTitle(title, callback) {
+		callback = callback || function() {};
 		var tid = new tiddlyweb.Tiddler(title, bag);
 		note.fields._title_set = "yes";
 
@@ -189,6 +192,7 @@ function notes(container, options) {
 			note.title = title;
 			note.fields._title_validated = "yes";
 			storeNote();
+			callback(true);
 		};
 
 		if(note.fields._title_validated) {
@@ -199,12 +203,14 @@ function notes(container, options) {
 				printMessage("A note with this name already exists. Please provide another name.",
 					"error");
 				storeNote();
+				callback(false);
 			}, function(xhr) {
 				if(xhr.status == 404) {
 					fixTitle();
 				} else {
 					note.title = title;
 					storeNote();
+					callback(null);
 				}
 			});
 		}
@@ -240,13 +246,20 @@ function notes(container, options) {
 			syncStatus();
 			newNote();
 		};
-		store.save(note, function(tid, options) {
-			if(tid) {
-				$("#note").addClass("active");
-				printMessage("Saved successfully.", null, true);
-				reset();
+		validateTitle(note.title, function(valid) {
+			if(valid) {
+				store.save(note, function(tid, options) {
+					if(tid) {
+						$("#note").addClass("active");
+						printMessage("Saved successfully.", null, true);
+						reset();
+					} else {
+						// TODO: give more useful error messages (currently options doesn't provide this)
+						printMessage("Saved locally. Unable to post to web at current time.", "warning");
+						reset();
+					}
+				});
 			} else {
-				// TODO: give more useful error messages (currently options doesn't provide this)
 				printMessage("Saved locally. Unable to post to web at current time.", "warning");
 				reset();
 			}
