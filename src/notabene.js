@@ -169,11 +169,14 @@ function notes(container, options) {
 	// this stores the note locally (but not on the server)
 	function storeNote() {
 		note.fields.modified = new Date();
-		if(tempTitle && note.title != tempTitle) {
-			store.remove(new tiddlyweb.Tiddler(tempTitle, bag));
-		}
 		store.add(note);
 		syncStatus();
+	}
+
+	function renameNote(newtitle) {
+		var old = note.title;
+		note.title = newtitle;
+		store.remove(new tiddlyweb.Tiddler(old, bag));
 	}
 
 	/* the callback is passed true if the title is unique on the server,
@@ -189,7 +192,7 @@ function notes(container, options) {
 				renaming = false;
 			}
 			$(".note_title").attr("disabled", true);
-			note.title = title;
+			renameNote(title);
 			note.fields._title_validated = "yes";
 			storeNote();
 			callback(true);
@@ -208,7 +211,7 @@ function notes(container, options) {
 				if(xhr.status == 404) {
 					fixTitle();
 				} else {
-					note.title = title;
+					renameNote(title);
 					storeNote();
 					callback(null);
 				}
