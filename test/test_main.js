@@ -1,10 +1,16 @@
-var container, note;
+var container, note, currentUrl, _notabene;
 module('notabene', {
 	setup: function() {
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
 		localStorage.clear();
+		_notabene = notabene;
+		notabene = {
+			watchPosition: function(handler) {
+				handler({ coords: { latitude: 10, longitude: 20 } });
+			}
+		};
 		note = notes(container, {
 			host: "/",
 			bag: "bag"
@@ -14,6 +20,7 @@ module('notabene', {
 		$(container).remove();
 		container = null;
 		note = null;
+		notabene = _notabene;
 		localStorage.clear();
 	}
 });
@@ -22,6 +29,12 @@ test('startup behaviour (no notes in storage)', function() {
 	strictEqual($(".note_title", container).attr("disabled"), undefined, "check title is not disabled");
 	strictEqual($(".note_text", container).attr("disabled"), undefined, "check text is not disabled");
 	strictEqual($(".note_title", container).val(), "", "check no value for title");
+});
+
+test('test geo', function() {
+	var tid = note.getNote();
+	strictEqual(tid.fields['geo.lat'], "10", "test latitude was set");
+	strictEqual(tid.fields['geo.long'], "20", "test longitude was set");
 });
 
 test('name clashes', function() {
@@ -124,7 +137,6 @@ test('startup behaviour (load a note on the server NOT in cache)', function() {
 		"The correct text is loaded from the server via ajax");
 });
 
-var currentUrl, _notabene;
 module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
 	setup: function() {
 		localStorage.clear();
@@ -137,7 +149,8 @@ module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
 		notabene = {
 			setUrl: function(url) {
 				currentUrl = url;
-			}
+			},
+			watchPosition: NOP
 		};
 		note = notes(container, { pathname: "/notabene/tiddler/bar%20dum",
 			host: "/",
