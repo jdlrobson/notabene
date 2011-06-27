@@ -175,12 +175,16 @@ function notes(container, options) {
 
 	function renameNote(newtitle) {
 		var old = note.title;
-		note.title = newtitle;
-		store.remove(new tiddlyweb.Tiddler(old, bag));
+		store.add(note);
+		if(newtitle !== old) {
+			note.title = newtitle;
+			store.remove(new tiddlyweb.Tiddler(old, bag));
+		}
 	}
 
 	/* the callback is passed true if the title is unique on the server,
 	false if the title already exists and null if it is not known */
+	var renaming;
 	function validateTitle(title, callback) {
 		callback = callback || function() {};
 		var tid = new tiddlyweb.Tiddler(title, bag);
@@ -205,14 +209,13 @@ function notes(container, options) {
 				renaming = true;
 				printMessage("A note with this name already exists. Please provide another name.",
 					"error");
-				storeNote();
+				renameNote(title);
 				callback(false);
 			}, function(xhr) {
 				if(xhr.status == 404) {
 					fixTitle();
 				} else {
 					renameNote(title);
-					storeNote();
 					callback(null);
 				}
 			});
@@ -220,7 +223,6 @@ function notes(container, options) {
 	}
 
 	// on a blur event fix the title.
-	var renaming;
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
@@ -246,8 +248,8 @@ function notes(container, options) {
 			if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
 				path = notabene.setUrl(app_path);
 			}
-			syncStatus();
 			newNote();
+			syncStatus();
 		};
 		validateTitle(note.title, function(valid) {
 			if(valid) {
