@@ -262,7 +262,7 @@ function notes(container, options) {
 						reset();
 					}
 				});
-			} else {
+			} else if(valid == null) {
 				printMessage("Saved locally. Unable to post to web at current time.", "warning");
 				reset();
 			}
