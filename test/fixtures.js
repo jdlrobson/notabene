@@ -53,7 +53,7 @@ $.ajax = function(options) {
 		}
 	};
 	if(!internet) {
-		options.error(no_connection_xhr);
+		return options.error(no_connection_xhr);
 	}
 	if (options && handlers[options.url]) {
 		handlers[options.url](options);
