@@ -44,6 +44,11 @@ $.ajax = function(options) {
 			}
 			options.error(xhr404);
 		},
+		"/bags/slow/tiddlers/slow": function(options) {
+			window.setTimeout(function() {
+				options.error(xhr404);
+			}, 4000);
+		},
 		// tiddlers that are not on the server
 		"/bags/test_public/tiddlers/Test": function(options) {
 			options.error(xhr404);
