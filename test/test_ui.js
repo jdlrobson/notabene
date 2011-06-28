@@ -1,5 +1,6 @@
 var container, note, _confirm, _notabene;
 function uisetup() {
+	ajaxRequests = [];
 	container = $("<div />").appendTo(document.body)[0];
 	$("<textarea class='note_title' />").appendTo(container);
 	$("<textarea class='note_text' />").appendTo(container);
@@ -28,6 +29,7 @@ function uiteardown() {
 	localStorage.clear();
 	window.confirm = _confirm;
 	notabene = _notabene;
+	ajaxRequests = [];
 }
 
 module('notabene ui (deletion from existing tiddler)', {
@@ -310,4 +312,24 @@ test('saving a tiddler with unvalidated title', function() {
 	strictEqual(dirty.length, 1,
 		"only one tiddler dirty");
 	strictEqual(dirty[0].title, "bar dum", "the title of the dirty note is bar dum");
+});
+
+// note in this situation it may be useful to just delete the local tiddler.
+// how do we detect a delete doesnt occur
+test('deleting an unvalidated tiddler', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	// set title to a tiddler that already exists
+	$(".note_title", container).val("bar").blur();
+	$(".note_text", container).val("hello").keyup();
+	strictEqual(note.store().dirty().length, 1, "one tiddler now dirty");
+	strictEqual(note.getNote().fields._title_validated, undefined, "title has not been validated");
+	// now attempt to delete
+	var beforeDelete = ajaxRequests.length;
+	$("#deletenote").click();
+	strictEqual(note.store().dirty().length, 0,
+		"the local tiddler is removed but NOT the server version");
+	strictEqual(ajaxRequests.length - beforeDelete, 0, "no ajax requests were made so server version NOT touched!");
 });
