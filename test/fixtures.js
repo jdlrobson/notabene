@@ -16,6 +16,7 @@ var xhr404 = {
 	status: 404
 };
 
+var ajaxRequests = [];
 var internet = true;
 function setConnectionStatus(status) {
 	internet = status;
@@ -23,6 +24,7 @@ function setConnectionStatus(status) {
 
 var _oldAjax = $.ajax;
 $.ajax = function(options) {
+	ajaxRequests.push(options);
 	var handlers = {
 		// tiddlers that live on the server and result in successful ajax
 		"/bags/bag/tiddlers/bar": function(options) {
