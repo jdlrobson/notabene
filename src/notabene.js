@@ -216,6 +216,7 @@ function notes(container, options) {
 					fixTitle();
 				} else {
 					renameNote(title);
+					storeNote();
 					callback(null);
 				}
 			});
@@ -236,37 +237,39 @@ function notes(container, options) {
 		storeNote();
 	});
 
+	function resetNote() {
+		$("#note").removeClass("active");
+		$(".note_title, .note_text").val("").attr("disabled", false);
+		$(".note_title").focus();
+
+		// reset url
+		if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
+			path = notabene.setUrl(app_path);
+		}
+		newNote();
+		syncStatus();
+	}
+
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
 		printMessage("Saving note...");
-		var reset = function() {
-			$("#note").removeClass("active");
-			$(".note_title, .note_text").val("").attr("disabled", false);
-			$(".note_title").focus();
 
-			// reset url
-			if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
-				path = notabene.setUrl(app_path);
-			}
-			newNote();
-			syncStatus();
-		};
 		validateTitle(note.title, function(valid) {
 			if(valid) {
 				store.save(note, function(tid, options) {
 					if(tid) {
 						$("#note").addClass("active");
 						printMessage("Saved successfully.", null, true);
-						reset();
+						resetNote();
 					} else {
 						// TODO: give more useful error messages (currently options doesn't provide this)
 						printMessage("Saved locally. Unable to post to web at current time.", "warning");
-						reset();
+						resetNote();
 					}
 				});
 			} else if(valid == null) {
 				printMessage("Saved locally. Unable to post to web at current time.", "warning");
-				reset();
+				resetNote();
 			}
 		});
 	});
