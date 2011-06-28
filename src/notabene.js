@@ -193,6 +193,8 @@ function notes(container, options) {
 		callback = callback || function() {};
 		var tid = new tiddlyweb.Tiddler(title, bag);
 		note.fields._title_set = "yes";
+		renameNote(title);
+		storeNote();
 
 		var fixTitle = function() {
 			if(renaming) {
@@ -200,9 +202,7 @@ function notes(container, options) {
 				renaming = false;
 			}
 			$(".note_title").attr("disabled", true);
-			renameNote(title);
 			note.fields._title_validated = "yes";
-			storeNote();
 			callback(true);
 		};
 
@@ -213,14 +213,11 @@ function notes(container, options) {
 				renaming = true;
 				printMessage("A note with this name already exists. Please provide another name.",
 					"error");
-				renameNote(title);
 				callback(false);
 			}, function(xhr) {
 				if(xhr.status == 404) {
 					fixTitle();
 				} else {
-					renameNote(title);
-					storeNote();
 					callback(null);
 				}
 			});
