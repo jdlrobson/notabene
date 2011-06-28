@@ -379,3 +379,13 @@ test('deleting validated tiddler without internet connection', function() {
 	strictEqual($(".messageArea", container).hasClass("warning"), true, "warning message printed");
 	strictEqual($(".note_title", container).val(), "", "note title has now been reset");
 });
+
+test("retain title on slow validation", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "slow"
+	});
+	$(".note_title", container).val("slow").blur();
+	strictEqual(note.getNote().title, "slow",
+		"even though the validation takes time to happen if the user hits refresh we need to make sure the title is retained")
+});
