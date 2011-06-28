@@ -279,7 +279,8 @@ function notes(container, options) {
 		}
 		printMessage("Deleting note...");
 		if(note) {
-			store.remove({ tiddler: note, server: true }, function(tid,a,b) {
+			var _server = note.fields._is_validated ? true : false;
+			store.remove({ tiddler: note, server: _server }, function(tid,a,b) {
 				syncStatus();
 				if(tid) {
 					$("#note").addClass("deleting");
