@@ -92,9 +92,13 @@ function notes(container, options) {
 		});
 	}
 
+	function getTitle() {
+		return "untitled note " + Math.random();
+	}
+
 	// creates a new note with a randomly generated title and loads it into the ui
 	function newNote() {
-		tempTitle = "untitled note " + Math.random();
+		tempTitle = getTitle();
 		note = new tiddlyweb.Tiddler(tempTitle, bag);
 		note.fields = {};
 		note.fields.created = new Date();
@@ -228,6 +232,9 @@ function notes(container, options) {
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
 			validateTitle(val);
+		} else {
+			delete note.fields._title_set;
+			renameNote(getTitle());
 		}
 	});
 
