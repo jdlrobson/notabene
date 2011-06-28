@@ -271,6 +271,29 @@ test('name a note after existing note without connection, prevent overwriting', 
 	strictEqual($(".note_title", container).val(), "", "A new note can be started");
 });
 
+test('renaming to empty string', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	setConnectionStatus(false);
+	// set the title without internet
+	$(".note_title", container).val("bar").blur();
+	var tid1 = note.getNote();
+	strictEqual(tid1.fields._title_set, "yes", "the title has been set by the user");
+	$(".note_title", container).val("").blur();
+	strictEqual(note.getNote().fields._title_set, undefined, "the title has no longer been set by the user");
+	// trigger reload
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_set, undefined, "the title is no longer set");
+	strictEqual(tid.title != tid1.title, true, "the actual title is different");
+	strictEqual($(".note_title").val(), "");
+});
 
 test('saving a tiddler with unvalidated title', function() {
 	note = notes(container, {
