@@ -333,3 +333,26 @@ test('deleting an unvalidated tiddler', function() {
 		"the local tiddler is removed but NOT the server version");
 	strictEqual(ajaxRequests.length - beforeDelete, 0, "no ajax requests were made so server version NOT touched!");
 });
+
+test('deleting validated tiddler without internet connection', function() {
+	// trigger a cache of a new tiddler into localStorage
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	// set the title
+	$(".note_title", container).val("bar dum").blur();
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
+	strictEqual(note.store().dirty().length, 1,
+		"the note is now dirty");
+	// turn off internet
+	setConnectionStatus(false);
+
+	// attempt delete
+	$("#deletenote").click();
+	strictEqual(note.store().dirty().length, 1,
+		"the note is still dirty as we failed to delete it off server (no 404 or success)");
+	strictEqual($(".messageArea", container).hasClass("warning"), true, "warning message printed");
+	strictEqual($(".note_title", container).val(), "", "note title has now been reset");
+});
