@@ -50,7 +50,7 @@ function notes(container, options) {
 
 	// retrieve last created note
 	store.retrieveCached();
-	var tiddlers = store().sort(function(a, b) {
+	var tiddlers = store().bag(bagname).sort(function(a, b) {
 		return a.fields.modified < b.fields.modified ? 1 : -1;
 	});
 
@@ -127,7 +127,7 @@ function notes(container, options) {
 	// tell the user what the current state of the store is
 	function syncStatus() {
 		var area = $(".syncButton", container);
-		var unsynced = store().dirty();
+		var unsynced = store().bag(bagname).dirty();
 		$(area).text(unsynced.length);
 	}
 
