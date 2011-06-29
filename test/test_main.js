@@ -144,6 +144,7 @@ module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
 		$("<a id='newnote'>save</a>").appendTo(container);
+		$("<div />").attr("id", "notemeta").appendTo(container);
 		currentUrl = false;
 		_notabene = notabene;
 		notabene = {
@@ -179,4 +180,11 @@ test('saving a pre-existing note', function() {
 	strictEqual($(".note_title", container).attr("disabled"), undefined, "title no longer disabled");
 	strictEqual($(".note_title", container).val(), "", "empty input waiting for user input");
 	strictEqual(currentUrl, "/notabene");
+});
+
+test("print meta data", function() {
+	var tid = new tiddlyweb.Tiddler("xyz", new tiddlyweb.Bag("foo", "/"));
+	tid.fields = { bar: "x", foo: "y" };
+	note.printMetaData(tid);
+	strictEqual($("#notemeta li").length, 2, "the two fields are printed");
 });
