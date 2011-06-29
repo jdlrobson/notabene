@@ -53,8 +53,30 @@ function notes(container, options) {
 	var tiddlers = store().sort(function(a, b) {
 		return a.fields.modified < b.fields.modified ? 1 : -1;
 	});
-	
+
 	var note, tempTitle;
+
+	// print the fields associated with the current note
+	function printMetaData(tiddler) {
+		// print meta information
+		var fieldInfo = {
+			created: { label: "created on" },
+			modified: { label: "last modified on" }
+		};
+		$("#notemeta").empty();
+		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
+		var list = $("<ul />").appendTo(container)[0];
+		for(var fieldname in tiddler.fields) {
+			if(true) {
+				var val = tiddler.fields[fieldname];
+				if(val) {
+					var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
+					$("<li />").text(label + ": " + val).appendTo(list);
+				}
+			}
+		}
+	}
+
 	// load the current note into the display
 	function loadNote() {
 		$(".note_text").val(note.text);
@@ -65,23 +87,7 @@ function notes(container, options) {
 			$(".note_title").blur();
 		}
 
-		// print meta information
-		var fieldInfo = {
-			created: { label: "created on" },
-			modified: { label: "last modified on" }
-		};
-		$("#notemeta").empty();
-		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
-		var list = $("<ul />").appendTo(container)[0];
-		for(var fieldname in note.fields) {
-			if(true) {
-				var val = note.fields[fieldname];
-				if(val) {
-					var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
-					$("<li />").text(label + ": " + val).appendTo(list);
-				}
-			}
-		}
+		printMetaData(note);
 
 		notabene.watchPosition(function(data) {
 			if(data) {
@@ -315,6 +321,7 @@ function notes(container, options) {
 		newNote: newNote,
 		loadNote: loadNote,
 		store: store,
+		printMetaData: printMetaData,
 		getNote: function() {
 			return note;
 		},
