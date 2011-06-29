@@ -1,6 +1,6 @@
 /***
 |''Name''|notabene|
-|''Version''|0.1.0|
+|''Version''|0.1.1|
 ***/
 
 // some helper functions
@@ -12,6 +12,12 @@ var notabene = {
 			window.location = url;
 		}
 		return url;
+	},
+	defaultFields: {},
+	watchPosition: function(handler) {
+		if(!!navigator.geolocation) {
+			navigator.geolocation.watchPosition(handler);
+		}
 	},
 	supports_local_storage: function() {
 		try {
@@ -76,6 +82,14 @@ function notes(container, options) {
 				}
 			}
 		}
+
+		notabene.watchPosition(function(data) {
+			if(data) {
+				var coords = data.coords;
+				note.fields['geo.lat'] = String(coords.latitude);
+				note.fields['geo.long'] = String(coords.longitude);
+			}
+		});
 	}
 
 	// creates a new note with a randomly generated title and loads it into the ui
@@ -161,49 +175,65 @@ function notes(container, options) {
 	// this stores the note locally (but not on the server)
 	function storeNote() {
 		note.fields.modified = new Date();
-		if(tempTitle && note.title != tempTitle) {
-			store.remove(new tiddlyweb.Tiddler(tempTitle, bag));
-		}
 		store.add(note);
 		syncStatus();
 	}
 
-	// on a blur event fix the title.
+	function renameNote(newtitle) {
+		var old = note.title;
+		store.add(note);
+		if(newtitle !== old) {
+			note.title = newtitle;
+			store.remove(new tiddlyweb.Tiddler(old, bag));
+		}
+	}
+
+	/* the callback is passed true if the title is unique on the server,
+	false if the title already exists and null if it is not known */
 	var renaming;
+	function validateTitle(title, callback) {
+		callback = callback || function() {};
+		var tid = new tiddlyweb.Tiddler(title, bag);
+		note.fields._title_set = "yes";
+
+		var fixTitle = function() {
+			if(renaming) {
+				printMessage("Note title set.", "", true);
+				renaming = false;
+			}
+			$(".note_title").attr("disabled", true);
+			renameNote(title);
+			note.fields._title_validated = "yes";
+			storeNote();
+			callback(true);
+		};
+
+		if(note.fields._title_validated) {
+			fixTitle();
+		} else {
+			tid.get(function() {
+				renaming = true;
+				printMessage("A note with this name already exists. Please provide another name.",
+					"error");
+				renameNote(title);
+				callback(false);
+			}, function(xhr) {
+				if(xhr.status == 404) {
+					fixTitle();
+				} else {
+					renameNote(title);
+					storeNote();
+					callback(null);
+				}
+			});
+		}
+	}
+
+	// on a blur event fix the title.
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
-			var tid = new tiddlyweb.Tiddler(val, bag);
-			note.fields._title_set = "yes";
-
-			var fixTitle = function() {
-				if(renaming) {
-					printMessage("Note title set.", "", true);
-					renaming = false;
-				}
-				$(".note_title").attr("disabled", true);
-				note.title = val;
-				note.fields._title_validated = "yes";
-				storeNote();
-			};
-
-			if(note.fields._title_validated) {
-				fixTitle();
-			} else {
-				tid.get(function() {
-					renaming = true;
-					printMessage("A note with this name already exists. Please provide another name.",
-						"error");
-					storeNote();
-				}, function(xhr) {
-					if(xhr.status == 404) {
-						fixTitle();
-					} else {
-						note.title = val;
-						storeNote();
-					}
-				});
-			}
+			validateTitle(val);
 		}
 	});
 
@@ -213,30 +243,39 @@ function notes(container, options) {
 		storeNote();
 	});
 
+	function resetNote() {
+		$("#note").removeClass("active");
+		$(".note_title, .note_text").val("").attr("disabled", false);
+		$(".note_title").focus();
+
+		// reset url
+		if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
+			path = notabene.setUrl(app_path);
+		}
+		newNote();
+		syncStatus();
+	}
+
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
 		printMessage("Saving note...");
-		var reset = function() {
-			$("#note").removeClass("active");
-			$(".note_title, .note_text").val("").attr("disabled", false);
-			$(".note_title").focus();
 
-			// reset url
-			if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
-				path = notabene.setUrl(app_path);
-			}
-			syncStatus();
-			newNote();
-		};
-		store.save(note, function(tid, options) {
-			if(tid) {
-				$("#note").addClass("active");
-				printMessage("Saved successfully.", null, true);
-				reset();
-			} else {
-				// TODO: give more useful error messages (currently options doesn't provide this)
+		validateTitle(note.title, function(valid) {
+			if(valid) {
+				store.save(note, function(tid, options) {
+					if(tid) {
+						$("#note").addClass("active");
+						printMessage("Saved successfully.", null, true);
+						resetNote();
+					} else {
+						// TODO: give more useful error messages (currently options doesn't provide this)
+						printMessage("Saved locally. Unable to post to web at current time.", "warning");
+						resetNote();
+					}
+				});
+			} else if(valid == null) {
 				printMessage("Saved locally. Unable to post to web at current time.", "warning");
-				reset();
+				resetNote();
 			}
 		});
 	});
@@ -249,9 +288,14 @@ function notes(container, options) {
 		}
 		printMessage("Deleting note...");
 		if(note) {
-			store.remove({ tiddler: note, server: true }, function(tid,a,b) {
+			var _server = note.fields._title_validated ? true : false;
+			store.remove({ tiddler: note, server: _server }, function(tid, msg, xhr) {
 				syncStatus();
-				if(tid) {
+				if(xhr && xhr.status === 0) {
+					printMessage("Could not delete from server at current time.", "warning", true);
+					storeNote();
+					resetNote();
+				} else if(tid) {
 					$("#note").addClass("deleting");
 					printMessage("Note deleted.", null, true);
 					$("#note").removeClass("deleting");
@@ -262,6 +306,10 @@ function notes(container, options) {
 			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
+	window.onpopstate = function(ev) {
+		path = window.location.pathname;
+		init();
+	};
 	init();
 	return {
 		init: init,

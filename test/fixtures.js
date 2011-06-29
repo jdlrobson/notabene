@@ -9,10 +9,14 @@ var xhr = {
 	status: 200
 };
 
+function NOP() {
+}
+
 var xhr404 = {
 	status: 404
 };
 
+var ajaxRequests = [];
 var internet = true;
 function setConnectionStatus(status) {
 	internet = status;
@@ -20,6 +24,7 @@ function setConnectionStatus(status) {
 
 var _oldAjax = $.ajax;
 $.ajax = function(options) {
+	ajaxRequests.push(options);
 	var handlers = {
 		// tiddlers that live on the server and result in successful ajax
 		"/bags/bag/tiddlers/bar": function(options) {
@@ -48,7 +53,7 @@ $.ajax = function(options) {
 		}
 	};
 	if(!internet) {
-		options.error(no_connection_xhr);
+		return options.error(no_connection_xhr);
 	}
 	if (options && handlers[options.url]) {
 		handlers[options.url](options);

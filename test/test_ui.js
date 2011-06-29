@@ -1,17 +1,20 @@
 var container, note, _confirm, _notabene;
 function uisetup() {
+	ajaxRequests = [];
 	container = $("<div />").appendTo(document.body)[0];
 	$("<textarea class='note_title' />").appendTo(container);
 	$("<textarea class='note_text' />").appendTo(container);
 	$("<a id='deletenote'>delete</a>").appendTo(container);
 	$("<a id='newnote'>add</a>").appendTo(container);
 	localStorage.clear();
+	setConnectionStatus(true);
 	_confirm = window.confirm;
 	window.confirm = function() {
 		return true;
 	};
 	_notabene = notabene;
 	notabene = {
+		watchPosition: NOP,
 		setUrl: function(url) {
 			return url;
 		}
@@ -19,12 +22,14 @@ function uisetup() {
 }
 
 function uiteardown() {
+	setConnectionStatus(true);
 	$(container).remove();
 	container = null;
 	note = null;
 	localStorage.clear();
 	window.confirm = _confirm;
 	notabene = _notabene;
+	ajaxRequests = [];
 }
 
 module('notabene ui (deletion from existing tiddler)', {
@@ -252,5 +257,121 @@ test('issue 27', function() {
 	// change name to something which DOESN'T exist on server 
 	$(".note_title", container).val("bar dum").blur();
 	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
+});
+
+test('name a note after existing note without connection, prevent overwriting', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	strictEqual(note.store().dirty().length, 0, "no dirty tiddlers to start with");
+	// kill internet
+	setConnectionStatus(false);
+
+	// set the title without internet - wont be able to validate.
+	$(".note_title", container).val("bar").blur();
+	$(".note_text", container).val("Hello there!");
+
+	strictEqual(note.store().dirty().length, 1,
+		"the store is now dirty with this note");
+
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, undefined, "No connection so cannot validate note.");
+
+	// try to save.
+	$("#newnote", container).click();
+
+	// note cannot be validated, so make sure the note is not synced
+	strictEqual(note.store().dirty().length, 1,
+		"the note is still dirty as the title has not been validated and without internet connection cannot sync");
+	strictEqual($(".messageArea").text() != "", true,
+		"a message should be printed notifying the user of this situation.");
+	strictEqual($(".note_title", container).val(), "", "A new note can be started");
+});
+
+test('saving a tiddler with unvalidated title', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	strictEqual(note.store().dirty().length, 0, "no dirty tiddlers to start with");
+	// kill internet
+	setConnectionStatus(false);
+
+	// set the title without internet
+	$(".note_title", container).val("bar").blur();
+
+	strictEqual(note.store().dirty().length, 1, "now one dirty tiddler");
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, undefined, "No connection so cannot validate note.");
+	strictEqual(tid.title, "bar", "The note has the name bar");
+
+	// internet back on
+	setConnectionStatus(true);
+
+	// try to save.
+	$("#newnote", container).click();
+
+	// note cannot be validated, so make sure the note is not synced
+	strictEqual(note.store().dirty().length, 1, "the note is still dirty as the title has not been validated");
+	strictEqual($(".messageArea").text() != "", true,
+		"a message should be printed notifying the user of this situation.");
+	strictEqual($(".messageArea", container).hasClass("error"), true,
+		"an error message should prompt the note to be renamed.");
+	strictEqual($(".note_title").val(), "bar", "the note should still be in view");
+
+	$(".note_title", container).val("bar dum").blur();
+	// this doesnt exist so will be validated
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, "yes", "Note validated");
+	var dirty = note.store().dirty();
+	strictEqual(dirty.length, 1,
+		"only one tiddler dirty");
+	strictEqual(dirty[0].title, "bar dum", "the title of the dirty note is bar dum");
+});
+
+// note in this situation it may be useful to just delete the local tiddler.
+// how do we detect a delete doesnt occur
+test('deleting an unvalidated tiddler', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	// set title to a tiddler that already exists
+	$(".note_title", container).val("bar").blur();
+	$(".note_text", container).val("hello").keyup();
+	strictEqual(note.store().dirty().length, 1, "one tiddler now dirty");
+	strictEqual(note.getNote().fields._title_validated, undefined, "title has not been validated");
+	// now attempt to delete
+	var beforeDelete = ajaxRequests.length;
+	$("#deletenote").click();
+	strictEqual(note.store().dirty().length, 0,
+		"the local tiddler is removed but NOT the server version");
+	strictEqual(ajaxRequests.length - beforeDelete, 0, "no ajax requests were made so server version NOT touched!");
+});
+
+test('deleting validated tiddler without internet connection', function() {
+	// trigger a cache of a new tiddler into localStorage
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	// set the title
+	$(".note_title", container).val("bar dum").blur();
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
+	strictEqual(note.store().dirty().length, 1,
+		"the note is now dirty");
+	// turn off internet
+	setConnectionStatus(false);
+
+	// attempt delete
+	$("#deletenote").click();
+	strictEqual(note.store().dirty().length, 1,
+		"the note is still dirty as we failed to delete it off server (no 404 or success)");
+	strictEqual($(".messageArea", container).hasClass("warning"), true, "warning message printed");
+	strictEqual($(".note_title", container).val(), "", "note title has now been reset");
 });
 
