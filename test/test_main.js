@@ -188,3 +188,10 @@ test("print meta data", function() {
 	note.printMetaData(tid);
 	strictEqual($("#notemeta li").length, 2, "the two fields are printed");
 });
+
+test("print with hidden meta data", function() {
+	var tid = new tiddlyweb.Tiddler("xyz", new tiddlyweb.Bag("foo", "/"));
+	tid.fields = { bar: "x", foo: "y", _hidden: "foo" };
+	note.printMetaData(tid);
+	strictEqual($("#notemeta li").length, 2, "the two fields are printed, _hidden is ignored");
+});
