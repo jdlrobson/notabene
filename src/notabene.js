@@ -67,7 +67,7 @@ function notes(container, options) {
 		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
 		var list = $("<ul />").appendTo(container)[0];
 		for(var fieldname in tiddler.fields) {
-			if(true) {
+			if(fieldname.indexOf("_") !== 0) {
 				var val = tiddler.fields[fieldname];
 				if(val) {
 					var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
