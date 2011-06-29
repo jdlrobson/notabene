@@ -67,6 +67,22 @@ test('syncButton present', function() {
 	// the setup has loaded the note with the name bar
 	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
 	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.");
+
+	// start a new note
+	setConnectionStatus(false);
+	$("#newnote").click();
+
+	$(".note_title", container).val("bar dum").blur();
+	$(".note_text", container).val("text").keypress();
+	$(".syncButton", container).click();
+	strictEqual($(".syncButton", container).text(), "2", "it says there are now 2 tiddlers requiring syncing.");
+
+	setConnectionStatus(true);
+	$(".syncButton", container).click();
+	strictEqual($(".syncButton", container).text(), "1", "it says there is now only the current tiddler requiring syncing.");
+	var dirty = note.store().dirty();
+	strictEqual(dirty.length, 1, "1 tiddler marked as dirty");
+	strictEqual(dirty[0].title, "bar dum", "bar dum (the current note being worked on) is the only unsynced note");
 });
 
 test('syncButton and successful save', function() {
