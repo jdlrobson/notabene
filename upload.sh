@@ -68,7 +68,7 @@ do
 		fi
 		;;
 	*)
-		continue;
+		content="text/html"
 		;;
 	esac
 	set -x
