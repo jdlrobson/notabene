@@ -90,6 +90,10 @@ function notes(container, options) {
 		printMetaData(note);
 
 		notabene.watchPosition(function(data) {
+			// if note has existing geo data exit to prevent overwriting
+			if(note.fields['geo.lat'] && note.fields['geo.long']) {
+				return;
+			}
 			if(data) {
 				var coords = data.coords;
 				note.fields['geo.lat'] = String(coords.latitude);
