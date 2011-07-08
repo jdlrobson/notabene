@@ -44,6 +44,7 @@ a:hover {
 	padding-left: 8px;
 }
 
+.takenotedashboard,
 .takenotecontainer {
 	width: 900px;
 }
@@ -59,6 +60,7 @@ a:hover {
 
 @media all and (max-width: 320px) {
 	body,
+	.takenotedashboard,
 	.takenotecontainer {
 		width: 300px;
 	}
@@ -75,6 +77,7 @@ a:hover {
 
 @media all and (min-width: 321px) and (max-width: 480px) {
 	body,
+	.takenotedashboard,
 	.takenotecontainer {
 		width: 460px;
 	}
@@ -89,12 +92,14 @@ a:hover {
 	}
 }
 
+.takenotedashboard,
 .takenotecontainer {
 	margin: auto;
 	position: relative;
 	display: none;
 }
 
+.takenotedashboard,
 .takenotecontainer.ready {
 	display: block;
 }
