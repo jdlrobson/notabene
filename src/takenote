@@ -8,6 +8,10 @@
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
 	</head>
 	<body>
+		<ul id="backstage">
+			<li><a href="dashboard">dashboard</a></li>
+			<li><a href="takenote">takenote</a></li>
+		</ul>
 		<div class="takenotecontainer">
 			<div class='messageArea'></div>
 			<div id="note">
