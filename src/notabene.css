@@ -85,6 +85,8 @@ a:hover {
 	width: 900px;
 }
 
+.takenotedashboard .header,
+.takenotedashboard .viewer,
 #note,
 .messageArea {
 	width: 500px;
@@ -101,6 +103,8 @@ a:hover {
 		width: 300px;
 	}
 
+	.takenotedashboard .header,
+	.takenotedashboard .viewer,
 	#note,
 	.messageArea {
 		width: 300px;
@@ -118,6 +122,8 @@ a:hover {
 		width: 460px;
 	}
 
+	.takenotedashboard .header,
+	.takenotedashboard .viewer,
 	#note,
 	.messageArea {
 		width: 460px;
@@ -145,6 +151,8 @@ a:hover {
 	border: solid 1px black;
 }
 
+.takenotedashboard .header,
+.takenotedashboard .viewer,
 #note,
 .messageArea {
 	margin: 0 auto;
@@ -167,6 +175,8 @@ a:hover {
 	color: red;
 }
 
+.takenotedashboard .header,
+.takenotedashboard .viewer,
 #note,
 .note_title {
 	background-color: white;
