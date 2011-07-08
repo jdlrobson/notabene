@@ -1,16 +1,21 @@
 var container, note, currentUrl, _notabene;
+
+function setupNotabeneMock() {
+	_notabene = notabene;
+	notabene = {
+		watchPosition: function(handler) {
+			handler({ coords: { latitude: 10, longitude: 20 } });
+		}
+	};
+}
+
 module('notabene', {
 	setup: function() {
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
 		localStorage.clear();
-		_notabene = notabene;
-		notabene = {
-			watchPosition: function(handler) {
-				handler({ coords: { latitude: 10, longitude: 20 } });
-			}
-		};
+		setupNotabeneMock()
 		note = notes(container, {
 			host: "/",
 			bag: "bag"
@@ -88,7 +93,9 @@ module('notabene (notes in cache)', {
 		localStorage.setItem("test_public/Test",
 			['{"fields":{"created":"2011-06-22T11:49:03.951Z",',
 				'"_title_set": "yes", ',
+				'"geo.lat": "34", "geo.long": "1", ',
 				'"_title_validated":"yes","modified":"2011-06-22T11:49:16.977Z"},"text":"foo"}'].join(""));
+		setupNotabeneMock();
 		note = notes(container, {
 			host: "/",
 			bag: "test_public"
@@ -99,6 +106,7 @@ module('notabene (notes in cache)', {
 		container = null;
 		note = null;
 		localStorage.clear();
+		notabene = _notabene;
 	}
 });
 
@@ -109,6 +117,13 @@ test('startup behaviour (load last note from cache)', function() {
 	strictEqual($(".note_text", container).val(), "foo",
 		"check the value of text is preset to the one in cache");
 });
+
+test('test geo with existing geodata', function() {
+	var tid = note.getNote();
+	strictEqual(tid.fields['geo.lat'], "34", "test latitude was retained");
+	strictEqual(tid.fields['geo.long'], "1", "test longitude was retained");
+});
+
 
 module('notabene (as visited from /notabene/tiddler/bar)', {
 	setup: function() {
