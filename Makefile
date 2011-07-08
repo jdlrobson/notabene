@@ -18,9 +18,9 @@ devlocal: remotes
 
 dev: remotes
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
-		'src/jquery.min.js'
+		'src/takenote' 'src/jquery.min.js'
 
 dist: remotes
 	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' \
-		'src/jquery-json.min.js' 'src/jquery.min.js' \
+		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/chrjs.js' 'src/touchicon.png' 'src/manifest.mf'
