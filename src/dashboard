@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html manifest="manifest.mf">
+	<head>
+		<title>takenote dashboard</title>
+		<link type="text/css" rel="stylesheet" href="notabene.css" />
+		<link type="text/css" rel="stylesheet" href="HtmlCss" />
+		<link type="text/css" rel="stylesheet" href="jquery-ui.css">
+	</head>
+	<body>
+		<ul id="backstage">
+			<li><a href="dashboard">dashboard</a></li>
+			<li><a href="takenote">takenote</a></li>
+		</ul>
+		<div class="takenotedashboard">
+			<div class="header">
+				<div class="siteheading">
+						<h1>Dashboard</h1>
+					</div>
+			</div>
+			<div class="toolpanel viewer">
+				<h2><a href="/takenote">take note</a></h2>
+				<h2>find note:</h2>
+				<input class="findnote" type="search" placeholder="type search term" />
+			</div>
+		</div>
+		<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="notabene.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
