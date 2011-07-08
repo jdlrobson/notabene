@@ -18,7 +18,6 @@
 					</div>
 			</div>
 			<div class="toolpanel viewer">
-				<h2><a href="/takenote">take note</a></h2>
 				<h2>find note:</h2>
 				<input class="findnote" type="search" placeholder="type search term" />
 			</div>
