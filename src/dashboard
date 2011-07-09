@@ -18,6 +18,7 @@
 				<div class="siteheading">
 					<h1>Dashboard</h1>
 				</div>
+				<div class='siteicon'></div>
 			</div>
 			<div class="toolpanel viewer">
 				<h2>find note:</h2>

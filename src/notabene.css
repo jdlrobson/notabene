@@ -79,6 +79,22 @@ a:hover {
 	min-height: 120px;
 	padding-top: 6px;
 	padding-left: 8px;
+	position: relative;
+}
+
+.siteicon {
+	background-image: url(/SiteIcon);
+	height: 96px;
+	width: 96px;
+	background-repeat: no-repeat;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	background-size: 96px 96px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
 }
 
 .takenotedashboard,
