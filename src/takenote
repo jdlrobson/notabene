@@ -3,7 +3,6 @@
 	<head>
 		<title>notabene</title>
 		<link rel="stylesheet" href="/notabene.css" />
-		<link rel="stylesheet" href="/HtmlCss" />
 		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
 	</head>
