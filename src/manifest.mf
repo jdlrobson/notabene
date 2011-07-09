@@ -3,6 +3,9 @@ CACHE MANIFEST
 
 HtmlCss
 takenote
+dashboard
+jquery-ui.css
+jquery-ui.min.js
 notabene.css
 notabene.js
 jquery-json.min.js
