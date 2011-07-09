@@ -130,7 +130,7 @@ function notes(container, options) {
 
 	// tell the user what the current state of the store is
 	function syncStatus() {
-		var area = $(".syncButton", container);
+		var area = $(".syncButton");
 		var unsynced = store().bag(bagname).dirty();
 		$(area).text(unsynced.length);
 	}
@@ -154,7 +154,7 @@ function notes(container, options) {
 
 	// this initialises notabene, loading either the requested note, the last worked on note or a new note
 	function init() {
-		var syncButton = $(".syncButton", container);
+		var syncButton = $(".syncButton");
 		syncButton = syncButton.length > 0 ? syncButton :
 			$("<div class='syncButton' />").prependTo(container);
 		syncStatus();
