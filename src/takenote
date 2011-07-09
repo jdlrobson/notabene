@@ -11,6 +11,7 @@
 		<ul id="backstage">
 			<li><a href="/dashboard">dashboard</a></li>
 			<li><a href="/takenote">takenote</a></li>
+			<li><a class='syncButton'>0</a></li>
 		</ul>
 		<div class="takenotecontainer">
 			<div class='messageArea'></div>
