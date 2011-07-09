@@ -2,10 +2,10 @@
 <html manifest="manifest.mf">
 	<head>
 		<title>takenote dashboard</title>
-		<link type="text/css" rel="stylesheet" href="notabene.css" />
-		<link type="text/css" rel="stylesheet" href="HtmlCss" />
-		<link type="text/css" rel="stylesheet" href="jquery-ui.css">
-		<link rel="apple-touch-icon-precomposed" href="touchicon.png"/>
+		<link type="text/css" rel="stylesheet" href="/notabene.css" />
+		<link type="text/css" rel="stylesheet" href="/HtmlCss" />
+		<link type="text/css" rel="stylesheet" href="/jquery-ui.css">
+		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
 	</head>
 	<body>
@@ -24,9 +24,9 @@
 				<input class="findnote" type="search" placeholder="type search term" />
 			</div>
 		</div>
-		<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="notabene.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var space = window.location.hostname.split(".")[0];
 			$(document).ready(function() {
