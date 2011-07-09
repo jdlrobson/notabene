@@ -9,8 +9,8 @@
 	</head>
 	<body>
 		<ul id="backstage">
-			<li><a href="dashboard">dashboard</a></li>
-			<li><a href="takenote">takenote</a></li>
+			<li><a href="/dashboard">dashboard</a></li>
+			<li><a href="/takenote">takenote</a></li>
 		</ul>
 		<div class="takenotecontainer">
 			<div class='messageArea'></div>
