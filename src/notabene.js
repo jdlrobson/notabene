@@ -355,9 +355,8 @@ function dashboard(container, options) {
 						var spacename = space[0];
 						var spacetype = space[1];
 						var type = tiddler.type;
-						var label = spacetype ? " (" + spacename + " - " + spacetype + ")" : "";
 						if(!type) { // only push "tiddlers" without a type
-							data.push({ value: tiddler.title, label: tiddler.title + label, bag: tiddler.bag })
+							data.push({ value: tiddler.title, label: tiddler.title, bag: tiddler.bag })
 						}
 					}
 					terms[term] = data;
