@@ -5,6 +5,8 @@
 		<link type="text/css" rel="stylesheet" href="notabene.css" />
 		<link type="text/css" rel="stylesheet" href="HtmlCss" />
 		<link type="text/css" rel="stylesheet" href="jquery-ui.css">
+		<link rel="apple-touch-icon-precomposed" href="touchicon.png"/>
+		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
 	</head>
 	<body>
 		<ul id="backstage">
