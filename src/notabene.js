@@ -333,3 +333,40 @@ function notes(container, options) {
 		loadServerNote: loadServerNote
 	};
 }
+
+function dashboard(container, options) {
+	var terms = {};
+	// allow user to search for a tiddler
+	$(".findnote").autocomplete({
+		source: function(req, response) {
+			var term = req.term;
+			if(terms[term]) {
+				return response(terms[term]);
+			}
+			$.ajax({
+				url: "/bags/" + options.bag + "/tiddlers?select=text:" + term,
+				dataType: "json",
+				success: function(r) {
+					var data = [];
+					for(var i = 0; i < r.length; i++) {
+						var tiddler = r[i];
+						var bag = tiddler.bag;
+						var space = bag.split("_");
+						var spacename = space[0];
+						var spacetype = space[1];
+						var type = tiddler.type;
+						var label = spacetype ? " (" + spacename + " - " + spacetype + ")" : "";
+						if(!type) { // only push "tiddlers" without a type
+							data.push({ value: tiddler.title, label: tiddler.title + label, bag: tiddler.bag })
+						}
+					}
+					terms[term] = data;
+					response(data);
+				}
+			});
+		},
+		select: function(event, ui) {
+			window.location = "/bags/" + ui.item.bag + "/tiddlers/" + ui.item.value;
+		}
+	});
+}

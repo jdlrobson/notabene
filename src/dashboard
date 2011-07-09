@@ -27,5 +27,14 @@
 		<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="notabene.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var space = window.location.hostname.split(".")[0];
+			$(document).ready(function() {
+				dashboard($(".takenotedashboard")[0], {
+					bag: space + "_public",
+					host: "/"
+				});
+			});
+		</script>
 	</body>
 </html>
