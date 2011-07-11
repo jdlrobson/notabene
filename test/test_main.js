@@ -125,7 +125,7 @@ test('test geo with existing geodata', function() {
 });
 
 
-module('notabene (as visited from /notabene/tiddler/bar)', {
+module('notabene (as visited from /takenote/tiddler/bar)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
@@ -152,7 +152,7 @@ test('startup behaviour (load a note on the server NOT in cache)', function() {
 		"The correct text is loaded from the server via ajax");
 });
 
-module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
+module('notabene (as visited from /takenote/tiddler/bar%20dum)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
@@ -168,7 +168,7 @@ module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
 			},
 			watchPosition: NOP
 		};
-		note = notes(container, { pathname: "/notabene/tiddler/bar%20dum",
+		note = notes(container, { pathname: "/takenote/tiddler/bar%20dum",
 			host: "/",
 			bag: "bag"
 		});
@@ -194,7 +194,7 @@ test('saving a pre-existing note', function() {
 
 	strictEqual($(".note_title", container).attr("disabled"), undefined, "title no longer disabled");
 	strictEqual($(".note_title", container).val(), "", "empty input waiting for user input");
-	strictEqual(currentUrl, "/notabene");
+	strictEqual(currentUrl, "/takenote");
 });
 
 test("print meta data", function() {
