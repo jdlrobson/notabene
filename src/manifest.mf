@@ -1,7 +1,6 @@
 CACHE MANIFEST
 # version 0.1.5
 
-HtmlCss
 takenote
 dashboard
 require.js
