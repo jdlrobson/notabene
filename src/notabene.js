@@ -2,6 +2,7 @@
 |''Name''|notabene|
 |''Version''|0.1.2|
 ***/
+var APP_PATH = "/takenote";
 
 // some helper functions
 var notabene = {
@@ -32,7 +33,6 @@ function notes(container, options) {
 	// configure notabene
 	options = options || {};
 	var path = options.pathname || window.location.pathname;
-	var app_path = "/" + path.split("/")[1];
 	var bagname = options.bag;
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
@@ -257,8 +257,8 @@ function notes(container, options) {
 		$(".note_title").focus();
 
 		// reset url
-		if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
-			path = notabene.setUrl(app_path);
+		if(path != APP_PATH) { // only reset if we are on a special url e.g. /app/tiddler/foo
+			path = notabene.setUrl(APP_PATH);
 		}
 		newNote();
 		syncStatus();
@@ -379,12 +379,10 @@ function dashboard(container, options) {
 		return a.title < b.title ? -1 : 1;
 	});
 	var listIncomplete = $("#incomplete")[0];
-	var path = options.pathname || window.location.pathname;
-	var app_path = "/" + path.split("/")[1];
 	for(var i = 0; i < tiddlers.length; i++) {
 		var item = $("<li />").appendTo(listIncomplete)[0];
 		var title = tiddlers[i].title;
-		$("<a />").attr("href", app_path + "/tiddler/" + title).
+		$("<a />").attr("href", APP_PATH + "/tiddler/" + title).
 			text(title).appendTo(item);
 	}
 	if(tiddlers.length === 0) {
