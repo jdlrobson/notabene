@@ -20,7 +20,9 @@ module('notabene dashboard - 2 tiddlers in store', {
 test('load incomplete notes', function() {
 	strictEqual($("#incomplete li").length, 2, "two notes are listed");
 	strictEqual($("#incomplete li a").length, 2, "both notes have links");
-	strictEqual($($("#incomplete li")[1]).text(), "foo 2", "the second note has the title foo 2")
+	var secondItem = $("#incomplete li")[1];
+	strictEqual($(secondItem).text(), "foo 2", "the second note has the title foo 2")
+	strictEqual($("a", secondItem).attr("href"), "/takenote/tiddler/foo 2", "check the link points to the app");
 });
 
 module('notabene dashboard - empty store', {
