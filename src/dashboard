@@ -22,6 +22,9 @@
 			<div class="toolpanel viewer">
 				<h2>find note:</h2>
 				<input class="findnote" type="search" placeholder="type search term" />
+
+				<h2>Incomplete notes:</h2>
+				<ul id="incomplete"></ul>
 			</div>
 		</div>
 		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
