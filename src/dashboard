@@ -29,6 +29,9 @@
 		</div>
 		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/chrjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var space = window.location.hostname.split(".")[0];
