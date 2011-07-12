@@ -24,7 +24,6 @@ var notabene = {
 function notes(container, options) {
 	// configure notabene
 	options = options || {};
-	var path = options.pathname || window.location.pathname;
 	var bagname = options.bag;
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
@@ -157,7 +156,7 @@ function notes(container, options) {
 				syncStatus();
 			});
 		});
-		var currentUrl = decodeURIComponent(path);
+		var currentUrl = decodeURIComponent(window.location.hash);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
 			loadServerNote(match[1]);
