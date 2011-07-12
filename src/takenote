@@ -35,7 +35,7 @@
 		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var takenote, space = window.location.hostname.split(".")[0];
-			$(document).ready(function() {
+			require(['store'], function() {
 				takenote = notes($(".takenotecontainer")[0], {
 					bag: space + "_public",
 					host: "/"
