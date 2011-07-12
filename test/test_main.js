@@ -1,16 +1,21 @@
 var container, note, currentUrl, _notabene;
+
+function setupNotabeneMock() {
+	_notabene = notabene;
+	notabene = {
+		watchPosition: function(handler) {
+			handler({ coords: { latitude: 10, longitude: 20 } });
+		}
+	};
+}
+
 module('notabene', {
 	setup: function() {
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
 		localStorage.clear();
-		_notabene = notabene;
-		notabene = {
-			watchPosition: function(handler) {
-				handler({ coords: { latitude: 10, longitude: 20 } });
-			}
-		};
+		setupNotabeneMock()
 		note = notes(container, {
 			host: "/",
 			bag: "bag"
@@ -88,7 +93,9 @@ module('notabene (notes in cache)', {
 		localStorage.setItem("test_public/Test",
 			['{"fields":{"created":"2011-06-22T11:49:03.951Z",',
 				'"_title_set": "yes", ',
+				'"geo.lat": "34", "geo.long": "1", ',
 				'"_title_validated":"yes","modified":"2011-06-22T11:49:16.977Z"},"text":"foo"}'].join(""));
+		setupNotabeneMock();
 		note = notes(container, {
 			host: "/",
 			bag: "test_public"
@@ -99,6 +106,7 @@ module('notabene (notes in cache)', {
 		container = null;
 		note = null;
 		localStorage.clear();
+		notabene = _notabene;
 	}
 });
 
@@ -110,7 +118,14 @@ test('startup behaviour (load last note from cache)', function() {
 		"check the value of text is preset to the one in cache");
 });
 
-module('notabene (as visited from /notabene/tiddler/bar)', {
+test('test geo with existing geodata', function() {
+	var tid = note.getNote();
+	strictEqual(tid.fields['geo.lat'], "34", "test latitude was retained");
+	strictEqual(tid.fields['geo.long'], "1", "test longitude was retained");
+});
+
+
+module('notabene (as visited from /takenote/tiddler/bar)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
@@ -137,13 +152,14 @@ test('startup behaviour (load a note on the server NOT in cache)', function() {
 		"The correct text is loaded from the server via ajax");
 });
 
-module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
+module('notabene (as visited from /takenote/tiddler/bar%20dum)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
 		$("<a id='newnote'>save</a>").appendTo(container);
+		$("<div />").attr("id", "notemeta").appendTo(container);
 		currentUrl = false;
 		_notabene = notabene;
 		notabene = {
@@ -152,7 +168,7 @@ module('notabene (as visited from /notabene/tiddler/bar%20dum)', {
 			},
 			watchPosition: NOP
 		};
-		note = notes(container, { pathname: "/notabene/tiddler/bar%20dum",
+		note = notes(container, { pathname: "/takenote/tiddler/bar%20dum",
 			host: "/",
 			bag: "bag"
 		});
@@ -178,5 +194,19 @@ test('saving a pre-existing note', function() {
 
 	strictEqual($(".note_title", container).attr("disabled"), undefined, "title no longer disabled");
 	strictEqual($(".note_title", container).val(), "", "empty input waiting for user input");
-	strictEqual(currentUrl, "/notabene");
+	strictEqual(currentUrl, "/takenote");
+});
+
+test("print meta data", function() {
+	var tid = new tiddlyweb.Tiddler("xyz", new tiddlyweb.Bag("foo", "/"));
+	tid.fields = { bar: "x", foo: "y" };
+	note.printMetaData(tid);
+	strictEqual($("#notemeta li").length, 2, "the two fields are printed");
+});
+
+test("print with hidden meta data", function() {
+	var tid = new tiddlyweb.Tiddler("xyz", new tiddlyweb.Bag("foo", "/"));
+	tid.fields = { bar: "x", foo: "y", _hidden: "foo" };
+	note.printMetaData(tid);
+	strictEqual($("#notemeta li").length, 2, "the two fields are printed, _hidden is ignored");
 });

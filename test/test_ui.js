@@ -306,6 +306,30 @@ test('name a note after existing note without connection, prevent overwriting', 
 	strictEqual($(".note_title", container).val(), "", "A new note can be started");
 });
 
+test('renaming to empty string', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	setConnectionStatus(false);
+	// set the title without internet
+	$(".note_title", container).val("bar").blur();
+	var tid1 = note.getNote();
+	strictEqual(tid1.fields._title_set, "yes", "the title has been set by the user");
+	$(".note_title", container).val("").blur();
+	strictEqual(note.getNote().fields._title_set, undefined, "the title has no longer been set by the user");
+	// trigger reload
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_set, undefined, "the title is no longer set");
+	strictEqual(tid.title != tid1.title, true, "the actual title is different");
+	strictEqual($(".note_title").val(), "");
+});
+
 test('saving a tiddler with unvalidated title', function() {
 	note = notes(container, {
 		host: "/",
@@ -391,3 +415,12 @@ test('deleting validated tiddler without internet connection', function() {
 	strictEqual($(".note_title", container).val(), "", "note title has now been reset");
 });
 
+test("retain title on slow validation", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "slow"
+	});
+	$(".note_title", container).val("slow").blur();
+	strictEqual(note.getNote().title, "slow",
+		"even though the validation takes time to happen if the user hits refresh we need to make sure the title is retained")
+});

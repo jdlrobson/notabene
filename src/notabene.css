@@ -20,6 +20,43 @@
 
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
+	margin: 0;
+}
+
+#backstage {
+	width: 100%;
+	padding: 0px;
+	background-color: black;
+	margin: 0px 0px 10px 0px;
+	height: 32px;
+	text-align: center;
+	background: -moz-linear-gradient(center bottom,#222 0%, #333 50%, #555 100%);
+	background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #222),color-stop(0.5, #333),color-stop(1, #555));
+	background: -moz-linear-gradient(center bottom,#222 0%, #333 50%, #555 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F5555, endColorstr=#F2222);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#F5555, endColorstr=#F2222)";
+}
+
+#backstage a {
+	color: white;
+	padding: 4px;
+	border-top: solid 1px #CCC;
+	display: block;
+	-webkit-border-radius: 5px;
+	border-left: solid 1px #444;
+	border-right: solid 1px #444;
+	border-bottom: solid 1px #333;
+	margin-right: 8px;
+}
+
+#backstage a:hover {
+	background-color: #FFA500;
+}
+
+#backstage li {
+	display: inline-block;
+	line-height: 18px;
+	margin-top: 2px;
 }
 
 h2,h3,h4,h5 {
@@ -42,12 +79,31 @@ a:hover {
 	min-height: 120px;
 	padding-top: 6px;
 	padding-left: 8px;
+	position: relative;
 }
 
+.siteicon {
+	background-image: url(/SiteIcon);
+	height: 96px;
+	width: 96px;
+	background-repeat: no-repeat;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	background-size: 96px 96px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+.takenotedashboard,
 .takenotecontainer {
 	width: 900px;
 }
 
+.takenotedashboard .header,
+.takenotedashboard .viewer,
 #note,
 .messageArea {
 	width: 500px;
@@ -59,10 +115,13 @@ a:hover {
 
 @media all and (max-width: 320px) {
 	body,
+	.takenotedashboard,
 	.takenotecontainer {
 		width: 300px;
 	}
 
+	.takenotedashboard .header,
+	.takenotedashboard .viewer,
 	#note,
 	.messageArea {
 		width: 300px;
@@ -75,10 +134,13 @@ a:hover {
 
 @media all and (min-width: 321px) and (max-width: 480px) {
 	body,
+	.takenotedashboard,
 	.takenotecontainer {
-		width: 460px;
+		width: 480px;
 	}
 
+	.takenotedashboard .header,
+	.takenotedashboard .viewer,
 	#note,
 	.messageArea {
 		width: 460px;
@@ -89,12 +151,14 @@ a:hover {
 	}
 }
 
+.takenotedashboard,
 .takenotecontainer {
 	margin: auto;
 	position: relative;
 	display: none;
 }
 
+.takenotedashboard,
 .takenotecontainer.ready {
 	display: block;
 }
@@ -104,6 +168,8 @@ a:hover {
 	border: solid 1px black;
 }
 
+.takenotedashboard .header,
+.takenotedashboard .viewer,
 #note,
 .messageArea {
 	margin: 0 auto;
@@ -126,6 +192,8 @@ a:hover {
 	color: red;
 }
 
+.takenotedashboard .header,
+.takenotedashboard .viewer,
 #note,
 .note_title {
 	background-color: white;

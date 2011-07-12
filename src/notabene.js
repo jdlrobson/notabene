@@ -1,7 +1,8 @@
 /***
 |''Name''|notabene|
-|''Version''|0.1.1|
+|''Version''|0.1.2|
 ***/
+var APP_PATH = "/takenote";
 
 // some helper functions
 var notabene = {
@@ -32,7 +33,6 @@ function notes(container, options) {
 	// configure notabene
 	options = options || {};
 	var path = options.pathname || window.location.pathname;
-	var app_path = "/" + path.split("/")[1];
 	var bagname = options.bag;
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
@@ -50,11 +50,33 @@ function notes(container, options) {
 
 	// retrieve last created note
 	store.retrieveCached();
-	var tiddlers = store().sort(function(a, b) {
+	var tiddlers = store().bag(bagname).sort(function(a, b) {
 		return a.fields.modified < b.fields.modified ? 1 : -1;
 	});
-	
+
 	var note, tempTitle;
+
+	// print the fields associated with the current note
+	function printMetaData(tiddler) {
+		// print meta information
+		var fieldInfo = {
+			created: { label: "created on" },
+			modified: { label: "last modified on" }
+		};
+		$("#notemeta").empty();
+		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
+		var list = $("<ul />").appendTo(container)[0];
+		for(var fieldname in tiddler.fields) {
+			if(fieldname.indexOf("_") !== 0) {
+				var val = tiddler.fields[fieldname];
+				if(val) {
+					var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
+					$("<li />").text(label + ": " + val).appendTo(list);
+				}
+			}
+		}
+	}
+
 	// load the current note into the display
 	function loadNote() {
 		$(".note_text").val(note.text);
@@ -65,25 +87,13 @@ function notes(container, options) {
 			$(".note_title").blur();
 		}
 
-		// print meta information
-		var fieldInfo = {
-			created: { label: "created on" },
-			modified: { label: "last modified on" }
-		};
-		$("#notemeta").empty();
-		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
-		var list = $("<ul />").appendTo(container)[0];
-		for(var fieldname in note.fields) {
-			if(true) {
-				var val = note.fields[fieldname];
-				if(val) {
-					var label = fieldInfo[fieldname] ? fieldInfo[fieldname].label : fieldname;
-					$("<li />").text(label + ": " + val).appendTo(list);
-				}
-			}
-		}
+		printMetaData(note);
 
 		notabene.watchPosition(function(data) {
+			// if note has existing geo data exit to prevent overwriting
+			if(note.fields['geo.lat'] && note.fields['geo.long']) {
+				return;
+			}
 			if(data) {
 				var coords = data.coords;
 				note.fields['geo.lat'] = String(coords.latitude);
@@ -92,9 +102,13 @@ function notes(container, options) {
 		});
 	}
 
+	function getTitle() {
+		return "untitled note " + Math.random();
+	}
+
 	// creates a new note with a randomly generated title and loads it into the ui
 	function newNote() {
-		tempTitle = "untitled note " + Math.random();
+		tempTitle = getTitle();
 		note = new tiddlyweb.Tiddler(tempTitle, bag);
 		note.fields = {};
 		note.fields.created = new Date();
@@ -116,8 +130,8 @@ function notes(container, options) {
 
 	// tell the user what the current state of the store is
 	function syncStatus() {
-		var area = $(".syncButton", container);
-		var unsynced = store().dirty();
+		var area = $(".syncButton");
+		var unsynced = store().bag(bagname).dirty();
 		$(area).text(unsynced.length);
 	}
 
@@ -140,7 +154,7 @@ function notes(container, options) {
 
 	// this initialises notabene, loading either the requested note, the last worked on note or a new note
 	function init() {
-		var syncButton = $(".syncButton", container);
+		var syncButton = $(".syncButton");
 		syncButton = syncButton.length > 0 ? syncButton :
 			$("<div class='syncButton' />").prependTo(container);
 		syncStatus();
@@ -195,6 +209,8 @@ function notes(container, options) {
 		callback = callback || function() {};
 		var tid = new tiddlyweb.Tiddler(title, bag);
 		note.fields._title_set = "yes";
+		renameNote(title);
+		storeNote();
 
 		var fixTitle = function() {
 			if(renaming) {
@@ -202,9 +218,7 @@ function notes(container, options) {
 				renaming = false;
 			}
 			$(".note_title").attr("disabled", true);
-			renameNote(title);
 			note.fields._title_validated = "yes";
-			storeNote();
 			callback(true);
 		};
 
@@ -215,14 +229,11 @@ function notes(container, options) {
 				renaming = true;
 				printMessage("A note with this name already exists. Please provide another name.",
 					"error");
-				renameNote(title);
 				callback(false);
 			}, function(xhr) {
 				if(xhr.status == 404) {
 					fixTitle();
 				} else {
-					renameNote(title);
-					storeNote();
 					callback(null);
 				}
 			});
@@ -234,6 +245,9 @@ function notes(container, options) {
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
 			validateTitle(val);
+		} else {
+			delete note.fields._title_set;
+			renameNote(getTitle());
 		}
 	});
 
@@ -249,8 +263,8 @@ function notes(container, options) {
 		$(".note_title").focus();
 
 		// reset url
-		if(path != app_path) { // only reset if we are on a special url e.g. /app/tiddler/foo
-			path = notabene.setUrl(app_path);
+		if(path != APP_PATH) { // only reset if we are on a special url e.g. /app/tiddler/foo
+			path = notabene.setUrl(APP_PATH);
 		}
 		newNote();
 		syncStatus();
@@ -317,10 +331,67 @@ function notes(container, options) {
 		newNote: newNote,
 		loadNote: loadNote,
 		store: store,
+		printMetaData: printMetaData,
 		getNote: function() {
 			return note;
 		},
 		tempTitle: tempTitle,
 		loadServerNote: loadServerNote
 	};
+}
+
+function dashboard(container, options) {
+	var terms = {};
+	// allow user to search for a tiddler
+	$(".findnote").autocomplete({
+		source: function(req, response) {
+			var term = req.term;
+			if(terms[term]) {
+				return response(terms[term]);
+			}
+			$.ajax({
+				url: "/bags/" + options.bag + "/tiddlers?select=text:" + term,
+				dataType: "json",
+				success: function(r) {
+					var data = [];
+					for(var i = 0; i < r.length; i++) {
+						var tiddler = r[i];
+						var bag = tiddler.bag;
+						var space = bag.split("_");
+						var spacename = space[0];
+						var spacetype = space[1];
+						var type = tiddler.type;
+						if(!type) { // only push "tiddlers" without a type
+							data.push({ value: tiddler.title, label: tiddler.title, bag: tiddler.bag })
+						}
+					}
+					terms[term] = data;
+					response(data);
+				}
+			});
+		},
+		select: function(event, ui) {
+			window.location = "/bags/" + ui.item.bag + "/tiddlers/" + ui.item.value;
+		}
+	});
+
+	// TODO: refactor - some of this code is a repeat of that in the notes function
+	var bagname = options.bag;
+	var host = options.host;
+	var bag = new tiddlyweb.Bag(bagname, host);
+	var store =  new tiddlyweb.Store();
+	store.retrieveCached();
+	var tiddlers = store().bag(bagname).sort(function(a, b) {
+		return a.title < b.title ? -1 : 1;
+	});
+	var listIncomplete = $("#incomplete")[0];
+	for(var i = 0; i < tiddlers.length; i++) {
+		var item = $("<li />").appendTo(listIncomplete)[0];
+		var title = tiddlers[i].title;
+		$("<a />").attr("href", APP_PATH + "/tiddler/" + title).
+			text(title).appendTo(item);
+	}
+	if(tiddlers.length === 0) {
+		$("<li />").text("None.").appendTo(listIncomplete)[0];
+	}
 }

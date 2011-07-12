@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html manifest="manifest.mf">
+	<head>
+		<title>takenote dashboard</title>
+		<link type="text/css" rel="stylesheet" href="/notabene.css" />
+		<link type="text/css" rel="stylesheet" href="/jquery-ui.css">
+		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
+		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
+	</head>
+	<body>
+		<ul id="backstage">
+			<li><a href="/dashboard">dashboard</a></li>
+			<li><a href="/takenote">takenote</a></li>
+		</ul>
+		<div class="takenotedashboard">
+			<div class="header">
+				<div class="siteheading">
+					<h1>Dashboard</h1>
+				</div>
+				<div class='siteicon'></div>
+			</div>
+			<div class="toolpanel viewer">
+				<h2>find note:</h2>
+				<input class="findnote" type="search" placeholder="type search term" />
+
+				<h2>Incomplete notes:</h2>
+				<ul id="incomplete"></ul>
+			</div>
+		</div>
+		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/require.js" type="text/javascript"></script>
+		<script src="/chrjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var space = window.location.hostname.split(".")[0];
+			$(document).ready(function() {
+				dashboard($(".takenotedashboard")[0], {
+					bag: space + "_public",
+					host: "/"
+				});
+			});
+		</script>
+	</body>
+</html>
