@@ -234,6 +234,33 @@ test("issue 23", function() {
 		"The title of the note is still blank as hasn't been set yet.")
 });
 
+test("issue 28", function() {
+	// note a tiddler already exists called bar
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	// kill internet
+	setConnectionStatus(false);
+	$(".note_title").val("bar").blur();
+	$(".note_text").val("evil!!!").keypress();
+
+	// confirm this note is ready
+	$("#newnote").click();
+
+	// attempt sync with internet
+	setConnectionStatus(true);
+
+	$(".syncButton").click();
+
+	// check a sync error is shown
+	strictEqual($(".messageArea", container).hasClass("error"),
+		true, "make sure the message reports that syncing was not possible.");
+
+	strictEqual($(".syncButton", container).text(), "1",
+		"Tiddler remains unsynced");
+});
+
 test('issue 27', function() {
 	// trigger a cache of a new tiddler into localStorage
 	note = notes(container, {
