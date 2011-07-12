@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="manifest.mf">
+<html manifest="/manifest.mf">
 	<head>
 		<title>takenote dashboard</title>
 		<link type="text/css" rel="stylesheet" href="/notabene.css" />
