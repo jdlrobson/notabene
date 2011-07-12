@@ -371,7 +371,7 @@ function dashboard(container, options) {
 	for(var i = 0; i < tiddlers.length; i++) {
 		var item = $("<li />").appendTo(listIncomplete)[0];
 		var title = tiddlers[i].title;
-		$("<a />").attr("href", APP_PATH + "/tiddler/" + title).
+		$("<a />").attr("href", APP_PATH + "#!/tiddler/" + title).
 			text(title).appendTo(item);
 	}
 	if(tiddlers.length === 0) {
