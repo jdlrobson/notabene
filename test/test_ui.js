@@ -14,14 +14,12 @@ function uisetup() {
 	};
 	_notabene = notabene;
 	notabene = {
-		watchPosition: NOP,
-		setUrl: function(url) {
-			return url;
-		}
+		watchPosition: NOP
 	};
 }
 
 function uiteardown() {
+	window.location.hash = "";
 	setConnectionStatus(true);
 	$(container).remove();
 	container = null;
@@ -35,10 +33,10 @@ function uiteardown() {
 module('notabene ui (deletion from existing tiddler)', {
 	setup: function() {
 		uisetup();
+		window.location.hash = "#!/tiddler/bar";
 		note = notes(container, {
 			host: "/",
-			bag: "bag",
-			pathname: "notabene/tiddler/bar"
+			bag: "bag"
 		});
 	},
 	teardown: uiteardown
@@ -126,10 +124,10 @@ module('notabene ui refresh', {
 test('issue 18', function() {
 	strictEqual(localStorage.length, 0, "at start there is nothing locally cached.");
 	// trigger a cache of a new tiddler into localStorage
+	window.location.hash = "#!/tiddler/Test";
 	note = notes(container, {
 		host: "/",
-		bag: "test_public",
-		pathname: "notabene/tiddler/Test"
+		bag: "test_public"
 	});
 	$(".note_text").val("foo").keyup();
 	strictEqual(localStorage.length, 1,
@@ -139,8 +137,7 @@ test('issue 18', function() {
 	$(".note_text,.note_title").val("");
 	note = notes(container, {
 		host: "/",
-		bag: "test_public",
-		pathname: "notabene/tiddler/Test"
+		bag: "test_public"
 	});
 	strictEqual($(".note_text").val(), "foo", "check the cached text has been loaded");
 });

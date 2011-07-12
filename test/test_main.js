@@ -1,4 +1,4 @@
-var container, note, currentUrl, _notabene;
+var container, note, _notabene;
 
 function setupNotabeneMock() {
 	_notabene = notabene;
@@ -125,19 +125,21 @@ test('test geo with existing geodata', function() {
 });
 
 
-module('notabene (as visited from /takenote/tiddler/bar)', {
+module('notabene (as visited from /takenote#!/tiddler/bar)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
 		$("<textarea class='note_text' />").appendTo(container);
-		note = notes(container, { pathname: "notabene/tiddler/bar",
+		window.location.hash = "#!/tiddler/bar";
+		note = notes(container, {
 			host: "/",
 			bag: "bag"
 		});
 	},
 	teardown: function() {
 		$(container).remove();
+		window.location.hash = "";
 		container = null;
 		note = null;
 		localStorage.clear();
@@ -152,7 +154,7 @@ test('startup behaviour (load a note on the server NOT in cache)', function() {
 		"The correct text is loaded from the server via ajax");
 });
 
-module('notabene (as visited from /takenote/tiddler/bar%20dum)', {
+module('notabene (as visited from /takenote#!/tiddler/bar%20dum)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
@@ -160,25 +162,22 @@ module('notabene (as visited from /takenote/tiddler/bar%20dum)', {
 		$("<textarea class='note_text' />").appendTo(container);
 		$("<a id='newnote'>save</a>").appendTo(container);
 		$("<div />").attr("id", "notemeta").appendTo(container);
-		currentUrl = false;
 		_notabene = notabene;
 		notabene = {
-			setUrl: function(url) {
-				currentUrl = url;
-			},
 			watchPosition: NOP
 		};
-		note = notes(container, { pathname: "/takenote/tiddler/bar%20dum",
+		window.location.hash = "#!/tiddler/bar%20dum";
+		note = notes(container, {
 			host: "/",
 			bag: "bag"
 		});
 	},
 	teardown: function() {
+		window.location.hash = "";
 		$(container).remove();
 		container = null;
 		note = null;
 		localStorage.clear();
-		currentUrl = false;
 		notabene = _notabene;
 	}
 });
@@ -194,7 +193,7 @@ test('saving a pre-existing note', function() {
 
 	strictEqual($(".note_title", container).attr("disabled"), undefined, "title no longer disabled");
 	strictEqual($(".note_title", container).val(), "", "empty input waiting for user input");
-	strictEqual(currentUrl, "/takenote");
+	strictEqual(window.location.hash, "", "the hash has been reset");
 });
 
 test("print meta data", function() {
