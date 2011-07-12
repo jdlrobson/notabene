@@ -109,6 +109,8 @@ test("test clicking sync button", function() {
 	$(".syncButton").click();
 	strictEqual($(".messageArea", container).text() != "", true, "a message is shown on a sync command");
 	strictEqual($(".syncButton", container).text(), "1", "syncing doesn't save the currently loaded note.");
+	strictEqual($(".messageArea", container).hasClass("warning"), true,
+		"make sure the user knows there is nothing to sync.");
 });
 
 test('test deletion (from server and localStorage)', function() {
