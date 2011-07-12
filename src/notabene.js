@@ -374,7 +374,7 @@ function dashboard(container, options) {
 			});
 		},
 		select: function(event, ui) {
-			window.location = "/bags/" + ui.item.bag + "/tiddlers/" + ui.item.value;
+			window.location = "/bags/" + ui.item.bag + "/tiddlers/" + encodeURIComponent(ui.item.value);
 		}
 	});
 
