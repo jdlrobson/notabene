@@ -52,6 +52,9 @@ test("sync without internet connection - issue 25", function() {
 	// kill internet
 	setConnectionStatus(false);
 
+	// confirm this note is ready
+	$("#newnote").click();
+
 	// attempt sync
 	$(".syncButton").click();
 
@@ -107,7 +110,7 @@ test("test clicking sync button", function() {
 
 	$(".syncButton").click();
 	strictEqual($(".messageArea", container).text() != "", true, "a message is shown on a sync command");
-	strictEqual($(".syncButton", container).text(), "0", "syncing pushes all tiddlers up to server");
+	strictEqual($(".syncButton", container).text(), "1", "syncing doesn't save the currently loaded note.");
 });
 
 test('test deletion (from server and localStorage)', function() {
