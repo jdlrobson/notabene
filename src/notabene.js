@@ -304,8 +304,7 @@ function notes(container, options) {
 			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
-	window.onpopstate = function(ev) {
-		path = window.location.pathname;
+	window.onhashchange = function(ev) {
 		init();
 	};
 	init();
