@@ -150,10 +150,21 @@ function notes(container, options) {
 			$("<div class='syncButton' />").prependTo(container);
 		syncStatus();
 		syncButton.click(function(ev) {
+			var error;
 			printMessage("Syncing to server");
-			store.save(function(tid) {
-				printMessage("Sync completed.", "", true);
+			var callback = function(tid) {
+				if(tid && !error) {
+					printMessage("Sync completed.", "", true);
+				} else {
+					error = true;
+					printMessage("Unable to fully sync at current time.", "warning");
+				}
 				syncStatus();
+			};
+			store().dirty().each(function(tid) {
+				if(tid.title !== note.title) {
+					store.save(tid, callback);
+				}
 			});
 		});
 		var currentUrl = decodeURIComponent(window.location.hash);

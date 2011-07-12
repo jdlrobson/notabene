@@ -42,10 +42,48 @@ module('notabene ui (deletion from existing tiddler)', {
 	teardown: uiteardown
 });
 
+test("sync without internet connection - issue 25", function() {
+	// the setup has loaded the note with the name bar
+	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
+	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.");
+
+	// kill internet
+	setConnectionStatus(false);
+
+	// confirm this note is ready
+	$("#newnote").click();
+
+	// attempt sync
+	$(".syncButton").click();
+
+	// check a sync error is shown
+	strictEqual($(".messageArea", container).hasClass("warning"),
+		true, "make sure the message reports that syncing was not possible.");
+
+	strictEqual($(".syncButton", container).text(), "1",
+		"Tiddler remains unsynced");
+});
+
 test('syncButton present', function() {
 	// the setup has loaded the note with the name bar
 	strictEqual($(".syncButton", container).length, 1, "a sync button shows up in the ui");
 	strictEqual($(".syncButton", container).text(), "1", "it says there is one tiddler requiring syncing.");
+
+	// start a new note
+	setConnectionStatus(false);
+	$("#newnote").click();
+
+	$(".note_title", container).val("bar dum").blur();
+	$(".note_text", container).val("text").keypress();
+	$(".syncButton", container).click();
+	strictEqual($(".syncButton", container).text(), "2", "it says there are now 2 tiddlers requiring syncing.");
+
+	setConnectionStatus(true);
+	$(".syncButton", container).click();
+	strictEqual($(".syncButton", container).text(), "1", "it says there is now only the current tiddler requiring syncing.");
+	var dirty = note.store().dirty();
+	strictEqual(dirty.length, 1, "1 tiddler marked as dirty");
+	strictEqual(dirty[0].title, "bar dum", "bar dum (the current note being worked on) is the only unsynced note");
 });
 
 test('syncButton and successful save', function() {
@@ -70,7 +108,7 @@ test("test clicking sync button", function() {
 
 	$(".syncButton").click();
 	strictEqual($(".messageArea", container).text() != "", true, "a message is shown on a sync command");
-	strictEqual($(".syncButton", container).text(), "0", "syncing pushes all tiddlers up to server");
+	strictEqual($(".syncButton", container).text(), "1", "syncing doesn't save the currently loaded note.");
 });
 
 test('test deletion (from server and localStorage)', function() {
