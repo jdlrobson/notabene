@@ -40,7 +40,7 @@ $.ajax = function(options) {
 		"/bags/bag/tiddlers/bar%20dum": function(options) {
 			if(options.type == "PUT") {
 				var tid = { title: "bar dum", fields: {}, text: "f" };
-				options.success("", 200, xhr);
+				return options.success("", 200, xhr);
 			}
 			options.error(xhr404);
 		},
