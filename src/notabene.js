@@ -161,11 +161,21 @@ function notes(container, options) {
 				}
 				syncStatus();
 			};
-			store().dirty().each(function(tid) {
+			var synced = 0;
+			var dirty = store().dirty();
+			dirty.each(function(tid) {
 				if(tid.title !== note.title) {
+					synced += 1;
 					store.save(tid, callback);
 				}
 			});
+			if(synced === 0) {
+				if(dirty.length > 0) {
+					printMessage("Finish your note '" + note.title + "' before syncing.", "warning");
+				} else {
+					printMessage("Nothing to sync.", "warning");
+				}
+			}
 		});
 		var currentUrl = decodeURIComponent(window.location.hash);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
