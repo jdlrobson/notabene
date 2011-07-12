@@ -161,7 +161,7 @@ function notes(container, options) {
 		syncButton.click(function(ev) {
 			var error;
 			printMessage("Syncing to server");
-			store.save(function(tid) {
+			var callback = function(tid) {
 				if(tid && !error) {
 					printMessage("Sync completed.", "", true);
 				} else {
@@ -169,6 +169,11 @@ function notes(container, options) {
 					printMessage("Unable to fully sync at current time.", "warning");
 				}
 				syncStatus();
+			};
+			store().dirty().each(function(tid) {
+				if(tid.title !== note.title) {
+					store.save(tid, callback);
+				}
 			});
 		});
 		var currentUrl = decodeURIComponent(path);
