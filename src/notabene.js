@@ -6,14 +6,6 @@ var APP_PATH = "/takenote";
 
 // some helper functions
 var notabene = {
-	setUrl: function(url) {
-		if(window.history && history.pushState) {
-			history.pushState(null, null, url);
-		} else { // history not supported use the old fashion way
-			window.location = url;
-		}
-		return url;
-	},
 	defaultFields: {},
 	watchPosition: function(handler) {
 		if(!!navigator.geolocation) {
@@ -257,9 +249,7 @@ function notes(container, options) {
 		$(".note_title").focus();
 
 		// reset url
-		if(path != APP_PATH) { // only reset if we are on a special url e.g. /app/tiddler/foo
-			path = notabene.setUrl(APP_PATH);
-		}
+		window.location.hash = "";
 		newNote();
 		syncStatus();
 	}
