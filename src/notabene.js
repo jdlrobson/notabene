@@ -375,7 +375,7 @@ function dashboard(container, options) {
 				return response(terms[term]);
 			}
 			$.ajax({
-				url: "/bags/" + options.bag + "/tiddlers?select=text:" + term,
+				url: "/search?q=bag:" + options.bag + " \"" + term + " \"",
 				dataType: "json",
 				success: function(r) {
 					var data = [];
