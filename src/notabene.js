@@ -150,32 +150,44 @@ function notes(container, options) {
 			$("<div class='syncButton' />").prependTo(container);
 		syncStatus();
 		syncButton.click(function(ev) {
-			var error;
+			var error, synced = 0, invalid = [];
+			var dirty = store().dirty();
+
 			printMessage("Syncing to server");
-			var callback = function(tid) {
-				if(tid && !error) {
-					printMessage("Sync completed.", "", true);
+			var giveFeedback = function(tid) {
+				if(synced === 0) {
+					if(dirty.length > 0) {
+						printMessage("Finish your note '" + note.title + "' before syncing.", "warning");
+					} else {
+						printMessage("Nothing to sync.", "warning");
+					}
 				} else {
-					error = true;
-					printMessage("Unable to fully sync at current time.", "warning");
+					if(invalid.length > 0) {
+						printMessage("Sync failed. Please rename some of your notes.", "error");
+					} else if(tid && !error) {
+						printMessage("Sync completed.", "", true);
+					} else {
+						error = true;
+						printMessage("Unable to fully sync at current time.", "warning");
+					}
 				}
 				syncStatus();
 			};
-			var synced = 0;
-			var dirty = store().dirty();
 			dirty.each(function(tid) {
 				if(tid.title !== note.title) {
 					synced += 1;
-					store.save(tid, callback);
+					validateNote(tid, function(newtid, isValid) {
+						if(isValid) {
+							store.save(newtid, giveFeedback);
+						} else {
+							invalid.push(newtid);
+							giveFeedback(false);
+						}
+					});
+				} else {
+					giveFeedback(false);
 				}
 			});
-			if(synced === 0) {
-				if(dirty.length > 0) {
-					printMessage("Finish your note '" + note.title + "' before syncing.", "warning");
-				} else {
-					printMessage("Nothing to sync.", "warning");
-				}
-			}
 		});
 		var currentUrl = decodeURIComponent(window.location.hash);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
