@@ -102,6 +102,16 @@ a:hover {
 	width: 900px;
 }
 
+.takenotedashboard .footer {
+	text-align: center;
+	font-style: italic;
+	font-size: 0.8em;
+	color: gray;
+	font-weight: bold;
+	border-top: solid 1px #CCC;
+}
+
+.takenotedashboard .footer,
 .takenotedashboard .header,
 .takenotedashboard .viewer,
 #note,
@@ -120,6 +130,7 @@ a:hover {
 		width: 300px;
 	}
 
+	.takenotedashboard .footer,
 	.takenotedashboard .header,
 	.takenotedashboard .viewer,
 	#note,
@@ -139,6 +150,7 @@ a:hover {
 		width: 480px;
 	}
 
+	.takenotedashboard .footer,
 	.takenotedashboard .header,
 	.takenotedashboard .viewer,
 	#note,
@@ -168,6 +180,7 @@ a:hover {
 	border: solid 1px black;
 }
 
+.takenotedashboard .footer,
 .takenotedashboard .header,
 .takenotedashboard .viewer,
 #note,
