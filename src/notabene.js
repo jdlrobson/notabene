@@ -210,10 +210,27 @@ function notes(container, options) {
 
 	/* the callback is passed true if the title is unique on the server,
 	false if the title already exists and null if it is not known */
+	function validateNote(tiddler, callback) {
+		var tid = new tiddlyweb.Tiddler(tiddler.title, bag);
+		if(tiddler.fields._title_validated) {
+			callback(tiddler, true);
+		} else {
+			tid.get(function() {
+				callback(tiddler, false);
+			}, function(xhr) {
+				if(xhr.status == 404) {
+					tiddler.fields._title_validated = "yes";
+					callback(tiddler, true);
+				} else {
+					callback(tiddler, null);
+				}
+			});
+		}
+	}
+
 	var renaming;
-	function validateTitle(title, callback) {
+	function validateCurrentNoteTitle(title, callback) {
 		callback = callback || function() {};
-		var tid = new tiddlyweb.Tiddler(title, bag);
 		note.fields._title_set = "yes";
 		renameNote(title);
 		storeNote();
@@ -224,33 +241,26 @@ function notes(container, options) {
 				renaming = false;
 			}
 			$(".note_title").attr("disabled", true);
-			note.fields._title_validated = "yes";
-			callback(true);
 		};
 
-		if(note.fields._title_validated) {
-			fixTitle();
-		} else {
-			tid.get(function() {
+		validateNote(note, function(tiddler, valid) {
+			//note = tiddler;
+			if(valid) {
+				fixTitle();
+			} else if(valid === false) {
 				renaming = true;
 				printMessage("A note with this name already exists. Please provide another name.",
 					"error");
-				callback(false);
-			}, function(xhr) {
-				if(xhr.status == 404) {
-					fixTitle();
-				} else {
-					callback(null);
-				}
-			});
-		}
+			}
+			callback(valid);
+		});
 	}
 
 	// on a blur event fix the title.
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
-			validateTitle(val);
+			validateCurrentNoteTitle(val);
 		} else {
 			delete note.fields._title_set;
 			renameNote(getTitle());
@@ -278,7 +288,7 @@ function notes(container, options) {
 	$("#newnote").click(function(ev) {
 		printMessage("Saving note...");
 
-		validateTitle(note.title, function(valid) {
+		validateCurrentNoteTitle(note.title, function(valid) {
 			if(valid) {
 				store.save(note, function(tid, options) {
 					if(tid) {
