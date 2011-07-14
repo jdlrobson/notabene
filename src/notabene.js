@@ -395,6 +395,26 @@ function backstage() {
 function dashboard(container, options) {
 	backstage();
 
+	var list = $("#recentnotes");
+
+	if(list.length > 0) {
+		var item = localStorage.getItem("takenote-recent-" + options.bag);
+		var recent = item ? $.parseJSON(item) : [];
+		function printRecentItems(recent) {
+			if(recent.length === 0) {
+				$("<li />").text("No recently created notes.").appendTo(list)[0];
+			}
+			for(var i = 0; i < recent.length; i++) {
+				var li = $("<li />").appendTo(list)[0];
+				var name = recent[i];
+				$("<a />").attr("href",
+					"/bags/" + options.bag + "/tiddlers/" + encodeURIComponent(name)).
+					text(name).appendTo(li);
+			}
+		}
+		printRecentItems(recent.sort());
+	}
+
 	var terms = {};
 	// allow user to search for a tiddler
 	$(".findnote").autocomplete({

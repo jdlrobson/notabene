@@ -60,6 +60,7 @@ test('load incomplete notes (empty store)', function() {
 
 test('print recent notes (none)', function() {
 	strictEqual($("#recentnotes li").length, 1, "one item listed");
-	strictEqual($("#recentnotes li").text(), "None.", "the user can see there is none.");
+	strictEqual($("#recentnotes li").text(), "No recently created notes.",
+		"the user can see there is none.");
 	strictEqual($("#recentnotes li a").length, 0, "no links");
 });
