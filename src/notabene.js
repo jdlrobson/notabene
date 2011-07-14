@@ -1,6 +1,7 @@
 /***
 |''Name''|notabene|
-|''Version''|0.1.9|
+|''Version''|0.1.910|
+|''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 ***/
 var APP_PATH = "/takenote";
 
@@ -321,6 +322,10 @@ function notes(container, options) {
 		} else {
 			delete note.fields._title_set;
 			renameNote(getTitle());
+		}
+	}).keydown(function(ev) {
+		if(ev.keyCode === 13) {
+			ev.preventDefault();
 		}
 	});
 
