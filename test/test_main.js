@@ -10,6 +10,30 @@ function setupNotabeneMock() {
 	};
 }
 
+module('helper functions', {});
+
+test("addRecentChange", function() {
+	notabene.addRecentChange("test","foo"); // [foo]
+	notabene.addRecentChange("test","bar"); // [foo,bar]
+	notabene.addRecentChange("test","dum"); // [foo,bar,dum]
+	notabene.addRecentChange("test","hello"); // [foo,bar,dum,hello]
+	notabene.addRecentChange("test","goodbye"); // [foo,bar,dum,hello,goodbye]
+	notabene.addRecentChange("test","foo"); // add duplicate [bar,dum,hello,goodbye,foo]
+	notabene.addRecentChange("test","thanks"); // [dum,hello,goodbye,foo,thanks]
+	notabene.addRecentChange("test","bar"); // add duplicate [hello,goodbye,foo,thanks,bar]
+	var recent = notabene.getRecentChanges("test");
+	strictEqual(recent.length, 5, "there should be 5 recent changes");
+	/* recent changes should always give a list of the 5 most recently changed notes.
+	The first will be the oldest modified, the last the most recently saved.
+	There should be no duplicates.
+	*/
+	strictEqual(recent[0], "hello", "the first note in this list should be this one (see test comments)");
+	strictEqual(recent[1], "goodbye", "check list order");
+	strictEqual(recent[2], "foo", "check list order");
+	strictEqual(recent[3], "thanks", "check list order");
+	strictEqual(recent[4], "bar", "check list order");
+});
+
 module('notabene', {
 	setup: function() {
 		container = $("<div />").appendTo(document.body)[0];
