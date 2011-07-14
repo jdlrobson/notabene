@@ -21,9 +21,10 @@
 				<div class='siteicon'></div>
 			</div>
 			<div class="toolpanel viewer">
-				<h2>find note:</h2>
-				<input class="findnote" type="search" placeholder="type search term" />
-
+				<div class='requiresConnection'>
+					<h2>find note:</h2>
+					<input class="findnote" type="search" placeholder="type search term" />
+				</div>
 				<h2>Incomplete notes:</h2>
 				<ul id="incomplete"></ul>
 			</div>

@@ -353,3 +353,11 @@ a:hover {
 	display: block;
 	background-color: green;
 }
+
+.requiresConnection {
+	display: none;
+}
+
+.online .requiresConnection {
+	display: block;
+}
