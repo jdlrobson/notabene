@@ -27,8 +27,16 @@ var notabene = {
 	},
 	addRecentChange: function(bag, title) {
 		var recent = notabene.getRecentChanges(bag);
-		recent.push(title);
-		localStorage.setItem("takenote-recent-" + bag, $.toJSON(recent));
+		var newrecent = [];
+		for(var i = 0; i < recent.length; i++) {
+			if(recent[i] !== title) {
+				newrecent.push(recent[i]);
+			}
+		}
+		newrecent.push(title);
+		newrecent = newrecent.length > 5 ?
+			newrecent.slice(newrecent.length - 5) : newrecent;
+		localStorage.setItem("takenote-recent-" + bag, $.toJSON(newrecent));
 	}
 };
 
