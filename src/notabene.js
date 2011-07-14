@@ -22,6 +22,8 @@ var notabene = {
 };
 
 function notes(container, options) {
+	backstage();
+
 	// configure notabene
 	options = options || {};
 	var bagname = options.bag;
@@ -365,7 +367,34 @@ function notes(container, options) {
 	};
 }
 
+function backstage() {
+	var internet, _checking;
+	function checkConnection() {
+		if(_checking) {
+			return;
+		} else {
+			_checking = true;
+			$.ajax({ cache: false, url: "/status",
+				success: function() {
+					internet = true;
+					_checking = false;
+					$("body").addClass("online");
+				},
+				error: function() {
+					internet = false;
+					_checking = false;
+					$("body").removeClass("online");
+				}
+			});
+		}
+	}
+	checkConnection();
+	window.setInterval(checkConnection, 10000);
+}
+
 function dashboard(container, options) {
+	backstage();
+
 	var terms = {};
 	// allow user to search for a tiddler
 	$(".findnote").autocomplete({
