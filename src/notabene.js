@@ -1,6 +1,6 @@
 /***
 |''Name''|notabene|
-|''Version''|0.1.2|
+|''Version''|0.1.9|
 ***/
 var APP_PATH = "/takenote";
 
