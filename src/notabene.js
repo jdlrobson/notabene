@@ -40,6 +40,25 @@ var notabene = {
 	}
 };
 
+function autoResize(el) {
+	var resize = function(ev) {
+		el = ev.target;
+		var div = $('<div class="note_title" />').hide().
+			css({ "word-wrap": "break-word" }).appendTo($(el).parent())[0];
+		var value = $(el).val() || "";
+		var lines = value.split("\n");
+		for(var i = 0; i < lines.length; i++) {
+			$("<span />").text(lines[i]).appendTo(div);
+			$("<br />").appendTo(div);
+		}
+		var h = $(div).height() + 50;
+		$(ev.target).height(h);
+		$(div).remove();
+	};
+	$(el).focus(resize).keyup(resize).blur(resize);
+	$(el).focus();
+}
+
 function notes(container, options) {
 	backstage();
 
@@ -98,7 +117,9 @@ function notes(container, options) {
 		if(note.fields._title_validated) {
 			$(".note_title").blur();
 		}
-
+		$(document).ready(function() {
+			autoResize($("textarea.note_title")[0]);
+		});
 		printMetaData(note);
 
 		notabene.watchPosition(function(data) {

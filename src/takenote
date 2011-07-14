@@ -20,7 +20,7 @@
 					<a id="deletenote" title="delete this note">delete</a>
 					<a id="newnote" title="complete this note">complete</a>
 				</div>
-				<input type="text" class="note_title" placeholder="Note Title" />
+				<textarea class="note_title" placeholder="Note Title"></textarea>
 				<div id="notebody">
 					<span class="notedate"></span> 
 					<textarea class="note_text" placeholder="Write here..."></textarea>
