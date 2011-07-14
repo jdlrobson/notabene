@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Install TakeNote!</title>
+		<link type="text/css" rel="stylesheet" href="/notabene.css" />
+		<link type="text/css" rel="stylesheet" href="/jquery-ui.css">
+		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
+		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
+		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/chrjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/ts.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="takenotecontainer">
+			<div class='messageArea'></div>
+			<div id="note">
+				configuring... please wait.
+			</div>
+		</div>
+		<script type="text/javascript">
+		var space = window.location.host.split(".")[0];
+		var tid = new tiddlyweb.Tiddler("ServerSettings",
+			new tiddlyweb.Bag(space + "_public", "/"));
+		tid.text = "index: dashboard\n";
+		tid.type = "text/config";
+		tid.tags = ["excludeLists"];
+		tid.fields = {
+			"server.content-type": "text/config"
+		}
+		tid.put(function() {
+			window.location = window.location.protocol + "//" + window.location.host;
+		}, function() {});
+	</script>
+	</body>
+</html>
