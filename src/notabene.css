@@ -341,3 +341,15 @@ a:hover {
 #deletenote:hover {
 	opacity: 1;
 }
+
+.connectionStatus.a:hover,
+.connectionStatus {
+	display: block;
+	background-color: red;
+}
+
+.online .connectionStatus.a:hover,
+.online .connectionStatus {
+	display: block;
+	background-color: green;
+}
