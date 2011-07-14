@@ -5,7 +5,8 @@ function setupNotabeneMock() {
 	notabene = {
 		watchPosition: function(handler) {
 			handler({ coords: { latitude: 10, longitude: 20 } });
-		}
+		},
+		addRecentChange: function() {}
 	};
 }
 
@@ -162,10 +163,7 @@ module('notabene (as visited from /takenote#!/tiddler/bar%20dum)', {
 		$("<textarea class='note_text' />").appendTo(container);
 		$("<a id='newnote'>save</a>").appendTo(container);
 		$("<div />").attr("id", "notemeta").appendTo(container);
-		_notabene = notabene;
-		notabene = {
-			watchPosition: NOP
-		};
+		setupNotabeneMock();
 		window.location.hash = "#!/tiddler/bar%20dum";
 		note = notes(container, {
 			host: "/",

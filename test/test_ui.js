@@ -14,7 +14,9 @@ function uisetup() {
 	};
 	_notabene = notabene;
 	notabene = {
-		watchPosition: NOP
+		watchPosition: NOP,
+		addRecentChange: notabene.addRecentChange,
+		getRecentChanges: notabene.getRecentChanges
 	};
 }
 
@@ -80,9 +82,7 @@ test('syncButton present', function() {
 
 	setConnectionStatus(true);
 	$(".syncButton", container).click();
-	var recent = localStorage.getItem("takenote-recent-bag");
-	strictEqual(recent !== undefined, true, "The note has been recorded as recently created");
-	var recentlist = $.parseJSON(recent);
+	var recentlist = notabene.getRecentChanges("bag");
 	strictEqual(recentlist.length, 1, "1 recently created note recorded");
 	strictEqual(recentlist[0], "bar", "check the title of bar is recorded properly");
 
@@ -101,9 +101,7 @@ test('syncButton and successful save', function() {
 	$("#newnote").click();
 	strictEqual($(".syncButton", container).text(), "0",
 		"a successful save will result in the number of notes to be synced to be 0");
-	var recent = localStorage.getItem("takenote-recent-bag");
-	strictEqual(recent !== undefined, "The note has been recorded as recently created");
-	var recentlist = $.parseJSON(recent);
+	var recentlist = notabene.getRecentChanges("bag");
 	strictEqual(recentlist.length, 1, "1 recently created note recorded");
 	strictEqual(recentlist[0], "bar", "check the title of bar is recorded properly");
 	// edit text
