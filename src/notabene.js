@@ -18,6 +18,17 @@ var notabene = {
 		} catch(e) {
 			return false;
 		}
+	},
+	getRecentChanges: function(bag) {
+		var recentLocalStorageId = "takenote-recent-" + bag;
+		var recent = localStorage.getItem(recentLocalStorageId);
+		recent = recent ? $.parseJSON(recent) : [];
+		return recent;
+	},
+	addRecentChange: function(bag, title) {
+		var recent = notabene.getRecentChanges(bag);
+		recent.push(title);
+		localStorage.setItem("takenote-recent-" + bag, $.toJSON(recent));
 	}
 };
 
@@ -398,8 +409,7 @@ function dashboard(container, options) {
 	var list = $("#recentnotes");
 
 	if(list.length > 0) {
-		var item = localStorage.getItem("takenote-recent-" + options.bag);
-		var recent = item ? $.parseJSON(item) : [];
+		var recent = notabene.getRecentChanges(options.bag);
 		function printRecentItems(recent) {
 			if(recent.length === 0) {
 				$("<li />").text("No recently created notes.").appendTo(list)[0];
