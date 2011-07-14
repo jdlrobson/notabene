@@ -123,11 +123,12 @@ a:hover {
 	width: 380px;
 }
 
-@media all and (max-width: 320px) {
+/* landscape mode */
+@media all and (min-width: 480px) and (max-width: 800px) {
 	body,
 	.takenotedashboard,
 	.takenotecontainer {
-		width: 300px;
+		width: 800px;
 	}
 
 	.takenotedashboard .footer,
@@ -135,14 +136,15 @@ a:hover {
 	.takenotedashboard .viewer,
 	#note,
 	.messageArea {
-		width: 300px;
+		width: 780px;
 	}
 
 	.note_title {
-		width: 180px; /* 300 - 120 */
+		width: 680px;
 	}
 }
 
+/* portrait mode */
 @media all and (min-width: 321px) and (max-width: 480px) {
 	body,
 	.takenotedashboard,
