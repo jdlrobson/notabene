@@ -37,7 +37,8 @@
 		<div class="takenotedashboard">
 			<div class="header">
 				<div class="siteheading">
-					<h1>TakeNote - notes online, notes offline</h1>
+					<h1>TakeNote</h1>
+					<h2>notes online, notes offline</h2>
 				</div>
 				<div class='siteicon'></div>
 			</div>
