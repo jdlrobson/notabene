@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Install TakeNote!</title>
+		<link type="text/css" rel="stylesheet" href="/notabene.css" />
+		<link type="text/css" rel="stylesheet" href="/jquery-ui.css">
+		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
+		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
+		<style type="text/css">
+			.ts-loggedin .newOnly {
+				display: none;
+			}
+			#register-takenote input {
+				border: 1px solid #CCC;
+				border-bottom-left-radius: 5px 5px;
+				border-bottom-right-radius: 5px 5px;
+				border-top-left-radius: 5px 5px;
+				border-top-right-radius: 5px 5px;
+				font-size: 18px;
+				height: 24px;
+				width: 200px;
+				background-color: whiteSmoke;
+			}
+			#register-takenote input:hover {
+				background-color: #EBEBEB;
+			}
+			.registerCol {
+				text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="https://github.com/jdlrobson/notabene">
+			<img style="position: absolute; top: 0; left: 0; border: 0;"
+	src="https://gs1.wac.edgecastcdn.net/80460E/assets/img/ce742187c818c67d98af16f96ed21c00160c234a/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67"
+				alt="Fork me on GitHub"></a>
+		<div class="takenotedashboard">
+			<div class="header">
+				<div class="siteheading">
+					<h1>TakeNote - notes online, notes offline</h1>
+				</div>
+				<div class='siteicon'></div>
+			</div>
+			<div class="toolpanel viewer">
+				<p>
+					Taking notes is something you do every day. From your latest meeting; about your upcoming holiday; on your latest lecture; listing things you need to do, things you need to buy, people you need to see.
+				Notes all the time. So much to remember.
+				</p>
+				<p>
+				Paper gets lost and gets stale. Paper doesn't get the attention and review notes crave. Paper doesn't have links. Paper isn't on the web. Share them, get feedback, make them better, make them useful.
+				</p>
+				<h2>Existing users</h2>
+				<div><form class="registration"></form></div>
+				<p><a href="http://tiddlyspace.com">Existing users</a> should <a href="http://docs.tiddlyspace.com/How%20do%20I%20include%2Fexclude%20spaces%3F">include</a> the takenote space into the space they would like to use takenote.</p>
+				<div class='newOnly'>
+					<h2>New users</h2>
+					Need more convincing? <a href="/takenote">give it a spin!</a>. Any notes you create cannot be saved on the web.
+					Itching to revolutionise your notes? Simply sign up below:
+					<form id="register-takenote">
+						<table>
+							<tr>
+								<td>store my notes in</td>
+								<td>
+									<input type="text" name="username" placeholder="<space>" />.tiddlyspace.com
+								</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input type="password" name="password" placeholder="enter password" /></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input type="password" name="password_confirm" placeholder="enter password again" /></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="registerCol">
+									<input type='submit' value='register' />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+		</div>
+		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/chrjs.js" type="text/javascript" charset="utf-8"></script>
+		<script type='text/javascript' src='/bags/tiddlyspace/tiddlers/chrjs.space'></script>
+		<script type='text/javascript' src='/bags/tiddlyspace/tiddlers/chrjs.users'></script>
+		<script src="/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/ts.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/TiddlySpaceCSRF" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			ts.init(function() {
+				ts.forms.register($("#register-takenote")[0], {
+					success: function(space) {
+						$.ajax({ 
+							url: "/spaces/" + space.name,
+							type: "POST",
+							contentType: "application/json",
+							data: jQuery.toJSON({
+								"subscriptions": ["takenote", "takenote-theme"]
+							}),
+							success: function() {
+								window.location = ts.getHost(space.name) + "/config";
+							}
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
