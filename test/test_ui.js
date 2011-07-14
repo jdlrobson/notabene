@@ -80,6 +80,12 @@ test('syncButton present', function() {
 
 	setConnectionStatus(true);
 	$(".syncButton", container).click();
+	var recent = localStorage.getItem("takenote-recent-bag");
+	strictEqual(recent !== undefined, true, "The note has been recorded as recently created");
+	var recentlist = $.parseJSON(recent);
+	strictEqual(recentlist.length, 1, "1 recently created note recorded");
+	strictEqual(recentlist[0], "bar", "check the title of bar is recorded properly");
+
 	strictEqual($(".syncButton", container).text(), "1", "it says there is now only the current tiddler requiring syncing.");
 	var dirty = note.store().dirty();
 	strictEqual(dirty.length, 1, "1 tiddler marked as dirty");
@@ -95,7 +101,11 @@ test('syncButton and successful save', function() {
 	$("#newnote").click();
 	strictEqual($(".syncButton", container).text(), "0",
 		"a successful save will result in the number of notes to be synced to be 0");
-	
+	var recent = localStorage.getItem("takenote-recent-bag");
+	strictEqual(recent !== undefined, "The note has been recorded as recently created");
+	var recentlist = $.parseJSON(recent);
+	strictEqual(recentlist.length, 1, "1 recently created note recorded");
+	strictEqual(recentlist[0], "bar", "check the title of bar is recorded properly");
 	// edit text
 	$(".note_text").keyup();
 	strictEqual($(".syncButton", container).text(), "1",
