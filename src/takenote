@@ -28,6 +28,9 @@
 				<div id="notemeta"></div>
 			</div>
 		</div>
+		<noscript>
+			Takenote requires javascript to work correctly. Sorry!
+		</noscript>
 		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/chrjs.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
