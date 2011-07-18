@@ -4,6 +4,7 @@
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 ***/
 var APP_PATH = "/takenote";
+var RESERVED_TITLES = ["takenote"];
 
 // some helper functions
 var notabene = {
@@ -270,7 +271,9 @@ function notes(container, options) {
 	false if the title already exists and null if it is not known */
 	function validateNote(tiddler, callback) {
 		var tid = new tiddlyweb.Tiddler(tiddler.title, bag);
-		if(tiddler.fields._title_validated) {
+		if(RESERVED_TITLES.indexOf(tiddler.title) > -1) {
+			callback(tiddler, false);
+		} else if(tiddler.fields._title_validated) {
 			callback(tiddler, true);
 		} else {
 			tid.get(function() {
