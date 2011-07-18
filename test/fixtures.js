@@ -55,6 +55,9 @@ $.ajax = function(options) {
 		},
 		"/bags/test_public/tiddlers/Test2": function(options) {
 			options.error(xhr404);
+		},
+		"/bags/bag/tiddlers/takenote": function(options) {
+			options.error(xhr404);
 		}
 	};
 	if(!internet) {

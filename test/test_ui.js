@@ -461,3 +461,17 @@ test("retain title on slow validation", function() {
 	strictEqual(note.getNote().title, "slow",
 		"even though the validation takes time to happen if the user hits refresh we need to make sure the title is retained")
 });
+
+test('issue 38', function() {
+	// trigger a cache of a new tiddler into localStorage
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+
+	// set the title
+	$(".note_title", container).val("takenote").blur();
+
+	var tid = note.getNote();
+	strictEqual(tid.fields._title_validated, undefined, "The title should not be validated.");
+});
