@@ -272,7 +272,7 @@ function notes(container, options) {
 	function validateNote(tiddler, callback) {
 		var tid = new tiddlyweb.Tiddler(tiddler.title, bag);
 		if(RESERVED_TITLES.indexOf(tiddler.title) > -1) {
-			callback(tiddler, false);
+			callback(tiddler, false, true);
 		} else if(tiddler.fields._title_validated) {
 			callback(tiddler, true);
 		} else {
@@ -304,14 +304,15 @@ function notes(container, options) {
 			$(".note_title").attr("disabled", true);
 		};
 
-		validateNote(note, function(tiddler, valid) {
+		validateNote(note, function(tiddler, valid, reserved) {
 			//note = tiddler;
 			if(valid) {
 				fixTitle();
 			} else if(valid === false) {
 				renaming = true;
-				printMessage("A note with this name already exists. Please provide another name.",
-					"error");
+				var msg = reserved ? "This name is reserved and cannot be used. Please provide another."
+					: "A note with this name already exists. Please provide another name."
+				printMessage(msg, "error");
 			}
 			callback(valid);
 		});
