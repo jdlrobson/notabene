@@ -407,6 +407,7 @@ function notes(container, options) {
 		loadNote: loadNote,
 		store: store,
 		printMetaData: printMetaData,
+		validateCurrentNoteTitle: validateCurrentNoteTitle,
 		getNote: function() {
 			return note;
 		},
