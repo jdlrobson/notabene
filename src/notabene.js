@@ -117,7 +117,7 @@ function notes(container, options) {
 			$(".note_title").val(note.title);
 		}
 		if(note.fields._title_validated) {
-			$(".note_title").blur();
+			$(".note_title").blur().attr("disabled", true);
 		}
 		$(document).ready(function() {
 			autoResize($("textarea.note_title")[0]);
