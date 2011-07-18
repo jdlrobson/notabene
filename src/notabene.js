@@ -292,10 +292,6 @@ function notes(container, options) {
 	var renaming;
 	function validateCurrentNoteTitle(title, callback) {
 		callback = callback || function() {};
-		note.fields._title_set = "yes";
-		renameNote(title);
-		storeNote();
-
 		var fixTitle = function() {
 			if(renaming) {
 				printMessage("Note title set.", "", true);
@@ -322,7 +318,9 @@ function notes(container, options) {
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
 		if($.trim(val).length > 0) {
-			validateCurrentNoteTitle(val);
+			note.fields._title_set = "yes";
+			renameNote(val);
+			storeNote();
 		} else {
 			delete note.fields._title_set;
 			renameNote(getTitle());
