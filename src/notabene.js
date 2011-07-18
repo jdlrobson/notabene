@@ -108,6 +108,17 @@ function notes(container, options) {
 				}
 			}
 		}
+		var tags = tiddler.tags || [];
+		if(tags.length > 0) {
+			var tagArea = $("<li />").appendTo(list);
+			$("<span />").text("tags : ").appendTo(tagArea);
+			for(var i = 0; i < tags.length; i++) {
+				$("<span />").text(tags[i]).appendTo(tagArea);
+				if(i < tags.length - 1) {
+					$("<span />").text(", ").appendTo(tagArea);
+				}
+			}
+		}
 	}
 
 	// load the current note into the display
@@ -333,10 +344,48 @@ function notes(container, options) {
 		}
 	});
 
+	function addTagToCurrentNote(tag) {
+		var tags = note.tags || [];
+		tag = tag.toLowerCase();
+		if(tags.indexOf(tag) === -1) {
+			tags.push(tag);
+		}
+		note.tags = tags;
+		printMetaData(note);
+	}
 	// every key press triggers a 'local' save
+	var tag = [];
 	$(".note_text").keyup(function(ev) {
+		var key = ev.keyCode;
+		if(key === 8) {
+			tag.pop();
+		} else if(key === 32 || key === 13) { // space or new line terminates tag
+			if(tag.length > 0) {
+				addTagToCurrentNote(tag.slice(1).join(""));
+			}
+			tag = [];
+		} else if(key === 51) { // hash symbol
+			if(tag.length > 0) {
+				addTagToCurrentNote(tag.slice(1).join(""));
+				tag = ["#"];
+			} else {
+				tag = ["#"];
+			}
+		} else if(tag.length > 0) {
+			tag.push(String.fromCharCode(key));
+		}
+		console.log("tag state", key, tag);
 		note.text = $(ev.target).val();
 		storeNote();
+	}).blur(function(ev) {
+		if(tag.length > 0) {
+			addTagToCurrentNote(tag.slice(1).join(""));
+		}
+		tag = [];
+	}).click(function(ev) {
+		tag = [];
+	}).focus(function(ev) {
+		tag = [];
 	});
 
 	function resetNote() {
