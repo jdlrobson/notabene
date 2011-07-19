@@ -464,10 +464,26 @@ function dashboard(container, options) {
 		printRecentItems(recent.sort());
 	}
 
+	var throbspeed = 500;
+	var throb = window.setInterval(function() {
+		var searching = $(".searching");
+		if(searching.length > 0) {
+			var opacity = searching.css("opacity");
+			opacity = opacity ? parseFloat(opacity, 10) : 1;
+			if(opacity > 0.7) {
+				searching.animate({ opacity: 0.6 }, throbspeed)
+			} else {
+				searching.animate({ opacity: 1 }, throbspeed)
+			}
+		}
+	}, throbspeed);
+
 	var terms = {};
 	// allow user to search for a tiddler
 	$(".findnote").autocomplete({
 		source: function(req, response) {
+			var el = $(this.element);
+			el.addClass("searching");
 			var term = req.term;
 			if(terms[term]) {
 				return response(terms[term]);
@@ -476,6 +492,7 @@ function dashboard(container, options) {
 				url: "/search?q=bag:" + options.bag + " \"" + term + " \"",
 				dataType: "json",
 				success: function(r) {
+					el.removeClass("searching").css({ opacity: 1 });
 					var data = [];
 					for(var i = 0; i < r.length; i++) {
 						var tiddler = r[i];
