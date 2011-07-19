@@ -126,7 +126,7 @@ function notes(container, options) {
 		}
 		$(document).ready(function() {
 			autoResize($("textarea.note_title")[0]);
-			autoResize($(".note_text")[0]);
+			autoResize($(".note_text")[0], { minHeight: 250 });
 		});
 		printMetaData(note);
 
