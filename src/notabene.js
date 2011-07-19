@@ -510,6 +510,11 @@ function dashboard(container, options) {
 					}
 					terms[term] = data;
 					response(data);
+				},
+				error: function() {
+					var data = [{ label: "Unable to search at current time" }];
+					el.removeClass("searching").css({ opacity: 1 });
+					response(data);
 				}
 			});
 		},
