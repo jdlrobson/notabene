@@ -30,7 +30,7 @@ noscript {
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
 	margin: 0;
-	background-color: #DEDDD8;
+	background-image: url(http://frontpage.tiddlyspace.com/bags/frontpage_public/tiddlers/darknoiseradiallarge.jpg);
 }
 
 #backstage {
@@ -189,7 +189,6 @@ a:hover {
 
 #note {
 	position: relative;
-	border: solid 1px black;
 }
 
 .takenotedashboard .footer,
@@ -223,13 +222,6 @@ a:hover {
 	-webkit-transition: opacity 0.4s ease-in;
 }
 
-.takenotedashboard .header,
-.takenotedashboard .viewer,
-#note,
-.note_title {
-	background-color: white;
-}
-
 .takenotecontainer h1 {
 	font-size: 3em;
 }
@@ -237,6 +229,7 @@ a:hover {
 #notebody {
 	position: relative;
 	border: 1px solid gray;
+	background: rgba(255,255,255, 0.8);
 	margin-top: 18px;
 	padding: 1em 1em 2em;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
@@ -259,7 +252,7 @@ a:hover {
 	margin-left: 32px;
 }
 
-#notebody textarea {
+#notebody .note_text {
 	background: transparent;
 	width: 100%;
 	height: 300px;
@@ -267,6 +260,9 @@ a:hover {
 	outline: none;
 	clear: both;
 	margin-top: 0.5em;
+	font-family: Georgia;
+	font-size: 1.3em;
+	line-height: 1.3em;
 }
 
 #metabutton {
@@ -300,19 +296,7 @@ a:hover {
 }
 
 #notemeta {
-	background: gray;
-	background: rgba(0,0,0,0.2);
-	background-image: -moz-repeating-linear-gradient(-45deg,
-		transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
-	background-image: -webkit-repeating-linear-gradient(-45deg,
-		transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
-	background-clip: padding-box;
-	-webkit-background-clip: padding-box;
-	border: 1px dashed rgba(0,0,0,0.4);
-	border-width: 0 1px 1px 1px;
-	border-radius: 0 0 5px 5px;
-	margin: 0 24px;
-	overflow: hidden;
+	display: none;
 }
 
 #notemeta .paddedbox {
