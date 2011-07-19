@@ -45,7 +45,7 @@ var notabene = {
 function autoResize(el) {
 	var resize = function(ev) {
 		el = ev.target;
-		var div = $('<div class="note_title" />').hide().
+		var div = $('<div />').addClass($(el).attr("class")).hide().
 			css({ "word-wrap": "break-word" }).appendTo($(el).parent())[0];
 		var value = $(el).val() || "";
 		var lines = value.split("\n");
@@ -337,6 +337,7 @@ function notes(container, options) {
 		note.text = $(ev.target).val();
 		storeNote();
 	});
+	autoResize($(".note_text")[0]);
 
 	function resetNote() {
 		$("#note").removeClass("active");
