@@ -253,6 +253,7 @@ a:hover {
 }
 
 #notebody .note_text {
+	color: #1A1F1E;
 	background: transparent;
 	width: 100%;
 	height: 300px;
