@@ -70,6 +70,7 @@ test('test geo', function() {
 test('name clashes', function() {
 	// user suggests a name and triggers a focus event
 	$(".note_title", container).val("bar").blur();
+	note.validateCurrentNoteTitle("bar");
 
 	//however a tiddler with this name already exists on the server thus..
 	strictEqual($(".note_title", container).attr("disabled"), undefined, "the title remains enabled ready for input");

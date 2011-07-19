@@ -287,6 +287,7 @@ test('issue 27', function() {
 
 	// set the title
 	$(".note_title", container).val("bar").blur();
+	note.validateCurrentNoteTitle("bar");
 
 	var tid = note.getNote();
 	strictEqual(tid.fields._title_validated, undefined, "The title should not be validated.");
@@ -296,6 +297,8 @@ test('issue 27', function() {
 
 	// set the title with internet
 	$(".note_title", container).val("bar").blur();
+	note.validateCurrentNoteTitle("bar");
+
 	strictEqual(tid.fields._title_validated, undefined, "A note already has this name.");
 	strictEqual($(".messageArea").text() != "", true,
 		"a message should be printed notifying the user of this situation.");
@@ -315,6 +318,8 @@ test('issue 27', function() {
 
 	// change name to something which DOESN'T exist on server 
 	$(".note_title", container).val("bar dum").blur();
+	note.validateCurrentNoteTitle("bar dum");
+	tid = note.getNote();
 	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
 });
 
@@ -385,6 +390,7 @@ test('saving a tiddler with unvalidated title', function() {
 
 	// set the title without internet
 	$(".note_title", container).val("bar").blur();
+	note.validateCurrentNoteTitle("bar");
 
 	strictEqual(note.store().dirty().length, 1, "now one dirty tiddler");
 	var tid = note.getNote();
@@ -406,6 +412,7 @@ test('saving a tiddler with unvalidated title', function() {
 	strictEqual($(".note_title").val(), "bar", "the note should still be in view");
 
 	$(".note_title", container).val("bar dum").blur();
+	note.validateCurrentNoteTitle("bar dum");
 	// this doesnt exist so will be validated
 	var tid = note.getNote();
 	strictEqual(tid.fields._title_validated, "yes", "Note validated");
@@ -443,6 +450,7 @@ test('deleting validated tiddler without internet connection', function() {
 	});
 	// set the title
 	$(".note_title", container).val("bar dum").blur();
+	note.validateCurrentNoteTitle("bar dum");
 	var tid = note.getNote();
 	strictEqual(tid.fields._title_validated, "yes", "Now the note title should be validated.");
 	strictEqual(note.store().dirty().length, 1,

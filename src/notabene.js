@@ -117,7 +117,7 @@ function notes(container, options) {
 			$(".note_title").val(note.title);
 		}
 		if(note.fields._title_validated) {
-			$(".note_title").blur();
+			$(".note_title").blur().attr("disabled", true);
 		}
 		$(document).ready(function() {
 			autoResize($("textarea.note_title")[0]);
@@ -292,10 +292,6 @@ function notes(container, options) {
 	var renaming;
 	function validateCurrentNoteTitle(title, callback) {
 		callback = callback || function() {};
-		note.fields._title_set = "yes";
-		renameNote(title);
-		storeNote();
-
 		var fixTitle = function() {
 			if(renaming) {
 				printMessage("Note title set.", "", true);
@@ -323,7 +319,9 @@ function notes(container, options) {
 		var val = $(ev.target).val();
 		var trimmed = $.trim(val);
 		if(trimmed.length > 0) {
-			validateCurrentNoteTitle(trimmed);
+			note.fields._title_set = "yes";
+			renameNote(trimmed);
+			storeNote();
 		} else {
 			delete note.fields._title_set;
 			renameNote(getTitle());
@@ -410,6 +408,7 @@ function notes(container, options) {
 		loadNote: loadNote,
 		store: store,
 		printMetaData: printMetaData,
+		validateCurrentNoteTitle: validateCurrentNoteTitle,
 		getNote: function() {
 			return note;
 		},
