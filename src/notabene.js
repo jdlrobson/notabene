@@ -55,7 +55,7 @@ function autoResize(el, options) {
 			$("<span />").text(lines[i]).appendTo(div);
 			$("<br />").appendTo(div);
 		}
-		var h = $(div).height() + 50;
+		var h = $(div).height();
 		if(h < options.minHeight) {
 			h = options.minHeight;
 		}
