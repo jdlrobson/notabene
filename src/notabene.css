@@ -130,7 +130,7 @@ a:hover {
 }
 
 .note_title {
-	width: 380px;
+	width: 468px; /* 500 - 32 padding */
 }
 
 /* landscape mode */
@@ -150,7 +150,7 @@ a:hover {
 	}
 
 	.note_title {
-		width: 680px;
+		width: 748px; /* - 32px */
 	}
 }
 
@@ -231,7 +231,7 @@ a:hover {
 	border: 1px solid gray;
 	background: rgba(255,255,255, 0.8);
 	margin-top: 18px;
-	padding: 1em 1em 2em;
+	padding: 16px;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -259,7 +259,6 @@ a:hover {
 	border: none;
 	outline: none;
 	clear: both;
-	margin-top: 0.5em;
 	font-family: Georgia;
 	font-size: 1.3em;
 	line-height: 1.3em;
@@ -311,6 +310,8 @@ a:hover {
 	border: none;
 	font-size: 3em;
 	outline: none;
+	padding: 0px 16px;
+	text-align: center;
 	text-shadow: 3px 3px 3px #CCC;
 }
 
