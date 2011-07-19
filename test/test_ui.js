@@ -146,6 +146,12 @@ module('notabene ui (deletion from brand new tiddler)', {
 	teardown:  uiteardown
 });
 
+test("issue 41", function() {
+	$(".note_title").val("Test 45 ").blur();
+	var tid = note.getNote();
+	strictEqual(tid.title, "Test 45", "the title has been trimmed");
+});
+
 test('test deletion (from local storage)', function() {
 	strictEqual(localStorage.length, 0, "no tiddlers should be saved locally.");
 
