@@ -181,7 +181,7 @@ function notes(container, options) {
 			if(tid) {
 				note = tid;
 			}
-			if(!localStorage.getItem("bag/" + note.title)) {
+			if(!localStorage.getItem(bagname + "/" + note.title)) {
 				note.fields._title_validated = "yes";
 			}
 			note.fields._title_set = "yes";
