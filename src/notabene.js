@@ -488,13 +488,18 @@ function dashboard(container, options) {
 							data.push({ value: tiddler.title, label: tiddler.title, bag: tiddler.bag })
 						}
 					}
+					if(data.length === 0) {
+						data.push({ label: "No notes found" });
+					}
 					terms[term] = data;
 					response(data);
 				}
 			});
 		},
 		select: function(event, ui) {
-			window.location = "/bags/" + ui.item.bag + "/tiddlers/" + encodeURIComponent(ui.item.value);
+			if(ui.item.title) {
+				window.location = "/bags/" + ui.item.bag + "/tiddlers/" + encodeURIComponent(ui.item.value);
+			}
 		}
 	});
 
