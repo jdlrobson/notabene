@@ -321,8 +321,9 @@ function notes(container, options) {
 	// on a blur event fix the title.
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
-		if($.trim(val).length > 0) {
-			validateCurrentNoteTitle(val);
+		var trimmed = $.trim(val);
+		if(trimmed.length > 0) {
+			validateCurrentNoteTitle(trimmed);
 		} else {
 			delete note.fields._title_set;
 			renameNote(getTitle());
