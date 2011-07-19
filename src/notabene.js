@@ -121,6 +121,7 @@ function notes(container, options) {
 		}
 		$(document).ready(function() {
 			autoResize($("textarea.note_title")[0]);
+			autoResize($(".note_text")[0]);
 		});
 		printMetaData(note);
 
@@ -337,7 +338,6 @@ function notes(container, options) {
 		note.text = $(ev.target).val();
 		storeNote();
 	});
-	autoResize($(".note_text")[0]);
 
 	function resetNote() {
 		$("#note").removeClass("active");
