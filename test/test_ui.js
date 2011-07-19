@@ -489,3 +489,29 @@ test('issue 38', function() {
 	var tid = note.getNote();
 	strictEqual(tid.fields._title_validated, undefined, "The title should not be validated.");
 });
+
+
+module("unvalidated tiddler", {
+	setup: function() {
+		uisetup();
+		localStorage.setItem("bag/bar",
+			'{ "text": "!!", "fields": {} }'); // add unvalidated tiddler
+		window.location.hash = "#/tiddler/bar";
+	},
+	teardown: function() {
+		uiteardown();
+		window.location.hash = "";
+	}
+});
+
+test("issue 42", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	var tid = note.getNote();
+	strictEqual(tid.text, "!!", "Even though the note exists on the server we want to retrieve the cached version");
+	strictEqual(tid.fields._title_validated, undefined, "the title of the note has not been validated");
+	strictEqual($(".note_text").val(), "!!", "text correct");
+	strictEqual($(".note_title").val(), "bar", "title correct");
+});
