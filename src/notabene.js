@@ -48,7 +48,7 @@ function autoResize(el, options) {
 	var resize = function(ev) {
 		el = ev.target;
 		var div = $('<div />').addClass($(el).attr("class")).hide().
-			css({ "word-wrap": "break-word" }).appendTo($(el).parent())[0];
+			css({ "word-wrap": "break-word" }).insertBefore($(el)[0]);
 		var value = $(el).val() || "";
 		var lines = value.split("\n");
 		for(var i = 0; i < lines.length; i++) {
