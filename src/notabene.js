@@ -478,7 +478,28 @@ function dashboard(container, options) {
 		}
 	}, throbspeed);
 
-	var terms = {};
+	var terms = {}, all_note_titles = [];
+	// preload titles
+	$.ajax({
+		dataType: "text",
+		url: "/bags/" + options.bag + "/tiddlers",
+		success: function(r) {
+			all_note_titles = r.split("\n");
+		}
+	});
+
+	function matchNotes(term, exclude) {
+		term = term.toLowerCase();
+		var results = [];
+		for(var i = 0; i < all_note_titles.length; i++) {
+			var title = all_note_titles[i];
+			if(title.toLowerCase().indexOf(term) > -1 && exclude.indexOf(title) === -1) {
+				results.push({ value: title, label: title, bag: options.bag });
+			}
+		}
+		return results;
+	}
+
 	// allow user to search for a tiddler
 	$(".findnote").autocomplete({
 		source: function(req, response) {
@@ -488,12 +509,14 @@ function dashboard(container, options) {
 			if(terms[term]) {
 				return response(terms[term]);
 			}
+			response(matchNotes(term, []));
 			$.ajax({
 				url: "/search?q=bag:" + options.bag + " \"" + term + " \"",
 				dataType: "json",
 				success: function(r) {
 					el.removeClass("searching").css({ opacity: 1 });
 					var data = [];
+					var exclude = [];
 					for(var i = 0; i < r.length; i++) {
 						var tiddler = r[i];
 						var bag = tiddler.bag;
@@ -501,10 +524,12 @@ function dashboard(container, options) {
 						var spacename = space[0];
 						var spacetype = space[1];
 						var type = tiddler.type;
+						exclude.push(tiddler.title);
 						if(!type) { // only push "tiddlers" without a type
 							data.push({ value: tiddler.title, label: tiddler.title, bag: tiddler.bag })
 						}
 					}
+					data = data.concat(matchNotes(term, exclude));
 					if(data.length === 0) {
 						data.push({ label: "No notes found" });
 					}
@@ -512,7 +537,11 @@ function dashboard(container, options) {
 					response(data);
 				},
 				error: function() {
-					var data = [{ label: "Unable to search at current time" }];
+					var data = [];
+					data.concat(matchNotes(term, []));
+					if(data.length === 0) {
+						data.push({ label: "Unable to search at current time" });
+					}
 					el.removeClass("searching").css({ opacity: 1 });
 					response(data);
 				}
