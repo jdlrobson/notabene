@@ -548,7 +548,7 @@ function dashboard(container, options) {
 			});
 		},
 		select: function(event, ui) {
-			if(ui.item.title) {
+			if(ui.item.value && ui.item.bag) {
 				window.location = "/bags/" + ui.item.bag + "/tiddlers/" + encodeURIComponent(ui.item.value);
 			}
 		}
