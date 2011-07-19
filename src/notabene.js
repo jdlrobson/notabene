@@ -4,7 +4,8 @@
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 ***/
 var APP_PATH = "/takenote";
-var RESERVED_TITLES = ["takenote"];
+var RESERVED_TITLES = ["takenote", "dashboard", "chrjs-store.js", "chrjs.js", "manifest.mf", "require.js",
+	"notabene.css", "jquery.min.js", "jquery-ui.min.js", "jquery-json.min.js"];
 
 // some helper functions
 var notabene = {
