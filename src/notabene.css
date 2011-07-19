@@ -30,6 +30,7 @@ noscript {
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
 	margin: 0;
+	background-color: #DEDDD8;
 }
 
 #backstage {
@@ -206,14 +207,19 @@ a:hover {
 	padding: 10px 0px;
 	text-indent: 4px;
 	color: green;
+	opacity: 0;
 }
 
 .messageArea.warning {
 	color: #FFBF00;
+	opacity: 1;
+	-webkit-transition: opacity 0.4s ease-in;
 }
 
 .messageArea.error {
 	color: red;
+	opacity: 1;
+	-webkit-transition: opacity 0.4s ease-in;
 }
 
 .takenotedashboard .header,
