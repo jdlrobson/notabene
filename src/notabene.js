@@ -43,7 +43,8 @@ var notabene = {
 	}
 };
 
-function autoResize(el) {
+function autoResize(el, options) {
+	options = options || {};
 	var resize = function(ev) {
 		el = ev.target;
 		var div = $('<div />').addClass($(el).attr("class")).hide().
@@ -55,6 +56,9 @@ function autoResize(el) {
 			$("<br />").appendTo(div);
 		}
 		var h = $(div).height() + 50;
+		if(h < options.minHeight) {
+			h = options.minHeight;
+		}
 		$(ev.target).height(h);
 		$(div).remove();
 	};
