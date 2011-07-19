@@ -230,7 +230,6 @@ a:hover {
 #notebody {
 	position: relative;
 	border: 1px solid gray;
-	height: 300px;
 	margin-top: 18px;
 	padding: 1em 1em 2em;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
