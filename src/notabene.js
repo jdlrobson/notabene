@@ -181,8 +181,9 @@ function notes(container, options) {
 			if(tid) {
 				note = tid;
 			}
-			// the note title is validated and provided by user in this situation regardless
-			note.fields._title_validated = "yes";
+			if(!localStorage.getItem("bag/" + note.title)) {
+				note.fields._title_validated = "yes";
+			}
 			note.fields._title_set = "yes";
 			loadNote();
 			$(container).addClass("ready");
