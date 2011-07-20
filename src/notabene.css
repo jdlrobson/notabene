@@ -151,6 +151,36 @@ a:hover {
 	}
 }
 
+/* normal browser mode */
+@media all and (min-width: 800px)
+{
+	.takenotecontainer {
+		width: 540px;
+		background: rgba(255,255,255, 0.7);
+	}
+
+	.note_title_container {
+		width: 556px;
+		margin-left: -28px;
+		-webkit-box-shadow: 0px 1px 1px black;
+		position:relative;
+		background-color: white;
+	}
+
+	.note_title_container:before {
+		content: "";
+		position: absolute;
+		bottom: -8px;
+		left: 0px;
+		border-width: 0px 8px 8px 0px;
+		border-style: solid;
+		border-color: rgba(0,0,0,0) #658E15 rgba(0,0,0,0) #658E15;
+		background: rgba(0,0,0,0);
+		display: block;
+		width: 0;
+	}
+	
+}
 /* portrait mode */
 @media all and (min-width: 321px) and (max-width: 480px) {
 	body,
@@ -226,7 +256,7 @@ a:hover {
 #notebody {
 	position: relative;
 	border: 1px solid gray;
-	background: rgba(255,255,255, 0.8);
+	background: rgba(255,255,255, 0.7);
 	margin-top: 18px;
 	padding: 16px;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
