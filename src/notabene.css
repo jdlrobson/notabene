@@ -114,8 +114,15 @@ a:hover {
 .takenotedashboard,
 .takenotecontainer {
 	width: 900px;
-	padding-bottom: 16px;
+	padding-bottom: 40px;
 }
+
+.toolbar {
+	position: absolute;
+	top: -40px;
+	right: -20px;
+}
+
 
 .takenotedashboard .footer {
 	text-align: center;
@@ -258,7 +265,7 @@ a:hover {
 	font-family: monospace;
 	border: solid 1px #ccc;
 	color: #333;
-	padding: 10px 0px;
+	padding: 20px 0px;
 	text-indent: 4px;
 	color: green;
 	opacity: 0;
