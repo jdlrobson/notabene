@@ -394,14 +394,14 @@ a:hover {
 	opacity: 1;
 }
 
-.connectionStatus.a:hover,
+#backstage a.connectionStatus:hover,
 .connectionStatus {
 	display: block;
 	-webkit-border-radius: 5px;
 	background-color: red;
 }
 
-.online .connectionStatus.a:hover,
+#backstage .online a.connectionStatus:hover,
 .online .connectionStatus {
 	display: block;
 	background-color: green;
