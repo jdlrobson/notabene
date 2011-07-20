@@ -135,6 +135,7 @@ a:hover {
 
 .note_title {
 	font-family: Georgia;
+	color: #4C4A54;
 	width: 468px; /* 500 - 32 padding */
 }
 
@@ -365,7 +366,7 @@ a:hover {
 	outline: none;
 	padding: 0px 16px;
 	text-align: center;
-	text-shadow: 3px 3px 3px #CCC;
+	text-shadow: 0px 1px 1px white;
 }
 
 .note_title:focus {
