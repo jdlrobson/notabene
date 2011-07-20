@@ -52,8 +52,14 @@ body {
 	padding: 4px;
 	display: block;
 	text-decoration: none;
-	border-left: solid 1px #CCC;
-	border-right: solid 1px white;
+}
+
+#backstage li:first-child {
+	border-right: solid 1px #777;
+}
+
+#backstage li:nth-child(2) {
+	border-left: solid 1px #555;
 }
 
 #backstage a:hover {
@@ -64,6 +70,7 @@ body {
 	display: inline-block;
 	line-height: 18px;
 	margin-top: 2px;
+	padding: 0px 10px;
 }
 
 h2,h3,h4,h5 {
