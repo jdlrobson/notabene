@@ -8,8 +8,8 @@
 	</head>
 	<body>
 		<ul id="backstage">
-			<li><a href="/dashboard">dashboard</a></li>
-			<li><a href="/takenote">takenote</a></li>
+			<!-- no not add a newline between li elements or you will get a margin with inline blocks -->
+			<li><a href="/dashboard">dashboard</a></li><li><a href="/takenote">takenote</a></li>
 			<li><a class='connectionStatus'></a></li>
 			<li><a class='syncButton'>0</a></li>
 		</ul>
