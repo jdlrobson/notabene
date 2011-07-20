@@ -171,7 +171,7 @@ a:hover {
 		margin-left: -28px;
 		-webkit-box-shadow: 0px 1px 1px black;
 		position:relative;
-		background-color: #C7EAFF;
+		background-color: #DCE7F1;
 	}
 
 	.note_title_container:before {
@@ -181,7 +181,7 @@ a:hover {
 		left: 0px;
 		border-width: 0px 8px 8px 0px;
 		border-style: solid;
-		border-color: rgba(0,0,0,0) #658E15 rgba(0,0,0,0) #658E15;
+		border-color: rgba(0,0,0,0) #3A4955 rgba(0,0,0,0) #3A4955;
 		background: rgba(0,0,0,0);
 		display: block;
 		width: 0;
@@ -194,7 +194,7 @@ a:hover {
 		right: 0px;
 		border-width: 8px 8px 0px 0px;
 		border-style: solid;
-		border-color: #658E15 rgba(0,0,0,0) rgba(0,0,0,0) red;
+		border-color: #3A4955 rgba(0,0,0,0) rgba(0,0,0,0) #3A4955;
 		background: rgba(0,0,0,0);
 		display: block;
 		width: 0;
