@@ -59,6 +59,9 @@ function autoResize(el, options) {
 		if(options.minHeight && h < options.minHeight) {
 			h = options.minHeight;
 		}
+		if(options.buffer) {
+			h += options.buffer;
+		}
 		$(ev.target).height(h);
 		$(div).remove();
 	};
@@ -125,7 +128,7 @@ function notes(container, options) {
 			$(".note_title").blur().attr("disabled", true);
 		}
 		$(document).ready(function() {
-			autoResize($("textarea.note_title")[0]);
+			autoResize($("textarea.note_title")[0], { buffer: 16 });
 			autoResize($(".note_text")[0], { minHeight: 250 });
 		});
 		printMetaData(note);
