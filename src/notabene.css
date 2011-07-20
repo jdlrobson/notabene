@@ -406,6 +406,7 @@ a:hover {
 #backstage a.connectionStatus:hover,
 .connectionStatus {
 	display: block;
+	position: relative;
 	-webkit-border-radius: 5px;
 	background-color: red;
 }
@@ -414,6 +415,21 @@ a:hover {
 .online .connectionStatus {
 	display: block;
 	background-color: green;
+}
+
+.connectionStatus:after {
+	content: "offline";
+	position: absolute;
+	top: -6px;
+	left: 15px;
+	color: #ccc;
+}
+.online .connectionStatus:after {
+	content: "online";
+	position: absolute;
+	top: -6px;
+	left: 15px;
+	color: #eee;
 }
 
 .requiresConnection {
