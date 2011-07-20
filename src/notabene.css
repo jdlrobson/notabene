@@ -170,20 +170,6 @@ a:hover {
 	width: 468px; /* 500 - 32 padding */
 }
 
-/* landscape mode */
-@media all and (min-width: 480px) and (max-width: 800px) {
-	.takenotedashboard .footer,
-	#note,
-	.messageArea {
-		width: 780px;
-	}
-
-	.note_title {
-		width: 748px; /* - 32px */
-	}
-}
-
-
 .takenotecontainer {
 	width: 540px;
 	background: rgba(255,255,255, 0.7);
