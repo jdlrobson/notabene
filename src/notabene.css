@@ -91,15 +91,20 @@ a:hover {
 .header {
 	border-bottom: 7px solid rgba(26, 31, 30, 0.95);
 	min-height: 120px;
-	padding-top: 6px;
+	position: relative;
+}
+
+.siteheading {
 	position: relative;
 }
 
 .header h1 {
 	color: #4C4A54;
-	font-size: 2em;
-	line-height: 56px;
+	font-size: 4em;
+	line-height: 48px;
 	text-shadow: 0px 2px 2px white;
+	padding-top: 10px;
+	padding-left: 72px;
 }
 
 .toolpanel h2,
@@ -122,17 +127,17 @@ a:hover {
 }
 
 .siteicon {
-	background-image: url(/SiteIcon);
-	height: 96px;
-	width: 96px;
+	background-image: url(SiteIcon);
+	height: 56px;
+	width: 56px;
 	background-repeat: no-repeat;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-o-border-radius: 10px;
 	border-radius: 10px;
-	background-size: 96px 96px;
+	background-size: 56px 56px;
 	position: absolute;
-	right: 6px;
+	left: 6px;
 	top: 8px;
 }
 
