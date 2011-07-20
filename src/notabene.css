@@ -7,6 +7,9 @@ noscript {
 	width: 300px;
 }
 
+#backstage a.syncButton {
+	display: none;
+}
 .syncButton {
 	position: absolute;
 	right: 0px;
