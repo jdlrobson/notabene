@@ -26,15 +26,18 @@
 				<div class='siteicon'></div>
 			</div>
 			<div class="toolpanel viewer">
-				<div class='requiresConnection'>
+				<div class='section requiresConnection'>
 					<h2>find note:</h2>
 					<input class="findnote" type="search" placeholder="type search term" />
 				</div>
-				<h2>Incomplete notes:</h2>
-				<ul id="incomplete"></ul>
-
-				<h2>Recently created</h2>
-				<ul id="recentnotes"></ul>
+				<div class="section">
+					<h2>Incomplete notes:</h2>
+					<ul id="incomplete"></ul>
+				</div>
+				<div class="section">
+					<h2>Recently created</h2>
+					<ul id="recentnotes"></ul>
+				</div>
 			</div>
 			<div class='footer'>
 				<span class='version'>v. 0.1.96</span>
