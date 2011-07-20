@@ -179,7 +179,7 @@ a:hover {
 	.note_title_container {
 		width: 556px;
 		margin-left: -28px;
-		-webkit-box-shadow: 0px 1px 1px black;
+		-webkit-box-shadow: 0px 1px 1px rgb(96,106,115);
 		position:relative;
 		background-color: #DCE7F1;
 	}
