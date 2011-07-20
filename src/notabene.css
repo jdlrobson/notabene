@@ -114,6 +114,7 @@ a:hover {
 .takenotedashboard,
 .takenotecontainer {
 	width: 900px;
+	padding-bottom: 16px;
 }
 
 .takenotedashboard .footer {
