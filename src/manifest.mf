@@ -15,6 +15,7 @@ chrjs-store.js
 touchicon.png
 saveTiddler.png
 delete.png
+bg.png
 
 NETWORK:
 *
