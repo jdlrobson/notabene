@@ -89,14 +89,21 @@ a:hover {
 }
 
 .header {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F7F7F7), color-stop(1, #EEE));
-	background: -moz-linear-gradient(top, #F7F7F7 0%, #EEE 100%);
-	background: linear-gradient(top, #F7F7F7 0%, #EEE 100%);
-	border: solid 1px #CCC;
+	border-bottom: 7px solid rgba(26, 31, 30, 0.95);
 	min-height: 120px;
 	padding-top: 6px;
-	padding-left: 8px;
 	position: relative;
+}
+
+.header h1 {
+	color: #4C4A54;
+	font-size: 2em;
+	line-height: 56px;
+	text-shadow: 0px 2px 2px white;
+}
+
+.toolpanel {
+	padding: 41px 0;
 }
 
 .siteicon {
@@ -112,12 +119,6 @@ a:hover {
 	position: absolute;
 	right: 6px;
 	top: 8px;
-}
-
-.takenotedashboard,
-.takenotecontainer {
-	width: 900px;
-	padding-bottom: 40px;
 }
 
 .toolbar {
@@ -137,7 +138,6 @@ a:hover {
 }
 
 .takenotedashboard .footer,
-.takenotedashboard .header,
 .takenotedashboard .viewer,
 #note,
 .messageArea {
@@ -152,14 +152,7 @@ a:hover {
 
 /* landscape mode */
 @media all and (min-width: 480px) and (max-width: 800px) {
-	body,
-	.takenotedashboard,
-	.takenotecontainer {
-		width: 800px;
-	}
-
 	.takenotedashboard .footer,
-	.takenotedashboard .header,
 	.takenotedashboard .viewer,
 	#note,
 	.messageArea {
@@ -175,6 +168,12 @@ a:hover {
 .takenotecontainer {
 	width: 540px;
 	background: rgba(255,255,255, 0.7);
+}
+
+.takenotedashboard {
+	width: 540px;
+	background-color: #F0F4F8;
+	padding-bottom: 40px;
 }
 
 .note_title_container {
@@ -226,7 +225,6 @@ a:hover {
 	}
 
 	.takenotedashboard .footer,
-	.takenotedashboard .header,
 	.takenotedashboard .viewer,
 	#note,
 	.messageArea {
@@ -255,7 +253,6 @@ a:hover {
 }
 
 .takenotedashboard .footer,
-.takenotedashboard .header,
 .takenotedashboard .viewer,
 #note,
 .messageArea {
