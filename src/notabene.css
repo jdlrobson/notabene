@@ -411,7 +411,7 @@ a:hover {
 	background-color: red;
 }
 
-#backstage .online a.connectionStatus:hover,
+.online #backstage a.connectionStatus:hover,
 .online .connectionStatus {
 	display: block;
 	background-color: green;
