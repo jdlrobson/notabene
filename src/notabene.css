@@ -90,7 +90,7 @@ a:hover {
 
 .header {
 	border-bottom: 7px solid rgba(26, 31, 30, 0.95);
-	min-height: 120px;
+	padding-bottom: 20px;
 	position: relative;
 }
 
