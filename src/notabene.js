@@ -128,7 +128,7 @@ function notes(container, options) {
 			$(".note_title").blur().attr("disabled", true);
 		}
 		$(document).ready(function() {
-			autoResize($("textarea.note_title")[0], { buffer: 16 });
+			autoResize($("textarea.note_title")[0], { buffer: 0 });
 			autoResize($(".note_text")[0], { minHeight: 250 });
 		});
 		printMetaData(note);

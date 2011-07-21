@@ -166,6 +166,7 @@ a:hover {
 
 .note_title {
 	font-family: Georgia;
+	line-height: 48px;
 	color: #4C4A54;
 	width: 468px; /* 500 - 32 padding */
 }
