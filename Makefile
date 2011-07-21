@@ -1,5 +1,5 @@
 clean:
-	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png
+	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/icon-search.png
 
 remotes: clean
 	curl -o src/chrjs.js \
@@ -23,12 +23,12 @@ devlocal: remotes
 dev:
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' \
-		'src/require.js' \
+		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js'
 
 dist:
 	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' \
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' \
-		'src/require.js' \
+		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
 		'src/dashboard'  'src/chrjs.js' 'src/touchicon.png' 'src/manifest.mf'

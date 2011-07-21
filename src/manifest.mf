@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# version 0.1.96
+# version 0.1.965
 
 takenote
 dashboard
@@ -16,6 +16,9 @@ touchicon.png
 saveTiddler.png
 delete.png
 bg.png
+icon-search.png
+icon-incomplete.png
+icon-recent.png
 
 NETWORK:
 *

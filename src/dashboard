@@ -22,15 +22,15 @@
 				<div class='siteicon'></div>
 			</div>
 			<div class="toolpanel viewer">
-				<div class='section requiresConnection'>
+				<div class='section searchSection requiresConnection'>
 					<h2>find note:</h2>
 					<input class="findnote" type="search" placeholder="type search term" />
 				</div>
-				<div class="section">
+				<div class="section incompleteSection">
 					<h2>Incomplete notes:</h2>
 					<ul id="incomplete"></ul>
 				</div>
-				<div class="section">
+				<div class="section recentSection">
 					<h2>Recently created</h2>
 					<ul id="recentnotes"></ul>
 				</div>

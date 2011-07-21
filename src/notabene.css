@@ -123,6 +123,24 @@ a:hover {
 	padding: 20px;
 }
 
+.section.searchSection {
+	background-image: url(/icon-search.png);
+	background-position: 80px 15px;
+	background-repeat: no-repeat;
+}
+
+.section.recentSection {
+	background-image: url(/icon-recent.png);
+	background-position: 80px 15px;
+	background-repeat: no-repeat;
+}
+
+.section.incompleteSection {
+	background-image: url(/icon-incomplete.png);
+	background-position: 80px 15px;
+	background-repeat: no-repeat;
+}
+
 .toolpanel .section ul {
 	list-style: none;
 }
