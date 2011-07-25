@@ -24,7 +24,7 @@ dev:
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' \
 		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
-		'src/dashboard' 'src/takenote' 'src/jquery.min.js'
+		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
 dist:
 	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' \
