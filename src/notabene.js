@@ -1,6 +1,6 @@
 /***
 |''Name''|notabene|
-|''Version''|0.1.96|
+|''Version''|0.2.0|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 ***/
 var APP_PATH = "/takenote";
