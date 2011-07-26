@@ -355,8 +355,7 @@ function notes(container, options) {
 	}
 	// every key press triggers a 'local' save
 	var tag = [];
-	$(".note_text").keyup(function(ev) {
-		var key = ev.keyCode;
+	var tagHandler = function(key) {
 		if(key === 8) {
 			tag.pop();
 		} else if(key === 32 || key === 13) { // space or new line terminates tag
@@ -375,6 +374,11 @@ function notes(container, options) {
 			tag.push(String.fromCharCode(key));
 		}
 		console.log("tag state", key, tag);
+	};
+
+	$(".note_text").keyup(function(ev) {
+		var key = ev.keyCode;
+		tagHandler(key);
 		note.text = $(ev.target).val();
 		storeNote();
 	}).blur(function(ev) {
@@ -453,6 +457,7 @@ function notes(container, options) {
 	init();
 	return {
 		init: init,
+		tagHandler: tagHandler,
 		printMessage: printMessage,
 		newNote: newNote,
 		loadNote: loadNote,
