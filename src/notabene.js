@@ -376,11 +376,11 @@ function notes(container, options) {
 		console.log("tag state", key, tag);
 	};
 
-	$(".note_text").keyup(function(ev) {
-		var key = ev.keyCode;
-		tagHandler(key);
+	$(".note_text").keypress(function(ev) {
 		note.text = $(ev.target).val();
 		storeNote();
+	}).keypress(function(ev) {
+		tagHandler(ev.keyCode);
 	}).blur(function(ev) {
 		if(tag.length > 0) {
 			addTagToCurrentNote(tag.slice(1).join(""));
