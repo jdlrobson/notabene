@@ -363,7 +363,7 @@ function notes(container, options) {
 				addTagToCurrentNote(tag.slice(1).join(""));
 			}
 			tag = [];
-		} else if(key === 51) { // hash symbol
+		} else if(key === 35) { // hash symbol
 			if(tag.length > 0) {
 				addTagToCurrentNote(tag.slice(1).join(""));
 				tag = ["#"];
