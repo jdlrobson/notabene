@@ -376,8 +376,11 @@ function notes(container, options) {
 		console.log("tag state", key, tag);
 	};
 
-	$(".note_text").keypress(function(ev) {
+	$(".note_text").keyup(function(ev) {
 		note.text = $(ev.target).val();
+		if(ev.keyCode === 8) {
+			tagHandler(ev.keyCode);
+		}
 		storeNote();
 	}).keypress(function(ev) {
 		tagHandler(ev.keyCode);
