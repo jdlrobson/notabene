@@ -76,6 +76,12 @@ body {
 	padding: 0px 10px;
 }
 
+#backstage .status {
+	color: #CCC;
+	float: right;
+	font-size: 0.8em;
+}
+
 h2,h3,h4,h5 {
 	margin-bottom: 0px;
 }

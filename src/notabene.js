@@ -430,16 +430,24 @@ function notes(container, options) {
 
 function backstage() {
 	var internet, _checking;
+	function checkUser(status) {
+		$.ajax({ url: "/spaces/jon/members", dataType: "json",
+			success: function(members) {
+				$('<li class="status" />').text("user: " + status.username).appendTo("#backstage");
+			}
+		});
+	}
 	function checkConnection() {
 		if(_checking) {
 			return;
 		} else {
 			_checking = true;
 			$.ajax({ cache: false, url: "/status",
-				success: function() {
+				success: function(status) {
 					internet = true;
 					_checking = false;
 					$("body").addClass("online");
+					checkUser(status);
 				},
 				error: function() {
 					internet = false;
