@@ -429,7 +429,7 @@ function notes(container, options) {
 }
 
 function backstage() {
-	var internet, _checking;
+	var internet, _checking, initialised;
 	function checkUser(status) {
 		$.ajax({ url: "/spaces/jon/members", dataType: "json",
 			success: function(members) {
@@ -447,7 +447,10 @@ function backstage() {
 					internet = true;
 					_checking = false;
 					$("body").addClass("online");
-					checkUser(status);
+					if(!initialised) {
+						checkUser(status);
+						initialised = true;
+					}
 				},
 				error: function() {
 					internet = false;
