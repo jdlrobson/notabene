@@ -152,6 +152,101 @@ test("issue 41", function() {
 	strictEqual(tid.title, "Test 45", "the title has been trimmed");
 });
 
+test("tag handling", function() {
+	var initialTags = note.getNote().tags;
+	strictEqual(initialTags.length, 0, "no tags to start with");
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(102); // character f
+	note.tagHandler(102);
+	note.tagHandler(102);
+	note.tagHandler(32); // new line
+	var newTags = note.getNote().tags;
+	strictEqual(newTags.length, 1, "now there is 1 tag");
+	strictEqual(newTags[0], "fff", "check tag is correct");
+});
+
+test("tag handling space", function() {
+	var initialTags = note.getNote().tags;
+	strictEqual(initialTags.length, 0, "no tags to start with");
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(102); // character f
+	note.tagHandler(102);
+	note.tagHandler(102);
+	note.tagHandler(13); // space
+	var newTags = note.getNote().tags;
+	strictEqual(newTags.length, 1, "now there is 1 tag");
+	strictEqual(newTags[0], "fff", "check tag is correct");
+});
+
+test("tag handling backspace", function() {
+	var initialTags = note.getNote().tags;
+	strictEqual(initialTags.length, 0, "no tags to start with");
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(102); // character f
+	note.tagHandler(102);
+	note.tagHandler(102);
+	note.tagHandler(8); // backspace
+	note.tagHandler(13); // space
+	var newTags = note.getNote().tags;
+	strictEqual(newTags.length, 1, "now there is 1 tag");
+	strictEqual(newTags[0], "ff", "check tag is correct");
+});
+
+test("tag handling clearing via backspace", function() {
+	var initialTags = note.getNote().tags;
+	strictEqual(initialTags.length, 0, "no tags to start with");
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(102); // character f
+	note.tagHandler(102);
+	note.tagHandler(102);
+	note.tagHandler(8); // backspace
+	note.tagHandler(8); // backspace
+	note.tagHandler(8); // backspace
+	note.tagHandler(13); // space
+	var newTags = note.getNote().tags;
+	strictEqual(newTags.length, 0, "there is still no tags as only a hash was entered");
+});
+
+test("tag handling - series of hashes", function() {
+	var initialTags = note.getNote().tags;
+	strictEqual(initialTags.length, 0, "no tags to start with");
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(35);
+	note.tagHandler(35);
+	note.tagHandler(13); // space
+	var newTags = note.getNote().tags;
+	strictEqual(newTags.length, 0,
+		"there is still no tags as only a series of hashes was entered (restriction here that you cannot have tags with # in them)");
+});
+
+test("tagging vs list", function() {
+	var initialTags = note.getNote().tags;
+	strictEqual(initialTags.length, 0, "no tags to start with");
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(13); // space
+	note.tagHandler(102);
+	note.tagHandler(32); // new line
+	var newTags = note.getNote().tags;
+	strictEqual(newTags.length, 0,
+		"a list with 1 item was added - (# foo is list item - #foo is tag)");
+});
+
+test("#fff#g newline pattern", function() {
+	var initialTags = note.getNote().tags;
+	strictEqual(initialTags.length, 0, "no tags to start with");
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(102); // f symbol
+	note.tagHandler(102);
+	note.tagHandler(102);
+	note.tagHandler(35); // hash symbol
+	note.tagHandler(103); // g symbol
+	note.tagHandler(32); // new line
+	var newTags = note.getNote().tags;
+	strictEqual(newTags.length, 2, "2 tags registered");
+	strictEqual(newTags[0], "fff", "the tag fff was cancelled by the hash that followed");
+	strictEqual(newTags[1], "g", "g was cancelled by the new line");
+});
+
 test('test deletion (from local storage)', function() {
 	strictEqual(localStorage.length, 0, "no tiddlers should be saved locally.");
 

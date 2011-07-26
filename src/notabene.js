@@ -166,6 +166,7 @@ function notes(container, options) {
 		tempTitle = getTitle();
 		note = new tiddlyweb.Tiddler(tempTitle, bag);
 		note.fields = {};
+		note.tags = [];
 		note.fields.created = new Date();
 		loadNote();
 	}
@@ -365,17 +366,16 @@ function notes(container, options) {
 	}
 	// every key press triggers a 'local' save
 	var tag = [];
-	$(".note_text").keyup(function(ev) {
-		var key = ev.keyCode;
+	var tagHandler = function(key) {
 		if(key === 8) {
 			tag.pop();
 		} else if(key === 32 || key === 13) { // space or new line terminates tag
-			if(tag.length > 0) {
+			if(tag.length > 1) {
 				addTagToCurrentNote(tag.slice(1).join(""));
 			}
 			tag = [];
-		} else if(key === 51) { // hash symbol
-			if(tag.length > 0) {
+		} else if(key === 35) { // hash symbol
+			if(tag.length > 1) {
 				addTagToCurrentNote(tag.slice(1).join(""));
 				tag = ["#"];
 			} else {
@@ -384,9 +384,16 @@ function notes(container, options) {
 		} else if(tag.length > 0) {
 			tag.push(String.fromCharCode(key));
 		}
-		console.log("tag state", key, tag);
+	};
+
+	$(".note_text").keyup(function(ev) {
 		note.text = $(ev.target).val();
+		if(ev.keyCode === 8) {
+			tagHandler(ev.keyCode);
+		}
 		storeNote();
+	}).keypress(function(ev) {
+		tagHandler(ev.keyCode);
 	}).blur(function(ev) {
 		if(tag.length > 0) {
 			addTagToCurrentNote(tag.slice(1).join(""));
@@ -463,6 +470,7 @@ function notes(container, options) {
 	init();
 	return {
 		init: init,
+		tagHandler: tagHandler,
 		printMessage: printMessage,
 		newNote: newNote,
 		loadNote: loadNote,
