@@ -193,8 +193,8 @@ function notes(container, options) {
 				note.fields._title_validated = "yes";
 			}
 			note.fields._title_set = "yes";
-			loadNote();
 			$(container).addClass("ready");
+			loadNote();
 		});
 	}
 
