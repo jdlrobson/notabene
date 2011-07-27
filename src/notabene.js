@@ -467,6 +467,10 @@ function notes(container, options) {
 			}); // TODO: ideally I would like to call store.removeTiddler(note) and not worry about syncing
 		}
 	});
+	$("#cancelnote").click(function(ev) {
+		store.remove(note.title);
+		resetNote();
+	});
 	init();
 	return {
 		init: init,
