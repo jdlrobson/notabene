@@ -585,6 +585,27 @@ test('issue 38', function() {
 	strictEqual(tid.fields._title_validated, undefined, "The title should not be validated.");
 });
 
+module("500 tiddler", {
+	setup: function() {
+		uisetup();
+		window.location.hash = "#/tiddler/500";
+		note = notes(container, {
+			host: "/",
+			bag: "bag"
+		});
+	},
+	teardown: function() {
+		uiteardown();
+		window.location.hash = "";
+	}
+});
+
+test("issue 46", function() {
+	strictEqual($(".note_title").val(), "",
+		"the request for tiddler called 500 throws a server error so is not loaded into the ui");
+	strictEqual($(".note_text").val(), "",
+		"the request for tiddler called 500 throws a server error so text is not loaded into the ui");
+});
 
 module("unvalidated tiddler", {
 	setup: function() {

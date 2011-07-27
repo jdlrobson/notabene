@@ -16,6 +16,10 @@ var xhr404 = {
 	status: 404
 };
 
+var xhr500 = {
+	status: 500
+};
+
 var ajaxRequests = [];
 var internet = true;
 function setConnectionStatus(status) {
@@ -35,6 +39,10 @@ $.ajax = function(options) {
 				bag: "bag"
 			};
 			options.success(tid, "tests", xhr);
+		},
+		// tiddler that throws a 500 on all ajax requests
+		"/bags/bag/tiddlers/500": function(options) {
+			options.error(xhr500);
 		},
 		// tiddlers that can be put to the server but never got or deleted
 		"/bags/bag/tiddlers/bar%20dum": function(options) {
