@@ -4,6 +4,7 @@ function uisetup() {
 	container = $("<div />").appendTo(document.body)[0];
 	$("<textarea class='note_title' />").appendTo(container);
 	$("<textarea class='note_text' />").appendTo(container);
+	$("<a id='cancelnote'>cancel</a>").appendTo(container);
 	$("<a id='deletenote'>delete</a>").appendTo(container);
 	$("<a id='newnote'>add</a>").appendTo(container);
 	localStorage.clear();
@@ -447,6 +448,21 @@ test('name a note after existing note without connection, prevent overwriting', 
 	strictEqual($(".messageArea").text() != "", true,
 		"a message should be printed notifying the user of this situation.");
 	strictEqual($(".note_title", container).val(), "", "A new note can be started");
+});
+
+test('cancel note', function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	$(".note_title", container).val("hello dude").blur();
+	var tid1 = note.getNote();
+	strictEqual(tid1.fields._title_set, "yes", "the title has been set by the user");
+	$("#cancelnote").click(); // cancel the note
+	strictEqual($(".note_title").val(), "", "title has been reset");
+	var tid2 = note.getNote();
+	strictEqual(tid2.title != "hello dude", true, "the title has been reset on the note object");
+	strictEqual(note.store().length, 0, "there are no notes in the store after the cancel");
 });
 
 test('renaming to empty string', function() {
