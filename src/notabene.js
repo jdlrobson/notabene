@@ -197,14 +197,21 @@ function notes(container, options) {
 		note = new tiddlyweb.Tiddler(title);
 		note.fields = {};
 		note.bag = new tiddlyweb.Bag(bagname, host);
-		store.get(note, function(tid) {
+		store.get(note, function(tid, msg, xhr) {
+			var is404 = xhr ? xhr.status === 404 : false;
 			if(tid) {
 				note = tid;
+			} else if(!is404) {
+				resetNote();
 			}
 			if(!localStorage.getItem(bagname + "/" + note.title)) {
-				note.fields._title_validated = "yes";
+				if(is404 || tid) {
+					note.fields._title_validated = "yes";
+				}
 			}
-			note.fields._title_set = "yes";
+			if(is404 || tid) {
+				note.fields._title_set = "yes";
+			}
 			$(container).addClass("ready");
 			loadNote();
 		});
