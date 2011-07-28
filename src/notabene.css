@@ -400,6 +400,19 @@ a:hover {
 	list-style: none;
 }
 
+.removeTag {
+	background-image: url(delete.png);
+	background-size: 12px 16px;
+	background-repeat: no-repeat;
+	text-indent: -999px;
+	overflow: hidden;
+	width: 12px;
+	height: 16px;
+	display: inline-block;
+	margin-left: 8px;
+	cursor: pointer;
+}
+
 .note_title {
 	border: none;
 	font-size: 3em;
