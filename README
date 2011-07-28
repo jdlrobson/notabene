@@ -1,1 +1,22 @@
-GETTING STARTED INSTRUCTIONS WILL APPEAR HERE
+Currently takenote is a pain to get running locally.
+Development is test driven so it is rarely run locally.
+
+To test
+	# run
+		make remotes
+	# open
+		test/index.html
+	# clap hands at all the passing tests
+
+To develop on takenote
+	# setup account on tiddlyspace.com
+	# add to ~/.bash_profile the following line
+			export TIDDLYSPACE_AUTH='-u myuser:mypass'
+	# In Makefile replace
+			./upload.sh takenotedev
+		with
+			./upload.sh <space>
+	# run
+		./make dev
+	# then take a note.
+	# Note the dev version doesn't deploy a cache manifest. make dist does
