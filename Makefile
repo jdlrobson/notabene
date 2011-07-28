@@ -5,7 +5,7 @@ remotes: clean
 	curl -o src/chrjs.js \
 		https://raw.github.com/tiddlyweb/chrjs/master/main.js
 	curl -o src/chrjs-store.js \
-		https://raw.github.com/bengillies/chrjs.store/99f0e7ff2bcc514d01f9c524915b936fcbfe294f/dist/chrjs-store-0.2.4.min.js
+		https://raw.github.com/bengillies/chrjs.store/master/dist/chrjs-store-0.3.0.min.js
 	curl -o src/jquery.min.js \
 		http://code.jquery.com/jquery-1.6.1.min.js
 	curl -o src/jquery-json.min.js \
@@ -27,7 +27,7 @@ dev:
 		'src/cancel.png' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
-dist:
+dist: remotes
 	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' \
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
