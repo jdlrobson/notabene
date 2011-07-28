@@ -14,6 +14,9 @@ for file in "$@"
 do
 	tiddler=$(basename "$file")
 	case "$file" in
+	src/HtmlCss)
+		content="text/css"
+		;;
 	*.tid)
 		content="text/plain"
 		tiddler=$(basename "$file" .tid)

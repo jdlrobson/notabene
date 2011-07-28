@@ -25,18 +25,19 @@ compress:
 	mkdir build
 	java -jar yuicompressor-2.4.6.jar src/notabene.js -o build/notabene.js
 	java -jar yuicompressor-2.4.6.jar src/notabene.css -o build/notabene.css
+	java -jar yuicompressor-2.4.6.jar --type css src/HtmlCss -o build/HtmlCss
 
 dev:
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
 		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
-		'src/cancel.png' \
+		'src/cancel.png' 'src/HtmlCss' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
 dist: remotes compress
 	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' 'src/chrjs-store.js' \
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
-		'src/cancel.png' \
+		'src/cancel.png' 'build/HtmlCss' \
 		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
 		'src/dashboard'  'src/chrjs.js' 'src/touchicon.png' 'src/manifest.mf'
