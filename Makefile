@@ -1,5 +1,5 @@
 clean:
-	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/icon-search.png build
+	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/require.js build
 
 remotes: clean
 	curl -o src/chrjs.js \
