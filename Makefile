@@ -1,5 +1,5 @@
 clean:
-	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/icon-search.png
+	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/icon-search.png build
 
 remotes: clean
 	curl -o src/chrjs.js \
@@ -20,6 +20,12 @@ devlocal: remotes
 	twanager bag test_public < bag.json
 	echo "\n\nrun twanager server && open http://0.0.0.0:8080/static/edit.html\n\n"
 
+compress:
+	rm -rf build
+	mkdir build
+	java -jar yuicompressor-2.4.6.jar src/notabene.js -o build/notabene.js
+	java -jar yuicompressor-2.4.6.jar src/notabene.css -o build/notabene.css
+
 dev:
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
@@ -27,8 +33,8 @@ dev:
 		'src/cancel.png' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
-dist: remotes
-	./upload.sh takenote 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' \
+dist: remotes compress
+	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' 'src/chrjs-store.js' \
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
 		'src/cancel.png' \

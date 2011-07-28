@@ -9,6 +9,7 @@ To test
 	# clap hands at all the passing tests
 
 To develop on takenote
+	# install yuicompressor-2.4.6.jar into root of directory (see http://developer.yahoo.com/yui/compressor/)
 	# setup account on tiddlyspace.com
 	# add to ~/.bash_profile the following line
 			export TIDDLYSPACE_AUTH='-u myuser:mypass'
