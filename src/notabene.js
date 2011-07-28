@@ -362,6 +362,8 @@ function notes(container, options) {
 		}
 	});
 
+	function removeTag(tag) {
+	}
 	function addTagToCurrentNote(tag) {
 		var tags = note.tags || [];
 		tag = tag.toLowerCase();
@@ -488,6 +490,8 @@ function notes(container, options) {
 		printMessage: printMessage,
 		newNote: newNote,
 		loadNote: loadNote,
+		addTag: addTagToCurrentNote,
+		removeTag: removeTag,
 		store: store,
 		printMetaData: printMetaData,
 		validateCurrentNoteTitle: validateCurrentNoteTitle,

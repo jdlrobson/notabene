@@ -226,6 +226,25 @@ test("print meta data", function() {
 	strictEqual($("#notemeta li").length, 2, "the two fields are printed");
 });
 
+test("tagging (adding)", function() {
+	note.addTag("foo");
+	note.addTag("bar");
+	note.addTag("foo");
+	note.addTag("dum");
+	var tid = note.getNote();
+	strictEqual(tid.tags.length, 3, "foo bar and dum are added - no duplicates");
+});
+
+test("tagging (adding)", function() {
+	note.addTag("foo");
+	note.addTag("bar");
+	note.removeTag("dum"); // doesn't exist
+	note.removeTag("bar");
+	var tid = note.getNote();
+	strictEqual(tid.tags.length, 1, "only foo remains");
+	strictEqual(tid.tags[0], "foo", "only foo remains");
+});
+
 test("print with hidden meta data", function() {
 	var tid = new tiddlyweb.Tiddler("xyz", new tiddlyweb.Bag("foo", "/"));
 	tid.fields = { bar: "x", foo: "y", _hidden: "foo" };
