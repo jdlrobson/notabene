@@ -249,29 +249,6 @@ a:hover {
 	margin-left: 10px;
 }
 
-/* portrait mode */
-@media all and (min-width: 321px) and (max-width: 480px) {
-	body,
-	.takenotedashboard,
-	.takenotecontainer {
-		width: 480px;
-	}
-
-	.takenotedashboard .footer,
-	#note,
-	.messageArea {
-		width: 460px;
-	}
-
-	#cancelnote {
-		right: 215px; /* 460 / 2 - 15px (half width of cancel button) */
-	}
-
-	.note_title_container {
-		width: 500px;
-	}
-}
-
 .takenotedashboard,
 .takenotecontainer {
 	margin: auto;
@@ -497,4 +474,29 @@ a:hover {
 
 .online .requiresConnection {
 	display: block;
+}
+
+/* portrait mode */
+@media all and (min-width: 321px) and (max-width: 480px) {
+	body,
+	.takenotedashboard,
+	.takenotecontainer {
+		width: 480px;
+	}
+
+	.takenotedashboard .footer,
+	#note,
+	.messageArea {
+		width: 460px;
+	}
+
+	#cancelnote {
+		right: 199px; /* 460 / 2 - 15px (half width of cancel button) - 16px (padding on note_title) */
+	}
+
+	.note_title,
+	.note_title_container {
+		width: 460px;
+		margin: auto;
+	}
 }
