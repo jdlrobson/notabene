@@ -263,6 +263,10 @@ a:hover {
 		width: 460px;
 	}
 
+	#cancelnote {
+		right: 215px; /* 460 / 2 - 15px (half width of cancel button) */
+	}
+
 	.note_title_container {
 		width: 500px;
 	}
