@@ -128,9 +128,6 @@ function notes(container, options) {
 					storeNote();
 					ev.preventDefault();
 				}).appendTo(tagArea);
-				if(i < tags.length - 1) {
-					$("<span />").text(", ").appendTo(tagArea);
-				}
 			}
 		}
 	}
