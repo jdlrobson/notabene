@@ -416,6 +416,17 @@ a:hover {
 	width: 20px;
 }
 
+#cancelnote {
+	position: absolute;
+	top: 4px;
+	right: 120px;
+	background-image: url(cancel.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+}
+
+#cancelnote,
 #deletenote,
 #newnote {
 	cursor: pointer;
@@ -424,6 +435,7 @@ a:hover {
 	text-indent: -9999px;
 }
 
+#cancelnote:hover,
 #newnote:hover,
 #deletenote:hover {
 	opacity: 1;
