@@ -122,6 +122,12 @@ function notes(container, options) {
 			$("<span />").text("tags : ").appendTo(tagArea);
 			for(var i = 0; i < tags.length; i++) {
 				$("<span />").text(tags[i]).appendTo(tagArea);
+				$('<a class="removeTag">remove</a>').data("tag", tags[i]).click(function(ev) {
+					var tag = $(ev.target).data("tag");
+					removeTag(tag);
+					storeNote();
+					ev.preventDefault();
+				}).appendTo(tagArea);
 				if(i < tags.length - 1) {
 					$("<span />").text(", ").appendTo(tagArea);
 				}
