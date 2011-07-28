@@ -468,8 +468,11 @@ function notes(container, options) {
 		}
 	});
 	$("#cancelnote").click(function(ev) {
-		store.remove(note.title);
-		resetNote();
+		var ok = confirm("Cancel this note?");
+		if(ok) {
+			store.remove(note.title);
+			resetNote();
+		}
 	});
 	init();
 	return {
