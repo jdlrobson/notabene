@@ -363,6 +363,15 @@ function notes(container, options) {
 	});
 
 	function removeTag(tag) {
+		var tags = note.tags || [];
+		var newtags = [];
+		for(var i = 0; i < tags.length; i++) {
+			if(tags[i] !== tag) {
+				newtags.push(tags[i]);
+			}
+		}
+		note.tags = newtags;
+		printMetaData(note);
 	}
 	function addTagToCurrentNote(tag) {
 		var tags = note.tags || [];
