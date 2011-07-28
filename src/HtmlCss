@@ -110,6 +110,5 @@ dt {
 dd {
 	margin: 0px;
 	margin-right: 10px;
-	border-right: solid 1px #CCC;
-	display: inline-block;
+	display: block;
 }
