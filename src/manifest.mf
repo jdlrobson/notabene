@@ -13,6 +13,7 @@ jquery.min.js
 chrjs.js
 chrjs-store.js
 touchicon.png
+cancel.png
 saveTiddler.png
 delete.png
 bg.png

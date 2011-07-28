@@ -170,7 +170,7 @@ a:hover {
 .toolbar {
 	position: absolute;
 	top: -40px;
-	right: -20px;
+	width: 100%;
 }
 
 
@@ -291,10 +291,12 @@ a:hover {
 }
 
 .messageArea {
+	position: relative;
+	margin-bottom: 20px;
 	font-family: monospace;
 	border: solid 1px #ccc;
 	color: #333;
-	padding: 20px 0px;
+	padding: 10px 0px 20px 0px;
 	text-indent: 4px;
 	color: green;
 	opacity: 0;
@@ -409,13 +411,24 @@ a:hover {
 #deletenote {
 	position: absolute;
 	top: 4px;
-	right: 70px;
+	left: 4px;
 	background-image: url(delete.png);
 	background-repeat: no-repeat;
 	height: 30px;
 	width: 20px;
 }
 
+#cancelnote {
+	position: absolute;
+	top: 4px;
+	right: 230px; /* 500 / 2 - 20px */
+	background-image: url(cancel.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+}
+
+#cancelnote,
 #deletenote,
 #newnote {
 	cursor: pointer;
@@ -424,6 +437,7 @@ a:hover {
 	text-indent: -9999px;
 }
 
+#cancelnote:hover,
 #newnote:hover,
 #deletenote:hover {
 	opacity: 1;

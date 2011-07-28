@@ -17,6 +17,7 @@
 			<div class='messageArea'></div>
 			<div id="note">
 				<div class="toolbar">
+					<a id="cancelnote" title="cancel this note">cancel</a>
 					<a id="deletenote" title="delete this note">delete</a>
 					<a id="newnote" title="complete this note">complete</a>
 				</div>
