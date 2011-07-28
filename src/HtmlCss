@@ -4,6 +4,33 @@ body {
 	background-image: url(bg.png);
 }
 
+blockquote {
+	quotes: "\201C" "\201D";
+	margin-bottom: 50px;
+}
+
+blockquote:before {
+	content: open-quote;
+	font-size: 3em;
+	font-weight: bold;
+	color: #CCC;
+}
+
+blockquote:after {
+	font-size: 3em;
+	content: close-quote;
+	font-weight: bold;
+	float: right;
+	color: #999;
+}
+
+pre {
+	margin-left: 50px;
+	border: dotted 1px #ccc;
+	padding: 10px;
+	word-wrap: break-word;
+}
+
 #container {
 	width: 520px;
 	background-color: rgba(255, 255, 255, 0.7);
