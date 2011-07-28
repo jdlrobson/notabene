@@ -291,10 +291,12 @@ a:hover {
 }
 
 .messageArea {
+	position: relative;
+	margin-bottom: 20px;
 	font-family: monospace;
 	border: solid 1px #ccc;
 	color: #333;
-	padding: 20px 0px;
+	padding: 10px 0px 20px 0px;
 	text-indent: 4px;
 	color: green;
 	opacity: 0;
