@@ -1,8 +1,9 @@
-/***
+/*!
 |''Name''|notabene|
-|''Version''|0.3.0|
+|''Version''|0.3.5|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
-***/
+|''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
+!*/
 var APP_PATH = "/takenote";
 var RESERVED_TITLES = ["takenote", "dashboard", "chrjs-store.js", "chrjs.js", "manifest.mf", "require.js",
 	"notabene.css", "jquery.min.js", "jquery-ui.min.js", "jquery-json.min.js"];
