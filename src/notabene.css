@@ -410,6 +410,7 @@ a:hover {
 	height: 16px;
 	display: inline-block;
 	margin-left: 8px;
+	margin-right: 8px;
 	cursor: pointer;
 }
 
