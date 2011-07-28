@@ -273,6 +273,9 @@ function notes(container, options) {
 		var currentUrl = decodeURIComponent(window.location.hash);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
+			if(currentUrl.indexOf("quickedit/") > -1) {
+				$("#newnote").addClass("quickedit");
+			}
 			loadServerNote(match[1]);
 		} else {
 			if(tiddlers[0]) {
