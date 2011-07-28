@@ -170,7 +170,7 @@ a:hover {
 .toolbar {
 	position: absolute;
 	top: -40px;
-	right: -20px;
+	width: 100%;
 }
 
 
@@ -409,7 +409,7 @@ a:hover {
 #deletenote {
 	position: absolute;
 	top: 4px;
-	right: 70px;
+	left: 4px;
 	background-image: url(delete.png);
 	background-repeat: no-repeat;
 	height: 30px;
@@ -419,7 +419,7 @@ a:hover {
 #cancelnote {
 	position: absolute;
 	top: 4px;
-	right: 120px;
+	right: 230px; /* 500 / 2 - 20px */
 	background-image: url(cancel.png);
 	background-repeat: no-repeat;
 	height: 30px;
