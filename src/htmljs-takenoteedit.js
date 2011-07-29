@@ -8,8 +8,13 @@ $(document).ready(function() {
 		success: function(r) {
 			if(r) {
 				if(bag == space + "_public") {
-					$("<a id='editLink' />").attr("href", "/takenote#!/quickedit/tiddler/" + title).
-						text("edit note").prependTo(place);
+					if($(".tiddler").length > 0) {
+						$("<a id='editLink' />").attr("href", "/takenote#!/quickedit/tiddler/" + title).
+							text("edit note").prependTo(place);
+					} else { // when viewing a collection add link to create new note in collection
+						$("<a id='editLink' />").attr("href", "/takenote").
+							text("take note").prependTo(place);
+					}
 				}
 			}
 		}
