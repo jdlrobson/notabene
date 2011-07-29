@@ -273,6 +273,9 @@ function notes(container, options) {
 		var currentUrl = decodeURIComponent(window.location.hash);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
+			if(currentUrl.indexOf("quickedit/") > -1) {
+				$("#newnote").addClass("quickedit");
+			}
 			loadServerNote(match[1]);
 		} else {
 			if(tiddlers[0]) {
@@ -441,6 +444,7 @@ function notes(container, options) {
 	// on clicking the "clear" button provide a blank note
 	$("#newnote").click(function(ev) {
 		printMessage("Saving note...");
+		var quickedit = $(ev.target).hasClass("quickedit");
 
 		validateCurrentNoteTitle(note.title, function(valid) {
 			if(valid) {
@@ -448,7 +452,11 @@ function notes(container, options) {
 					if(tid) {
 						notabene.addRecentChange(bag.name, note.title);
 						$("#note").addClass("active");
-						printMessage("Saved successfully.", null, true);
+						if(quickedit) { // if quick edit has been signalled
+							window.location = "/" + encodeURIComponent(note.title);
+						} else {
+							printMessage("Saved successfully.", null, true);
+						}
 						resetNote();
 					} else {
 						// TODO: give more useful error messages (currently options doesn't provide this)

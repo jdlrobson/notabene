@@ -271,6 +271,18 @@ module('notabene ui refresh', {
 	setup: uisetup, teardown:  uiteardown
 });
 
+test("redirect flag", function() {
+	window.location.hash = "#!/quickedit/tiddler/bar";
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	strictEqual($(".note_title").val(), "bar", "title loaded");
+	strictEqual($(".note_text").val(), "The correct text", "text loaded");
+	strictEqual($("#newnote").hasClass("quickedit"), true,
+		"the new note button has been flagged with a class that tells it to redirect to html serialization");
+});
+
 test('issue 18', function() {
 	strictEqual(localStorage.length, 0, "at start there is nothing locally cached.");
 	// trigger a cache of a new tiddler into localStorage
