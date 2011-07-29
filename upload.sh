@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# The original script was written by psd and can be found here - https://gist.github.com/604709
 # cheap and cheerful pushing of files to TiddlySpace, 
 # authorization taken from the variable TIDDLYSPACE_AUTH which for me is:
 # export TIDDLYSPACE_AUTH='-u myuser:mypass'
