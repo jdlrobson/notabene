@@ -117,6 +117,10 @@ a {
 	font-size: .9em;
 }
 
+.meta .hidden {
+	display: none;
+}
+
 #footer {
 	text-align: center;
 	font-style: italic;
