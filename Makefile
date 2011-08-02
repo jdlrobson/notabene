@@ -65,17 +65,29 @@ meta:
 	cp src/html.meta src/dashboard.meta
 	cp src/manifest.meta src/manifest.mf.meta
 
-dev: meta
-	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
-		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
-		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
-		'src/cancel.png' 'src/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
+basesixtyfour:
+	rm -rf tmp_b64
+	mkdir tmp_b64
+	python b64.py cancel.png 'image/png'
+	python b64.py touchicon.png 'image/png'
+	python b64.py saveTiddler.png 'image/png'
+	python b64.py delete.png 'image/png'
+	python b64.py bg.png 'image/png'
+	python b64.py icon-recent.png 'image/png'
+	python b64.py icon-incomplete.png 'image/png'
+	python b64.py icon-search.png 'image/png'
+
+dev: meta basesixtyfour
+	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'tmp_b64/touchicon.png.tid' \
+		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/bg.png.tid' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
+		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
+		'tmp_b64/cancel.png.tid' 'src/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
 dist: remotes meta compress
 	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' 'src/chrjs-store.js' \
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
-		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
-		'src/cancel.png' 'build/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
-		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
-		'src/dashboard'  'src/chrjs.js' 'src/touchicon.png' 'src/manifest.mf'
+		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/bg.png.tid' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
+		'tmp_b64/cancel.png.tid' 'build/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
+		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
+		'src/dashboard'  'src/chrjs.js' 'tmp_b64/touchicon.png.tid' 'src/manifest.mf'
