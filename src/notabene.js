@@ -540,6 +540,13 @@ function backstage() {
 		$.ajax({ url: "/spaces/jon/members", dataType: "json",
 			success: function(members) {
 				$('<li class="status" />').text("user: " + status.username).appendTo("#backstage");
+			},
+			error: function() {
+				if(status.username === "GUEST") {
+					$('<li class="status" />').html("<a href='/challenge'>login please</a>").appendTo("#backstage");
+				} else {
+					$('<li class="status" />').text("forbidden").appendTo("#backstage");
+				}
 			}
 		});
 	}
