@@ -97,5 +97,6 @@ dist: remotes meta compress
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/bg.png.tid' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
 		'tmp_b64/cancel.png.tid' 'build/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
+		'src/bubble.js' \
 		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
 		'src/dashboard'  'src/chrjs.js' 'tmp_b64/touchicon.png.tid' 'src/manifest.mf'
