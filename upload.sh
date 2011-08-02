@@ -33,7 +33,7 @@ do
 		content="image/svg+xml"
 		;;
 	*.css)
-		if [ ! -f $file.meta ]
+		if [ ! -r $file.meta ]
 		then
 			content="text/css"
 		else
@@ -69,7 +69,7 @@ do
 		content="image/jpeg"
 		;;
 	*.js)
-		if [ ! -f $file.meta ]
+		if [ ! -r $file.meta ]
 		then
 			content="text/javascript"
 		else
