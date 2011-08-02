@@ -20,6 +20,7 @@ bg.png
 icon-search.png
 icon-incomplete.png
 icon-recent.png
+bubble.js
 
 NETWORK:
 *

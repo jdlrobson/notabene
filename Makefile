@@ -37,6 +37,7 @@ cleanmeta:
 	rm -f src/chrjs-store.js.meta
 	rm -f src/require.js.meta
 	rm -f src/jquery.min.js.meta
+	rm -f src/bubble.js.meta
 	rm -f src/jquery-json.min.js.meta
 	rm -f src/jquery-ui.min.js.meta
 	rm -f build/notabene.js.meta
@@ -58,6 +59,7 @@ meta:
 	cp src/javascript.meta src/chrjs-store.js.meta
 	cp src/javascript.meta src/require.js.meta
 	cp src/javascript.meta src/jquery.min.js.meta
+	cp src/javascript.meta src/bubble.js.meta
 	cp src/javascript.meta src/jquery-json.min.js.meta
 	cp src/javascript.meta src/jquery-ui.min.js.meta
 	cp src/javascript.meta build/notabene.js.meta
@@ -87,6 +89,7 @@ dev: meta basesixtyfour
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/bg.png.tid' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
 		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
 		'tmp_b64/cancel.png.tid' 'src/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
+		'src/bubble.js' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
 dist: remotes meta compress
