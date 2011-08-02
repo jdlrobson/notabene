@@ -27,14 +27,24 @@ compress:
 	java -jar yuicompressor-2.4.6.jar src/notabene.css -o build/notabene.css
 	java -jar yuicompressor-2.4.6.jar --type css src/HtmlCss -o build/HtmlCss
 
-dev:
+meta:
+	ln -sf src/javascript.meta src/notabene.js.meta
+	ln -sf src/javascript.meta src/chrjs.js.meta
+	ln -sf src/javascript.meta src/chrjs-store.js.meta
+	ln -sf src/javascript.meta src/require.js.meta
+	ln -sf src/javascript.meta src/jquery.min.js.meta
+	ln -sf src/javascript.meta src/jquery-json.min.js.meta
+	ln -sf src/javascript.meta src/jquery-ui.min.js.meta
+	ln -sf src/javascript.meta build/notabene.js.meta
+
+dev: meta
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
 		'src/require.js' 'src/icon-search.png' 'src/icon-incomplete.png' 'src/icon-recent.png' \
 		'src/cancel.png' 'src/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
-dist: remotes compress
+dist: remotes meta compress
 	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' 'src/chrjs-store.js' \
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'src/bg.png' 'src/delete.png' 'src/saveTiddler.png' \
