@@ -605,7 +605,7 @@ function dashboard(container, options) {
 	// preload titles
 	$.ajax({
 		dataType: "text",
-		url: "/bags/" + options.bag + "/tiddlers",
+		url: "/bags/" + options.bag + "/tiddlers?select=tag:!excludeLists",
 		success: function(r) {
 			all_note_titles = r.split("\n");
 		}
@@ -634,7 +634,7 @@ function dashboard(container, options) {
 			}
 			response(matchNotes(term, []));
 			$.ajax({
-				url: "/search?q=bag:" + options.bag + " \"" + term + " \"",
+				url: "/search?q=bag:" + options.bag + " \"" + term + " \"&select=tag:!excludeLists",
 				dataType: "json",
 				success: function(r) {
 					el.removeClass("searching").css({ opacity: 1 });
