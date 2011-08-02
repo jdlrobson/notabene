@@ -551,9 +551,6 @@ function backstage() {
 					if(!initialised) {
 						checkUser(status);
 						initialised = true;
-						// show bookmark bubble if supported
-						var bubble = new google.bookmarkbubble.Bubble();
-						bubble.showIfAllowed();
 					}
 				},
 				error: function() {
@@ -700,3 +697,40 @@ function dashboard(container, options) {
 		$("<li />").text("None.").appendTo(listIncomplete)[0];
 	}
 }
+
+// show bookmark bubble if supported
+window.addEventListener('load', function() {
+	window.setTimeout(function() {
+		var bubble = new google.bookmarkbubble.Bubble();
+
+		var BUBBLE_STORAGE_KEY = 'bubble';
+
+		bubble.setHashParameter = function() { }
+
+		bubble.hasHashParameter = function() {
+			return false;
+		}
+
+		bubble.getViewportHeight = function() {
+			window.console.log('Example of how to override getViewportHeight.');
+			return window.innerHeight;
+		};
+
+		bubble.getViewportScrollY = function() {
+			window.console.log('Example of how to override getViewportScrollY.');
+			return window.pageYOffset;
+		};
+
+		bubble.registerScrollHandler = function(handler) {
+			window.console.log('Example of how to override registerScrollHandler.');
+			window.addEventListener('scroll', handler, false);
+		};
+
+		bubble.deregisterScrollHandler = function(handler) {
+			window.console.log('Example of how to override deregisterScrollHandler.');
+			window.removeEventListener('scroll', handler, false);
+		};
+
+		bubble.showIfAllowed();
+	}, 1000);
+}, false);
