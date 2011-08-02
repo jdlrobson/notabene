@@ -551,6 +551,9 @@ function backstage() {
 					if(!initialised) {
 						checkUser(status);
 						initialised = true;
+						// show bookmark bubble if supported
+						var bubble = new google.bookmarkbubble.Bubble();
+						bubble.showIfAllowed();
 					}
 				},
 				error: function() {
