@@ -42,6 +42,7 @@ metaclean:
 	rm -f build/HtmlCss.meta
 	rm -f src/dashboard.meta
 	rm -f src/takenote.meta
+	rm -f src/manifest.mf.meta
 
 meta:
 	rm -rf build
@@ -62,6 +63,7 @@ meta:
 	cp src/css.meta build/HtmlCss.meta
 	cp src/html.meta src/takenote.meta
 	cp src/html.meta src/dashboard.meta
+	cp src/manifest.meta src/manifest.mf.meta
 
 dev: meta
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
