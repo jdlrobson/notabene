@@ -503,7 +503,7 @@ function notes(container, options) {
 		}
 	});
 	$("#cancelnote").click(function(ev) {
-		var ok = confirm("Cancel this note?");
+		var ok = confirm("Cancel editing this note and revert to previous online version?");
 		if(ok) {
 			store.remove(note.title);
 			resetNote();
