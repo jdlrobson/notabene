@@ -1,5 +1,10 @@
-clean: metaclean
-	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/require.js build
+clean: cleanlocal cleanremote
+
+cleanlocal: cleanmeta
+	rm -rf build tmp b64
+
+cleanremote:
+	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/require.js 
 
 remotes: clean
 	curl -o src/chrjs.js \
@@ -25,7 +30,7 @@ compress:
 	java -jar yuicompressor-2.4.6.jar src/notabene.css -o build/notabene.css
 	java -jar yuicompressor-2.4.6.jar --type css src/HtmlCss -o build/HtmlCss
 
-metaclean:
+cleanmeta:
 	rm -f src/notabene.js.meta
 	rm -f src/htmljs-takenoteedit.js.meta
 	rm -f src/chrjs.js.meta
