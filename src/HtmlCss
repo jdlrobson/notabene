@@ -146,6 +146,11 @@ dd {
 	display: block;
 }
 
+dd.meta-tag {
+	display: inline-block;
+	margin-right: 8px;
+}
+
 #editLink {
 	position: absolute;
 	right: 0px;
