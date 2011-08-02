@@ -417,11 +417,16 @@ a:hover {
 #cancelnote {
 	position: absolute;
 	top: 4px;
+	visibility: hidden;
 	right: 235px; /* 500 / 2 - 15px (half width of cancel button) */
 	background-image: url(cancel.png);
 	background-repeat: no-repeat;
 	height: 30px;
 	width: 30px;
+}
+
+.validatedNote #cancelnote {
+	visibility: visible;
 }
 
 #cancelnote,

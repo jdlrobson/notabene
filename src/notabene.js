@@ -141,7 +141,11 @@ function notes(container, options) {
 		}
 		if(note.fields._title_validated) {
 			$(".note_title").blur().attr("disabled", true);
+			$(document.body).addClass("validatedNote");
+		} else {
+			$(document.body).removeClass("validatedNote");
 		}
+
 		$(document).ready(function() {
 			autoResize($("textarea.note_title")[0], { buffer: 0 });
 			autoResize($(".note_text")[0], { minHeight: 250 });
