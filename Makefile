@@ -21,8 +21,6 @@ devlocal: remotes
 	echo "\n\nrun twanager server && open http://0.0.0.0:8080/static/edit.html\n\n"
 
 compress:
-	rm -rf build
-	mkdir build
 	java -jar yuicompressor-2.4.6.jar src/notabene.js -o build/notabene.js
 	java -jar yuicompressor-2.4.6.jar src/notabene.css -o build/notabene.css
 	java -jar yuicompressor-2.4.6.jar --type css src/HtmlCss -o build/HtmlCss
@@ -41,17 +39,19 @@ metaclean:
 	rm -f src/css.meta src/jquery-ui.css.meta
 
 meta:
-	ln -sf src/javascript.meta src/notabene.js.meta
-	ln -sf src/javascript.meta src/chrjs.js.meta
-	ln -sf src/javascript.meta src/chrjs-store.js.meta
-	ln -sf src/javascript.meta src/require.js.meta
-	ln -sf src/javascript.meta src/jquery.min.js.meta
-	ln -sf src/javascript.meta src/jquery-json.min.js.meta
-	ln -sf src/javascript.meta src/jquery-ui.min.js.meta
-	ln -sf src/javascript.meta build/notabene.js.meta
-	ln -sf src/css.meta build/notabene.css.meta
-	ln -sf src/css.meta src/notabene.css.meta
-	ln -sf src/css.meta src/jquery-ui.css.meta
+	rm -rf build
+	mkdir build
+	cp src/javascript.meta src/notabene.js.meta
+	cp src/javascript.meta src/chrjs.js.meta
+	cp src/javascript.meta src/chrjs-store.js.meta
+	cp src/javascript.meta src/require.js.meta
+	cp src/javascript.meta src/jquery.min.js.meta
+	cp src/javascript.meta src/jquery-json.min.js.meta
+	cp src/javascript.meta src/jquery-ui.min.js.meta
+	cp src/javascript.meta build/notabene.js.meta
+	cp src/css.meta build/notabene.css.meta
+	cp src/css.meta src/notabene.css.meta
+	cp src/css.meta src/jquery-ui.css.meta
 
 dev: meta
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
