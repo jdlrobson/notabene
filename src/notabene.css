@@ -339,6 +339,28 @@ a:hover {
 	line-height: 1.3em;
 }
 
+#tips {
+	padding: 8px;
+	background-color: #DDD;
+}
+
+.boldTip, .underlineTip, .italicTip {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.boldTip {
+	font-weight: bold;
+}
+
+.underlineTip {
+	text-decoration: underline;
+}
+
+.italicTip {
+	font-style: italic;
+}
+
 #metabutton {
 	background: gray;
 	width: 32px;
