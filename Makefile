@@ -36,6 +36,9 @@ meta:
 	ln -sf src/javascript.meta src/jquery-json.min.js.meta
 	ln -sf src/javascript.meta src/jquery-ui.min.js.meta
 	ln -sf src/javascript.meta build/notabene.js.meta
+	ln -sf src/css.meta build/notabene.css.meta
+	ln -sf src/css.meta src/notabene.css.meta
+	ln -sf src/css.meta src/jquery-ui.css.meta
 
 dev: meta
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'src/touchicon.png' \
