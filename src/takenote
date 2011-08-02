@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html manifest="/manifest.mf">
 	<head>
-		<title>notabene</title>
+		<title>takenote</title>
 		<link rel="stylesheet" href="/notabene.css" />
 		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=0">
