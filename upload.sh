@@ -46,7 +46,7 @@ do
 				echo 
 				cat $o 
 			)> $file
-			tiddler=$(basename "$o" .css)
+			tiddler=$(basename "$o")
 		fi
 		;;
 	*.pdf)
@@ -82,7 +82,7 @@ do
 				echo 
 				cat $o 
 			)> $file
-			tiddler=$(basename "$o" .js)
+			tiddler=$(basename "$o")
 		fi
 		;;
 	*)
