@@ -33,21 +33,7 @@ do
 		content="image/svg+xml"
 		;;
 	*.css)
-		if [ ! -r $file.meta ]
-		then
-			content="text/css"
-		else
-			content="text/plain"
-			o="$file"
-			meta="$o.meta"
-			file="/tmp/sts.tid"
-			(
-				cat $o.meta
-				echo 
-				cat $o 
-			)> $file
-			tiddler=$(basename "$o")
-		fi
+		content="text/css"
 		;;
 	*.pdf)
 		content="application/pdf"
@@ -69,26 +55,25 @@ do
 		content="image/jpeg"
 		;;
 	*.js)
-		if [ ! -r $file.meta ]
-		then
-			content="text/javascript"
-		else
-			content="text/plain"
-			o="$file"
-			meta="$o.meta"
-			file="/tmp/sts.tid"
-			(
-				cat $o.meta
-				echo 
-				cat $o 
-			)> $file
-			tiddler=$(basename "$o")
-		fi
+		content="text/javascript"
 		;;
 	*)
 		content="text/html"
 		;;
 	esac
+	if [ -r $file.meta ]
+	then
+		content="text/plain"
+		o="$file"
+		meta="$o.meta"
+		file="/tmp/sts.tid"
+		(
+			cat $o.meta
+			echo 
+			cat $o 
+		)> $file
+		tiddler=$(basename "$o")
+	fi
 	set -x
 	curl -X PUT $TIDDLYSPACE_AUTH http://${space}.tiddlyspace.com/bags/${space}_$pp/tiddlers/$tiddler --data-binary @$file -H "Content-type: $content"
 	set +x
