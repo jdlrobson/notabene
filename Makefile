@@ -1,4 +1,4 @@
-clean:
+clean: metaclean
 	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bg.png src/require.js build
 
 remotes: clean
@@ -26,6 +26,19 @@ compress:
 	java -jar yuicompressor-2.4.6.jar src/notabene.js -o build/notabene.js
 	java -jar yuicompressor-2.4.6.jar src/notabene.css -o build/notabene.css
 	java -jar yuicompressor-2.4.6.jar --type css src/HtmlCss -o build/HtmlCss
+
+metaclean:
+	rm -f src/notabene.js.meta
+	rm -f src/chrjs.js.meta
+	rm -f src/chrjs-store.js.meta
+	rm -f src/require.js.meta
+	rm -f src/jquery.min.js.meta
+	rm -f src/jquery-json.min.js.meta
+	rm -f src/jquery-ui.min.js.meta
+	rm -f build/notabene.js.meta
+	rm -f build/notabene.css.meta
+	rm -f src/css.meta src/notabene.css.meta
+	rm -f src/css.meta src/jquery-ui.css.meta
 
 meta:
 	ln -sf src/javascript.meta src/notabene.js.meta
