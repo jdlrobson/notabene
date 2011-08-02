@@ -33,7 +33,21 @@ do
 		content="image/svg+xml"
 		;;
 	*.css)
-		content="text/css"
+		if [ ! -f $file.meta ]
+		then
+			content="text/css"
+		else
+			content="text/plain"
+			o="$file"
+			meta="$o.meta"
+			file="/tmp/sts.tid"
+			(
+				cat $o.meta
+				echo 
+				cat $o 
+			)> $file
+			tiddler=$(basename "$o" .css)
+		fi
 		;;
 	*.pdf)
 		content="application/pdf"
