@@ -325,7 +325,7 @@ function notes(container, options) {
 					tiddler.fields._title_validated = "yes";
 					callback(tiddler, true);
 				} else {
-					callback(tiddler, null);
+					callback(tiddler, null, null, xhr);
 				}
 			});
 		}
@@ -342,7 +342,7 @@ function notes(container, options) {
 			$(".note_title").attr("disabled", true);
 		};
 
-		validateNote(note, function(tiddler, valid, reserved) {
+		validateNote(note, function(tiddler, valid, reserved, xhr) {
 			//note = tiddler;
 			if(valid) {
 				fixTitle();
@@ -352,7 +352,7 @@ function notes(container, options) {
 					: "A note with this name already exists. Please provide another name."
 				printMessage(msg, "error");
 			}
-			callback(valid);
+			callback(valid, xhr);
 		});
 	}
 
@@ -451,7 +451,7 @@ function notes(container, options) {
 		printMessage("Saving note...");
 		var quickedit = $(ev.target).hasClass("quickedit");
 
-		validateCurrentNoteTitle(note.title, function(valid) {
+		validateCurrentNoteTitle(note.title, function(valid, xhr) {
 			if(valid) {
 				store.save(note, function(tid, options) {
 					if(tid) {
@@ -465,7 +465,12 @@ function notes(container, options) {
 						resetNote();
 					} else {
 						// TODO: give more useful error messages (currently options doesn't provide this)
-						printMessage("Saved locally. Unable to post to web at current time.", "warning");
+						if(xhr && xhr.status === 403) {
+							printMessage("You are not logged into takenote." +
+								"Please <a href='/challenge'>login</a> to post notes to the web.", "warning");
+						} else {
+							printMessage("Saved locally. Unable to post to web at current time.", "warning");
+						}
 						resetNote();
 					}
 				});
