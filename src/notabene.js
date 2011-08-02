@@ -93,7 +93,7 @@ function notes(container, options) {
 	// retrieve last created note
 	store.retrieveCached();
 	var tiddlers = store().bag(bagname).sort(function(a, b) {
-		return a.fields.modified < b.fields.modified ? 1 : -1;
+		return a.fields._modified < b.fields._modified ? 1 : -1;
 	});
 
 	var note, tempTitle;
@@ -102,8 +102,8 @@ function notes(container, options) {
 	function printMetaData(tiddler) {
 		// print meta information
 		var fieldInfo = {
-			created: { label: "created on" },
-			modified: { label: "last modified on" }
+			_created: { label: "created on" },
+			_modified: { label: "last modified on" }
 		};
 		$("#notemeta").empty();
 		var container = $('<div class="paddedbox" />').appendTo("#notemeta")[0];
@@ -175,7 +175,7 @@ function notes(container, options) {
 		note = new tiddlyweb.Tiddler(tempTitle, bag);
 		note.fields = {};
 		note.tags = [];
-		note.fields.created = new Date();
+		note.fields._created = new Date();
 		loadNote();
 	}
 
@@ -295,7 +295,7 @@ function notes(container, options) {
 
 	// this stores the note locally (but not on the server)
 	function storeNote() {
-		note.fields.modified = new Date();
+		note.fields._modified = new Date();
 		store.add(note);
 		syncStatus();
 	}
