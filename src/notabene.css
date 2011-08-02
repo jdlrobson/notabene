@@ -503,8 +503,37 @@ a:hover {
 	display: block;
 }
 
+
+/* iphone mode */
+@media screen and (min-width: 320px) {
+	.takenotedashboard,
+	.takenotecontainer {
+		width: 320px;
+	}
+
+	.header h1 {
+		font-size: 3em;
+	}
+
+	.takenotedashboard .footer,
+	#note,
+	.messageArea {
+		width: 300px;
+	}
+
+	#cancelnote {
+		right: 145px; /* 320 / 2 - 15px (half width of cancel button) - 16px (padding on note_title) */
+	}
+
+	.note_title,
+	.note_title_container {
+		width: 300px;
+		margin: auto;
+	}
+}
+
 /* portrait mode */
-@media all and (min-width: 321px) and (max-width: 480px) {
+@media screen and (min-width: 580px) {
 	.takenotedashboard,
 	.takenotecontainer {
 		width: 480px;
@@ -523,30 +552,6 @@ a:hover {
 	.note_title,
 	.note_title_container {
 		width: 460px;
-		margin: auto;
-	}
-}
-
-/* iphone mode */
-@media only screen and (max-device-width: 320px) {
-	.takenotedashboard,
-	.takenotecontainer {
-		width: 320px;
-	}
-
-	.takenotedashboard .footer,
-	#note,
-	.messageArea {
-		width: 300px;
-	}
-
-	#cancelnote {
-		right: 145px; /* 320 / 2 - 15px (half width of cancel button) - 16px (padding on note_title) */
-	}
-
-	.note_title,
-	.note_title_container {
-		width: 300px;
 		margin: auto;
 	}
 }
