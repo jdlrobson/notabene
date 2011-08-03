@@ -746,3 +746,11 @@ window.addEventListener('load', function() {
 		bubble.showIfAllowed();
 	}, 1000);
 }, false);
+
+addEventListener("load", function() {
+	setTimeout(hideURLbar, 0);
+}, false);
+
+function hideURLbar() {
+	window.scrollTo(0, 1);
+}
