@@ -106,7 +106,7 @@ test('syncButton and successful save', function() {
 	strictEqual(recentlist.length, 1, "1 recently created note recorded");
 	strictEqual(recentlist[0], "bar", "check the title of bar is recorded properly");
 	// edit text
-	$(".note_text").keyup();
+	$(".note_text").keydown();
 	strictEqual($(".syncButton", container).text(), "1",
 		"Now the number of notes to be synced to be 1 as text has been entered");
 });
@@ -255,7 +255,7 @@ test('test deletion (from local storage)', function() {
 	$(".note_title").val("Test").blur();
 
 	// trigger a 'cache' to localStorage by typing in the textarea.
-	$(".note_text").val("foo").keyup();
+	$(".note_text").val("foo").keydown();
 	strictEqual(localStorage.length, 1, "a tiddler should be saved locally.");
 
 	// trigger a delete
@@ -291,7 +291,7 @@ test('issue 18', function() {
 		host: "/",
 		bag: "test_public"
 	});
-	$(".note_text").val("foo").keyup();
+	$(".note_text").val("foo").keydown();
 	strictEqual(localStorage.length, 1,
 		"notes app is loaded, text entered (foo) and a cache is trigger. Now we should have something in localStorage");
 
@@ -318,7 +318,7 @@ test('test failed save', function() {
 	strictEqual($(".syncButton", container).text(), "1", "this should mean one tiddler needs syncing");
 
 	// trigger a 'cache' to localStorage by typing in the textarea.
-	$(".note_text").val("foo").keyup();
+	$(".note_text").val("foo").keydown();
 
 	// trigger a sync
 	$("#newnote").click();
@@ -344,7 +344,7 @@ test("issue 23", function() {
 		bag: "bag"
 	});
 	// edit text
-	$(".note_text").val("hello").keyup();
+	$(".note_text").val("hello").keydown();
 
 	// we simulate a reboot
 	$(".note_text,.note_title").val("");
@@ -554,7 +554,7 @@ test('deleting an unvalidated tiddler', function() {
 	});
 	// set title to a tiddler that already exists
 	$(".note_title", container).val("bar").blur();
-	$(".note_text", container).val("hello").keyup();
+	$(".note_text", container).val("hello").keydown();
 	strictEqual(note.store().dirty().length, 1, "one tiddler now dirty");
 	strictEqual(note.getNote().fields._title_validated, undefined, "title has not been validated");
 	// now attempt to delete
