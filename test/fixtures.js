@@ -12,6 +12,16 @@ var xhr = {
 function NOP() {
 }
 
+var google = {
+	bookmarkbubble: {
+		Bubble: function() {
+			return {
+				showIfAllowed: NOP
+			};
+		}
+	}
+};
+
 var xhr404 = {
 	status: 404
 };
