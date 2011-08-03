@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html manifest="/manifest.mf">
 	<head>
-		<title>takenote dashboard</title>
+		<title>takenote</title>
 		<link type="text/css" rel="stylesheet" href="/reset.css" />
 		<link type="text/css" rel="stylesheet" href="/notabene.css" />
 		<link type="text/css" rel="stylesheet" href="/jquery-ui.css">
