@@ -505,14 +505,19 @@ a:hover {
 
 
 /* iphone mode */
-@media screen and (min-width: 320px) {
+@media screen and (orientation:portrait) and (max-width: 320px) {
+	#backstage {
+		font-size: 0.8em;
+	}
+
 	.takenotedashboard,
 	.takenotecontainer {
 		width: 320px;
+		font-size: 0.7em;
 	}
 
 	.header h1 {
-		font-size: 3em;
+		font-size: 2em;
 	}
 
 	.takenotedashboard .footer,
@@ -533,7 +538,7 @@ a:hover {
 }
 
 /* portrait mode */
-@media screen and (min-width: 580px) {
+@media screen and (orientation:portrait) and (min-width: 480px) {
 	.takenotedashboard,
 	.takenotecontainer {
 		width: 480px;
