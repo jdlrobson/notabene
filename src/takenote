@@ -3,6 +3,7 @@
 	<head>
 		<title>takenote</title>
 		<link rel="stylesheet" href="/notabene.css" />
+		<link rel="apple-touch-icon" href="/touchicon.png"/>
 		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1.0">
 	</head>
