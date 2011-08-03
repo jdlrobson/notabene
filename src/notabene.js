@@ -416,7 +416,7 @@ function notes(container, options) {
 		}
 	};
 
-	$(".note_text").keyup(function(ev) {
+	$(".note_text").keydown(function(ev) {
 		note.text = $(ev.target).val();
 		if(ev.keyCode === 8) {
 			tagHandler(ev.keyCode);
