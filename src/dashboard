@@ -25,6 +25,9 @@
 				<div class='section searchSection requiresConnection'>
 					<h2>find note:</h2>
 					<input class="findnote" type="search" placeholder="type search term" />
+					<ul>
+						<li>Access all your notes from <a href="/tiddlers?select=tag:!excludeLists">tiddlers</a></li>
+					</ul>
 				</div>
 				<div class="section incompleteSection">
 					<h2>Incomplete notes:</h2>
