@@ -1,3 +1,7 @@
+/***
+!Description
+Updates the html serialization in TiddlySpace to provide routes to the takenote tool
+***/
 $(document).ready(function() {
 	var place = $("#container").length > 0 ? $("#container")[0] : document.body;
 	var space = window.location.host.split(".")[0]
