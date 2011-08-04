@@ -137,6 +137,7 @@ dt, dd {
 dt {
 	margin-right: 8px;
 	float: left;
+	clear: both;
 	font-weight: bold;
 }
 
