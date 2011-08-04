@@ -159,3 +159,50 @@ dd.meta-tag {
 	color: #787878;
 	font-size: 0.8em;
 }
+
+/* TODO: avoid repetition - this css also lives in notabene.css */
+#backstage {
+	width: 100%;
+	padding: 0px;
+	background-color: black;
+	margin: 0px 0px 0px 0px;
+	height: 32px;
+	text-align: center;
+	background: -moz-linear-gradient(center bottom,#222 0%, #333 50%, #555 100%);
+	background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #222),color-stop(0.5, #333),color-stop(1, #555));
+	background: -moz-linear-gradient(center bottom,#222 0%, #333 50%, #555 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F5555, endColorstr=#F2222);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#F5555, endColorstr=#F2222)";
+}
+
+#backstage a {
+	color: white;
+	padding: 4px;
+	display: block;
+	text-decoration: none;
+}
+
+#backstage li:first-child {
+	border-right: solid 1px #777;
+}
+
+#backstage li:nth-child(2) {
+	border-left: solid 1px #555;
+}
+
+#backstage a:hover {
+	background-color: #FFA500;
+}
+
+#backstage li {
+	display: inline-block;
+	line-height: 18px;
+	margin-top: 2px;
+	padding: 0px 10px;
+}
+
+@media screen and (orientation:portrait) and (max-width: 320px) {
+	#backstage {
+		font-size: 0.8em;
+	}
+}

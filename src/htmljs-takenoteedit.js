@@ -20,6 +20,11 @@ $(document).ready(function() {
 							text("take note").prependTo(place);
 					}
 				}
+				if($("#backstage").length === 0) {
+					$(['<ul id="backstage">',
+						'<li><a href="/dashboard">dashboard</a></li><li><a href="/takenote">takenote</a></li>',
+						'</ul>'].join("")).prependTo(document.body);
+				}
 			}
 		}
 	});
