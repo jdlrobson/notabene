@@ -577,6 +577,23 @@ function backstage() {
 	window.setInterval(checkConnection, 10000);
 }
 
+function renderIncomplete(store, bagname) {
+	store.retrieveCached();
+	var tiddlers = store().bag(bagname).sort(function(a, b) {
+		return a.title < b.title ? -1 : 1;
+	});
+	var listIncomplete = $("#incomplete").empty()[0];
+	for(var i = 0; i < tiddlers.length; i++) {
+		var item = $("<li />").appendTo(listIncomplete)[0];
+		var title = tiddlers[i].title;
+		$("<a />").attr("href", APP_PATH + "#!/tiddler/" + title).
+			text(title).appendTo(item);
+	}
+	if(tiddlers.length === 0) {
+		$("<li />").text("None.").appendTo(listIncomplete)[0];
+	}
+}
+
 function dashboard(container, options) {
 	notes(container, options);
 
@@ -694,20 +711,7 @@ function dashboard(container, options) {
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
-	store.retrieveCached();
-	var tiddlers = store().bag(bagname).sort(function(a, b) {
-		return a.title < b.title ? -1 : 1;
-	});
-	var listIncomplete = $("#incomplete")[0];
-	for(var i = 0; i < tiddlers.length; i++) {
-		var item = $("<li />").appendTo(listIncomplete)[0];
-		var title = tiddlers[i].title;
-		$("<a />").attr("href", APP_PATH + "#!/tiddler/" + title).
-			text(title).appendTo(item);
-	}
-	if(tiddlers.length === 0) {
-		$("<li />").text("None.").appendTo(listIncomplete)[0];
-	}
+	renderIncomplete(store, bagname);
 }
 
 // show bookmark bubble if supported
