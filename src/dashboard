@@ -16,6 +16,7 @@
 			<li><a class='connectionStatus'></a></li>
 		</ul>
 		<div class="takenotedashboard">
+		  <div class='messageArea'></div>
 			<div class="header">
 				<div class="siteheading">
 					<h1>Dashboard</h1>
