@@ -198,6 +198,7 @@ function notes(container, options) {
 		var area = $(".syncButton");
 		var unsynced = store().bag(bagname).dirty();
 		$(area).text(unsynced.length);
+		renderIncomplete(store, bagname);
 	}
 
 	// this loads the note with the given title from the active bag and loads it into the display
@@ -583,14 +584,16 @@ function renderIncomplete(store, bagname) {
 		return a.title < b.title ? -1 : 1;
 	});
 	var listIncomplete = $("#incomplete").empty()[0];
-	for(var i = 0; i < tiddlers.length; i++) {
-		var item = $("<li />").appendTo(listIncomplete)[0];
-		var title = tiddlers[i].title;
-		$("<a />").attr("href", APP_PATH + "#!/tiddler/" + title).
-			text(title).appendTo(item);
-	}
-	if(tiddlers.length === 0) {
-		$("<li />").text("None.").appendTo(listIncomplete)[0];
+	if(listIncomplete) {
+		for(var i = 0; i < tiddlers.length; i++) {
+			var item = $("<li />").appendTo(listIncomplete)[0];
+			var title = tiddlers[i].title;
+			$("<a />").attr("href", APP_PATH + "#!/tiddler/" + title).
+				text(title).appendTo(item);
+		}
+		if(tiddlers.length === 0) {
+			$("<li />").text("None.").appendTo(listIncomplete)[0];
+		}
 	}
 }
 
