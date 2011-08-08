@@ -579,6 +579,7 @@ function backstage() {
 
 function dashboard(container, options) {
 	backstage();
+	notes(container, options);
 
 	var list = $("#recentnotes");
 

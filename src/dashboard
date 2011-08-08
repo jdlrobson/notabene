@@ -33,6 +33,7 @@
 				<div class="section incompleteSection">
 					<h2>Incomplete notes:</h2>
 					<ul id="incomplete"></ul>
+					<a class='info syncButton'>sync these notes</a>
 				</div>
 				<div class="section recentSection">
 					<h2>Recently created</h2>
