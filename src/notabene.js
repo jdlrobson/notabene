@@ -579,8 +579,7 @@ function backstage() {
 }
 
 function renderIncomplete(store, bagname) {
-	store.retrieveCached();
-	var tiddlers = store().bag(bagname).sort(function(a, b) {
+	var tiddlers = store().bag(bagname).dirty().sort(function(a, b) {
 		return a.title < b.title ? -1 : 1;
 	});
 	var listIncomplete = $("#incomplete").empty()[0];
@@ -714,6 +713,7 @@ function dashboard(container, options) {
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
+	store.retrieveCached();
 	renderIncomplete(store, bagname);
 }
 
