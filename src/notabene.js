@@ -545,7 +545,7 @@ function backstage() {
 				if(status.username === "GUEST") {
 					$('<li class="status" />').html("<a href='/challenge'>login please</a>").appendTo("#backstage");
 				} else {
-					$('<li class="status" />').text("forbidden").appendTo("#backstage");
+					$('<li class="status" />').text("non-member of space").appendTo("#backstage");
 				}
 			}
 		});
