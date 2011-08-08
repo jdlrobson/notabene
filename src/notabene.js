@@ -8,12 +8,31 @@ var APP_PATH = "/takenote";
 var RESERVED_TITLES = ["takenote", "dashboard", "chrjs-store.js", "chrjs.js", "manifest.mf", "require.js",
 	"notabene.css", "jquery.min.js", "jquery-ui.min.js", "jquery-json.min.js"];
 
+var config;
+
 // some helper functions
 var notabene = {
 	defaultFields: {},
+	loadConfig: function() {
+		config = localStorage.getItem("_takeNoteConfig") ? JSON.parse(localStorage.getItem("_takeNoteConfig")) : {};
+		if(config.noGeoTiddlers) {
+			if(new Date().getTime() - config.noGeoTiddlers > 1000*60*60*24) {
+				// more than a day old so flush
+				notabene.saveConfig("noGeoTiddlers", false);
+			}
+		}
+	},
+	saveConfig: function(name, value) {
+		if(typeof(name) != "undefined" && typeof(value) != "undefined") {
+			config[name] = value;
+		}
+		localStorage.setItem("_takeNoteConfig", JSON.stringify(config));
+	},
 	watchPosition: function(handler) {
-		if(!!navigator.geolocation) {
-			navigator.geolocation.watchPosition(handler);
+		if(!!navigator.geolocation && !config.noGeoTiddlers) {
+			navigator.geolocation.watchPosition(handler, function() {
+				notabene.saveConfig("noGeoTiddlers", new Date().getTime());
+			});
 		}
 	},
 	supports_local_storage: function() {
@@ -43,6 +62,7 @@ var notabene = {
 		localStorage.setItem("takenote-recent-" + bag, $.toJSON(newrecent));
 	}
 };
+notabene.loadConfig();
 
 function autoResize(el, options) {
 	options = options || {};
