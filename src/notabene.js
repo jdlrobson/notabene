@@ -557,7 +557,7 @@ function notes(container, options) {
 function backstage() {
 	var internet, _checking, initialised;
 	function checkUser(status) {
-		$.ajax({ url: "/spaces/jon/members", dataType: "json",
+		$.ajax({ url: "/spaces/" + status.username + "/members", dataType: "json",
 			success: function(members) {
 				$('<li class="status" />').text("user: " + status.username).appendTo("#backstage");
 			},
