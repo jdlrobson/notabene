@@ -414,6 +414,10 @@ function notes(container, options) {
 		note.tags = tags;
 		printMetaData(note);
 	}
+	function findTags(note) {
+		var tags = [];
+		return tags;
+	}
 	// every key press triggers a 'local' save
 	var tag = [];
 	var tagHandler = function(key) {
@@ -537,6 +541,7 @@ function notes(container, options) {
 	init();
 	return {
 		init: init,
+		findTags: findTags,
 		tagHandler: tagHandler,
 		printMessage: printMessage,
 		newNote: newNote,
