@@ -344,6 +344,11 @@ a:hover {
 	background-color: #DDD;
 }
 
+.imageTip img {
+	width: 16px;
+	height: 16px;
+}
+
 .boldTip, .underlineTip, .italicTip {
 	margin-left: 2px;
 	margin-right: 2px;
