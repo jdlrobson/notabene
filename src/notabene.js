@@ -415,8 +415,15 @@ function notes(container, options) {
 		printMetaData(note);
 	}
 	function findTags(note) {
-		var tags = [];
-		return tags;
+		var tags = note.text.match(/#([^ \n#]+)/gi);
+		var unique = [];
+		for(var i = 0; i < tags.length; i++) {
+			var tag = tags[i].substr(1);
+			if(unique.indexOf(tag) === -1) {
+				unique.push(tag);
+			}
+		}
+		return unique;
 	}
 	// every key press triggers a 'local' save
 	var tag = [];
