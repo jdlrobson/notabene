@@ -226,6 +226,19 @@ test("print meta data", function() {
 	strictEqual($("#notemeta li").length, 2, "the two fields are printed");
 });
 
+test("tagging (scanning)", function() {
+	var tiddler = new tiddlyweb.Tiddler("bar");
+	tiddler.text = ["#tag # not tag test", "#hello world", "#foo","dsfssfg #goodbye#","hello world",
+		"list follows", "# 1", "# 2", "# 3", "#tag"].join("\n");
+	var tags = note.findTags(tiddler);
+	// should find tags 'tag' 'foo' 'goodbye' and 'hello'
+	strictEqual(tags.length, 4, "only 4 tags found");
+	strictEqual(tags.indexOf("tag") > -1, true, "the tag 'tag' is found");
+	strictEqual(tags.indexOf("hello") > -1, true, "the tag 'hello' is found");
+	strictEqual(tags.indexOf("goodbye") > -1, true, "the tag 'goodbye' is found");
+	strictEqual(tags.indexOf("foo") > -1, true, "the tag 'foo' is found");
+});
+
 test("tagging (adding)", function() {
 	note.addTag("foo");
 	note.addTag("bar");
