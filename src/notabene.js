@@ -425,6 +425,12 @@ function notes(container, options) {
 		}
 		return unique;
 	}
+	function addTags() {
+		var newtags = findTags(note);
+		for(var i = 0; i < newtags.length; i++) {
+			addTagToCurrentNote(newtags[i]);
+		}
+	}
 	// every key press triggers a 'local' save
 	var tag = [];
 	var tagHandler = function(key) {
@@ -432,12 +438,12 @@ function notes(container, options) {
 			tag.pop();
 		} else if(key === 32 || key === 13) { // space or new line terminates tag
 			if(tag.length > 1) {
-				addTagToCurrentNote(tag.slice(1).join(""));
+				addTags();
 			}
 			tag = [];
 		} else if(key === 35) { // hash symbol
 			if(tag.length > 1) {
-				addTagToCurrentNote(tag.slice(1).join(""));
+				addTags();
 				tag = ["#"];
 			} else {
 				tag = ["#"];
@@ -454,6 +460,7 @@ function notes(container, options) {
 		}
 		storeNote();
 	}).keypress(function(ev) {
+		note.text = $(ev.target).val();
 		tagHandler(ev.keyCode);
 	}).blur(function(ev) {
 		if(tag.length > 0) {
