@@ -462,6 +462,9 @@ function notes(container, options) {
 	}).keypress(function(ev) {
 		note.text = $(ev.target).val();
 		tagHandler(ev.keyCode);
+	}).keyup(function(ev) {
+		note.text = $(ev.target).val();
+		storeNote();
 	}).blur(function(ev) {
 		if(tag.length > 0) {
 			addTags();

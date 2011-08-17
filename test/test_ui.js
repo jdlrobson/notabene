@@ -666,3 +666,13 @@ test("issue 42", function() {
 	strictEqual($(".note_text").val(), "!!", "text correct");
 	strictEqual($(".note_title").val(), "bar", "title correct");
 });
+
+test("issue 60", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	$(".note_text").val("foo").keyup();
+	var tid = note.getNote();
+	strictEqual(tid.text, "foo", "make sure the text has been captured");
+});
