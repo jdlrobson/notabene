@@ -762,11 +762,13 @@ window.addEventListener('load', function() {
 
 		var BUBBLE_STORAGE_KEY = 'bubble';
 
-		bubble.setHashParameter = function() { }
+		bubble.setHashParameter = function() {
+			localStorage.setItem(BUBBLE_STORAGE_KEY, "yes");
+		};
 
 		bubble.hasHashParameter = function() {
-			return false;
-		}
+			return localStorage.getItem(BUBBLE_STORAGE_KEY) ? true : false;
+		};
 
 		bubble.getViewportHeight = function() {
 			window.console.log('Example of how to override getViewportHeight.');
