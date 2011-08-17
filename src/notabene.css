@@ -82,6 +82,11 @@ body {
 	font-size: 0.8em;
 }
 
+#backstage .status {
+	color: #666;
+	opacity: 0.5;
+}
+
 h2,h3,h4,h5 {
 	margin-bottom: 0px;
 }
