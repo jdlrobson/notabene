@@ -233,10 +233,10 @@ function notes(container, options) {
 	}
 
 	// this loads the note with the given title from the active bag and loads it into the display
-	function loadServerNote(title) {
+	function loadServerNote(title, bagname) {
 		note = new tiddlyweb.Tiddler(title);
 		note.fields = {};
-		note.bag = new tiddlyweb.Bag(bag.name, host);
+		note.bag = new tiddlyweb.Bag(bagname || bag.name, host);
 		store.get(note, function(tid, msg, xhr) {
 			var is404 = xhr ? xhr.status === 404 : false;
 			if(tid) {

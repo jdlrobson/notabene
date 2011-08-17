@@ -111,6 +111,15 @@ test('loadServerNote', function() {
 		"The correct text was loaded via ajax into the current note");
 });
 
+test('loadServerNote (specify bag)', function() {
+	note.loadServerNote("bar", "x_public");
+	strictEqual($(container).hasClass("ready"), true,
+		"check the ajax request was a success and the container has class ready");
+	var activeNote = note.getNote();
+	strictEqual(activeNote.text, "The correct text from bag x",
+		"The correct text was loaded via ajax into the current note");
+});
+
 module('notabene (notes in cache)', {
 	setup: function() {
 		localStorage.clear();
