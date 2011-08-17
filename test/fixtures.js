@@ -50,6 +50,11 @@ $.ajax = function(options) {
 			};
 			options.success(tid, "tests", xhr);
 		},
+		"/bags/x_public/tiddlers/bar": function(options) {
+			var tid = { title: "bar", modified: "201001131203",
+			created: "201001120803", fields: {}, text: "The correct text from bag x" }
+			options.success(tid, "tests", xhr);
+		},
 		// tiddler that throws a 500 on all ajax requests
 		"/bags/bag/tiddlers/500": function(options) {
 			options.error(xhr500);
