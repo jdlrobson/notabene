@@ -7,23 +7,25 @@ noscript {
 	width: 300px;
 }
 
-#backstage a.syncButton {
-	display: none;
-}
 .syncButton {
-	position: absolute;
-	right: 0px;
-	top: 0px;
 	font-size: 2em;
 	border: solid 1px #CCC;
 	padding: 5px;
 	-moz-border-radius: 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px;
-	width: 2em;
+	width: 48px;
+	height: 48px;
+	background-image: url(/icon-sync.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	text-indent: -999px;
+	overflow: hidden;
+	display: block;
 	text-align: center;
 	cursor: pointer;
-	background-color: black;
-	color: white;
+	right: 120px;
+	top: 80px;
+	position: absolute;
 }
 
 #note.active #deletenote {
@@ -119,6 +121,7 @@ a:hover {
 	padding-left: 72px;
 }
 
+.toolpanel .info,
 .toolpanel input,
 .toolpanel h2,
 .toolpanel ul {
@@ -133,6 +136,7 @@ a:hover {
 	border-bottom: 1px solid #DCE7F1;
 	border-top: 1px solid #F8F8F8;
 	padding: 24px;
+	position: relative;
 }
 
 .section.searchSection {
@@ -151,6 +155,7 @@ a:hover {
 	background-image: url(/icon-incomplete.png);
 	background-position: 80px 15px;
 	background-repeat: no-repeat;
+	min-height: 100px;
 }
 
 .toolpanel .section ul {

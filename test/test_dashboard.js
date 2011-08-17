@@ -4,7 +4,9 @@ module('notabene dashboard - 2 tiddlers in store', {
 		localStorage.setItem("takenote-recent-bar", '["foo", "bar", "test with spaces!>"]');
 		store = new tiddlyweb.Store();
 		var tid = new tiddlyweb.Tiddler("foo", new tiddlyweb.Bag("bar"));
+		tid.fields = { _modified: new Date() };
 		var tid2 = new tiddlyweb.Tiddler("foo 2", new tiddlyweb.Bag("bar"));
+		tid2.fields = { _modified: new Date() };
 		dashboard(document.body, { bag: "bar", host: "/" });
 		store.add(tid);
 		store.add(tid2);

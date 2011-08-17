@@ -90,15 +90,26 @@ function autoResize(el, options) {
 	$(el).focus();
 }
 
-function notes(container, options) {
-	backstage();
 
+function setup_store(options) {
 	// configure notabene
 	options = options || {};
 	var bagname = options.bag;
 	var host = options.host;
 	var bag = new tiddlyweb.Bag(bagname, host);
 	var store =  new tiddlyweb.Store();
+
+	// retrieve last created note
+	store.retrieveCached();
+	return {
+		store: store,
+		bag: bag,
+		host: host
+	}
+}
+
+function notes(container, options) {
+	backstage();
 
 	// setup onleave event
 	window.onbeforeunload = function() {
@@ -109,13 +120,13 @@ function notes(container, options) {
 				].join("");
 		}
 	}
-
-	// retrieve last created note
-	store.retrieveCached();
-	var tiddlers = store().bag(bagname).sort(function(a, b) {
+	var instance = setup_store(options);
+	var store = instance.store;
+	var bag = instance.bag;
+	var host = instance.host;
+	var tiddlers = store().bag(bag.name).sort(function(a, b) {
 		return a.fields._modified < b.fields._modified ? 1 : -1;
 	});
-
 	var note, tempTitle;
 
 	// print the fields associated with the current note
@@ -216,15 +227,16 @@ function notes(container, options) {
 	// tell the user what the current state of the store is
 	function syncStatus() {
 		var area = $(".syncButton");
-		var unsynced = store().bag(bagname).dirty();
+		var unsynced = store().bag(bag.name).dirty();
 		$(area).text(unsynced.length);
+		renderIncomplete(store, bag.name);
 	}
 
 	// this loads the note with the given title from the active bag and loads it into the display
 	function loadServerNote(title) {
 		note = new tiddlyweb.Tiddler(title);
 		note.fields = {};
-		note.bag = new tiddlyweb.Bag(bagname, host);
+		note.bag = new tiddlyweb.Bag(bag.name, host);
 		store.get(note, function(tid, msg, xhr) {
 			var is404 = xhr ? xhr.status === 404 : false;
 			if(tid) {
@@ -235,7 +247,7 @@ function notes(container, options) {
 				resetNote();
 			}
 			// TODO: replace with chrjs-store method i.e. store.isPresent(tid)
-			if(!localStorage.getItem(bagname + "/" + encodeURIComponent(note.title))) {
+			if(!localStorage.getItem(bag.name + "/" + encodeURIComponent(note.title))) {
 				if(is404 || tid) {
 					note.fields._title_validated = "yes";
 				}
@@ -281,8 +293,9 @@ function notes(container, options) {
 				}
 				syncStatus();
 			};
+			var currentNote = $(".note_title").val();
 			dirty.each(function(tid) {
-				if(tid.title !== note.title) {
+				if(tid.title !== currentNote) {
 					synced += 1;
 					validateNote(tid, function(newtid, isValid) {
 						if(isValid) {
@@ -624,8 +637,26 @@ function backstage() {
 	window.setInterval(checkConnection, 10000);
 }
 
+function renderIncomplete(store, bagname) {
+	var tiddlers = store().bag(bagname).dirty().sort(function(a, b) {
+		return a.title < b.title ? -1 : 1;
+	});
+	var listIncomplete = $("#incomplete").empty()[0];
+	if(listIncomplete) {
+		for(var i = 0; i < tiddlers.length; i++) {
+			var item = $("<li />").appendTo(listIncomplete)[0];
+			var title = tiddlers[i].title;
+			$("<a />").attr("href", APP_PATH + "#!/tiddler/" + title).
+				text(title).appendTo(item);
+		}
+		if(tiddlers.length === 0) {
+			$("<li />").text("None.").appendTo(listIncomplete)[0];
+		}
+	}
+}
+
 function dashboard(container, options) {
-	backstage();
+	notes(container, options);
 
 	var list = $("#recentnotes");
 
@@ -737,24 +768,8 @@ function dashboard(container, options) {
 	});
 
 	// TODO: refactor - some of this code is a repeat of that in the notes function
-	var bagname = options.bag;
-	var host = options.host;
-	var bag = new tiddlyweb.Bag(bagname, host);
-	var store =  new tiddlyweb.Store();
-	store.retrieveCached();
-	var tiddlers = store().bag(bagname).sort(function(a, b) {
-		return a.title < b.title ? -1 : 1;
-	});
-	var listIncomplete = $("#incomplete")[0];
-	for(var i = 0; i < tiddlers.length; i++) {
-		var item = $("<li />").appendTo(listIncomplete)[0];
-		var title = tiddlers[i].title;
-		$("<a />").attr("href", APP_PATH + "#!/tiddler/" + title).
-			text(title).appendTo(item);
-	}
-	if(tiddlers.length === 0) {
-		$("<li />").text("None.").appendTo(listIncomplete)[0];
-	}
+	var instance = setup_store(options);
+	renderIncomplete(instance.store, instance.bag.name);
 }
 
 // show bookmark bubble if supported
