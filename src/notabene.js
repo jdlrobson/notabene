@@ -542,6 +542,7 @@ function notes(container, options) {
 					printMessage("Note deleted.", null, true);
 					$("#note").removeClass("deleting");
 					$(".note_title, .note_text").val("").attr("disabled", false);
+					resetNote();
 				} else {
 					printMessage("Error deleting note. Please try again.", "error");
 				}
@@ -558,6 +559,7 @@ function notes(container, options) {
 	init();
 	return {
 		init: init,
+		resetNote: resetNote,
 		findTags: findTags,
 		tagHandler: tagHandler,
 		printMessage: printMessage,
