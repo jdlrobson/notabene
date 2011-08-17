@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.4.7|
+|''Version''|0.4.9|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
@@ -8,12 +8,31 @@ var APP_PATH = "/takenote";
 var RESERVED_TITLES = ["takenote", "dashboard", "chrjs-store.js", "chrjs.js", "manifest.mf", "require.js",
 	"notabene.css", "jquery.min.js", "jquery-ui.min.js", "jquery-json.min.js"];
 
+var config;
+
 // some helper functions
 var notabene = {
 	defaultFields: {},
+	loadConfig: function() {
+		config = localStorage.getItem("_takeNoteConfig") ? JSON.parse(localStorage.getItem("_takeNoteConfig")) : {};
+		if(config.noGeoTiddlers) {
+			if(new Date().getTime() - config.noGeoTiddlers > 1000*60*60*24) {
+				// more than a day old so flush
+				notabene.saveConfig("noGeoTiddlers", false);
+			}
+		}
+	},
+	saveConfig: function(name, value) {
+		if(typeof(name) != "undefined" && typeof(value) != "undefined") {
+			config[name] = value;
+		}
+		localStorage.setItem("_takeNoteConfig", JSON.stringify(config));
+	},
 	watchPosition: function(handler) {
-		if(!!navigator.geolocation) {
-			navigator.geolocation.watchPosition(handler);
+		if(!!navigator.geolocation && !config.noGeoTiddlers) {
+			navigator.geolocation.watchPosition(handler, function() {
+				notabene.saveConfig("noGeoTiddlers", new Date().getTime());
+			});
 		}
 	},
 	supports_local_storage: function() {
@@ -43,6 +62,7 @@ var notabene = {
 		localStorage.setItem("takenote-recent-" + bag, $.toJSON(newrecent));
 	}
 };
+notabene.loadConfig();
 
 function autoResize(el, options) {
 	options = options || {};
@@ -406,6 +426,23 @@ function notes(container, options) {
 		note.tags = tags;
 		printMetaData(note);
 	}
+	function findTags(note) {
+		var tags = note.text.match(/#([^ \n#]+)/gi);
+		var unique = [];
+		for(var i = 0; i < tags.length; i++) {
+			var tag = tags[i].substr(1);
+			if(unique.indexOf(tag) === -1) {
+				unique.push(tag);
+			}
+		}
+		return unique;
+	}
+	function addTags() {
+		var newtags = findTags(note);
+		for(var i = 0; i < newtags.length; i++) {
+			addTagToCurrentNote(newtags[i]);
+		}
+	}
 	// every key press triggers a 'local' save
 	var tag = [];
 	var tagHandler = function(key) {
@@ -413,12 +450,12 @@ function notes(container, options) {
 			tag.pop();
 		} else if(key === 32 || key === 13) { // space or new line terminates tag
 			if(tag.length > 1) {
-				addTagToCurrentNote(tag.slice(1).join(""));
+				addTags();
 			}
 			tag = [];
 		} else if(key === 35) { // hash symbol
 			if(tag.length > 1) {
-				addTagToCurrentNote(tag.slice(1).join(""));
+				addTags();
 				tag = ["#"];
 			} else {
 				tag = ["#"];
@@ -435,10 +472,14 @@ function notes(container, options) {
 		}
 		storeNote();
 	}).keypress(function(ev) {
+		note.text = $(ev.target).val();
 		tagHandler(ev.keyCode);
+	}).keyup(function(ev) {
+		note.text = $(ev.target).val();
+		storeNote();
 	}).blur(function(ev) {
 		if(tag.length > 0) {
-			addTagToCurrentNote(tag.slice(1).join(""));
+			addTags();
 		}
 		tag = [];
 	}).click(function(ev) {
@@ -513,6 +554,7 @@ function notes(container, options) {
 					printMessage("Note deleted.", null, true);
 					$("#note").removeClass("deleting");
 					$(".note_title, .note_text").val("").attr("disabled", false);
+					resetNote();
 				} else {
 					printMessage("Error deleting note. Please try again.", "error");
 				}
@@ -529,6 +571,8 @@ function notes(container, options) {
 	init();
 	return {
 		init: init,
+		resetNote: resetNote,
+		findTags: findTags,
 		tagHandler: tagHandler,
 		printMessage: printMessage,
 		newNote: newNote,
@@ -549,15 +593,16 @@ function notes(container, options) {
 function backstage() {
 	var internet, _checking, initialised;
 	function checkUser(status) {
-		$.ajax({ url: "/spaces/jon/members", dataType: "json",
+		var currentSpace = window.location.hostname.split(".")[0];
+		$.ajax({ url: "/spaces/" + currentSpace + "/members", dataType: "json",
 			success: function(members) {
-				$('<li class="status" />').text("user: " + status.username).appendTo("#backstage");
+				$('<li class="status member" />').text("user: " + status.username).appendTo("#backstage");
 			},
 			error: function() {
 				if(status.username === "GUEST") {
 					$('<li class="status" />').html("<a href='/challenge'>login please</a>").appendTo("#backstage");
 				} else {
-					$('<li class="status" />').text("forbidden").appendTo("#backstage");
+					$('<li class="status nonmember" />').text("user: " + status.username).appendTo("#backstage");
 				}
 			}
 		});
@@ -731,11 +776,13 @@ window.addEventListener('load', function() {
 
 		var BUBBLE_STORAGE_KEY = 'bubble';
 
-		bubble.setHashParameter = function() { }
+		bubble.setHashParameter = function() {
+			localStorage.setItem(BUBBLE_STORAGE_KEY, "yes");
+		};
 
 		bubble.hasHashParameter = function() {
-			return false;
-		}
+			return localStorage.getItem(BUBBLE_STORAGE_KEY) ? true : false;
+		};
 
 		bubble.getViewportHeight = function() {
 			window.console.log('Example of how to override getViewportHeight.');

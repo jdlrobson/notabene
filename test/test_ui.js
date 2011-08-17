@@ -7,6 +7,7 @@ function uisetup() {
 	$("<a id='cancelnote'>cancel</a>").appendTo(container);
 	$("<a id='deletenote'>delete</a>").appendTo(container);
 	$("<a id='newnote'>add</a>").appendTo(container);
+	$("<div id='notemeta'></div>").appendTo(container);
 	localStorage.clear();
 	setConnectionStatus(true);
 	_confirm = window.confirm;
@@ -16,6 +17,7 @@ function uisetup() {
 	_notabene = notabene;
 	notabene = {
 		watchPosition: NOP,
+		saveConfig: NOP,
 		addRecentChange: notabene.addRecentChange,
 		getRecentChanges: notabene.getRecentChanges
 	};
@@ -43,6 +45,11 @@ module('notabene ui (deletion from existing tiddler)', {
 		});
 	},
 	teardown: uiteardown
+});
+
+test("resetNote", function() {
+	note.resetNote()
+	strictEqual($("#notemeta li").length, 0, "all meta data refreshed");
 });
 
 test("sync without internet connection - issue 25", function() {
@@ -127,6 +134,7 @@ test('test deletion (from server and localStorage)', function() {
 	strictEqual(localStorage.length, 1, "a preloaded tiddler 'bar' should be saved locally.");
 	strictEqual($(".syncButton", container).text(), "1", "a sync button shows up in the ui");
 
+	$("#notemeta").html("<ul><li>foo: bar</li></ul>");
 	// trigger a delete
 	$("#deletenote").click();
 
@@ -134,6 +142,7 @@ test('test deletion (from server and localStorage)', function() {
 	// and it should also delete the local version
 	strictEqual(localStorage.length, 0, "there should no longer be anything in local storage.");
 	strictEqual($(".syncButton", container).text(), "0", "sync button should show 0");
+	strictEqual($("#notemeta li").length, 0, "All meta data cleared for the deleted tiddler");
 });
 
 module('notabene ui (deletion from brand new tiddler)', {
@@ -143,6 +152,7 @@ module('notabene ui (deletion from brand new tiddler)', {
 			host: "/",
 			bag: "test_public"
 		});
+		$(".note_text").val("");
 	},
 	teardown:  uiteardown
 });
@@ -156,6 +166,7 @@ test("issue 41", function() {
 test("tag handling", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is #fff\n\nlittle soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
@@ -169,11 +180,12 @@ test("tag handling", function() {
 test("tag handling space", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("#fff little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
 	note.tagHandler(102);
-	note.tagHandler(13); // space
+	note.tagHandler(13); // spac
 	var newTags = note.getNote().tags;
 	strictEqual(newTags.length, 1, "now there is 1 tag");
 	strictEqual(newTags[0], "fff", "check tag is correct");
@@ -182,6 +194,7 @@ test("tag handling space", function() {
 test("tag handling backspace", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is #ff little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
@@ -196,6 +209,7 @@ test("tag handling backspace", function() {
 test("tag handling clearing via backspace", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is # little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
@@ -211,6 +225,7 @@ test("tag handling clearing via backspace", function() {
 test("tag handling - series of hashes", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("### text").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(35);
 	note.tagHandler(35);
@@ -235,6 +250,7 @@ test("tagging vs list", function() {
 test("#fff#g newline pattern", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is #fff#g\n little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // f symbol
 	note.tagHandler(102);
@@ -658,4 +674,14 @@ test("issue 42", function() {
 	strictEqual(tid.fields._title_validated, undefined, "the title of the note has not been validated");
 	strictEqual($(".note_text").val(), "!!", "text correct");
 	strictEqual($(".note_title").val(), "bar", "title correct");
+});
+
+test("issue 60", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	$(".note_text").val("foo").keyup();
+	var tid = note.getNote();
+	strictEqual(tid.text, "foo", "make sure the text has been captured");
 });

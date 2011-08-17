@@ -32,7 +32,7 @@
 				<div>Tips for cleverer notes:
 				''<span class="boldTip">bold</span>'' //<span class="italicTip">italic</span>// _<span class="underlineTip">underline</span>_ #tag</div>
 				<div>[[<a href="http://tiddlyspace.com">Link Name</a>|http://tiddlyspace.com]]
-				[[<a href="/Note title">Note title</a>]]</div>
+				[[<a href="/Note title">Note title</a>]] <span class="imageTip">[img[/SiteIcon<img src="/SiteIcon" />]]</span></div>
 				</div>
 				<div id="notemeta"></div>
 			</div>
