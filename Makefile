@@ -83,13 +83,14 @@ basesixtyfour:
 	python b64.py icon-recent.png 'image/png'
 	python b64.py icon-incomplete.png 'image/png'
 	python b64.py icon-search.png 'image/png'
+	python b64.py icon-sync.png 'image/png'
 
 dev: meta basesixtyfour
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'tmp_b64/touchicon.png.tid' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/bg.png.tid' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
 		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
 		'tmp_b64/cancel.png.tid' 'src/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
-		'src/bubble.js' \
+		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
 
 dist: remotes meta compress
@@ -97,6 +98,6 @@ dist: remotes meta compress
 		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/bg.png.tid' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
 		'tmp_b64/cancel.png.tid' 'build/HtmlCss' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
-		'src/bubble.js' \
+		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
 		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
 		'src/dashboard'  'src/chrjs.js' 'tmp_b64/touchicon.png.tid' 'src/manifest.mf'
