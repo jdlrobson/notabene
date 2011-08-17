@@ -291,8 +291,9 @@ function notes(container, options) {
 				}
 				syncStatus();
 			};
+			var currentNote = $(".note_title").val();
 			dirty.each(function(tid) {
-				if(tid.title !== note.title) {
+				if(tid.title !== currentNote) {
 					synced += 1;
 					validateNote(tid, function(newtid, isValid) {
 						if(isValid) {
