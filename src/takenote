@@ -35,6 +35,9 @@
 				[[<a href="/Note title">Note title</a>]] <span class="imageTip">[img[/SiteIcon<img src="/SiteIcon" />]]</span></div>
 				</div>
 				<div id="notemeta"></div>
+				<div style="display:none">
+				  <a class="syncButton"></a>
+				</div>
 			</div>
 		</div>
 		<noscript>
