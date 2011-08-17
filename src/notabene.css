@@ -84,7 +84,7 @@ body {
 	font-size: 0.8em;
 }
 
-#backstage .status {
+#backstage .status.nonmember {
 	color: #666;
 	opacity: 0.5;
 }
