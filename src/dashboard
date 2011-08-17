@@ -34,7 +34,7 @@
 				<div class="section incompleteSection">
 					<h2>Incomplete notes:</h2>
 					<ul id="incomplete"></ul>
-					<a class='info syncButton'>sync these notes</a>
+					<a class='syncButton' title="save all notes in the list to the web">sync these notes</a>
 				</div>
 				<div class="section recentSection">
 					<h2>Recently created</h2>

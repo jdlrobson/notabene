@@ -23,6 +23,9 @@ noscript {
 	display: block;
 	text-align: center;
 	cursor: pointer;
+	right: 120px;
+	top: 80px;
+	position: absolute;
 }
 
 #note.active #deletenote {
@@ -133,6 +136,7 @@ a:hover {
 	border-bottom: 1px solid #DCE7F1;
 	border-top: 1px solid #F8F8F8;
 	padding: 24px;
+	position: relative;
 }
 
 .section.searchSection {
@@ -151,6 +155,7 @@ a:hover {
 	background-image: url(/icon-incomplete.png);
 	background-position: 80px 15px;
 	background-repeat: no-repeat;
+	min-height: 100px;
 }
 
 .toolpanel .section ul {
