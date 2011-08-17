@@ -464,7 +464,7 @@ function notes(container, options) {
 		tagHandler(ev.keyCode);
 	}).blur(function(ev) {
 		if(tag.length > 0) {
-			addTagToCurrentNote(tag.slice(1).join(""));
+			addTags();
 		}
 		tag = [];
 	}).click(function(ev) {
