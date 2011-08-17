@@ -7,6 +7,7 @@ function uisetup() {
 	$("<a id='cancelnote'>cancel</a>").appendTo(container);
 	$("<a id='deletenote'>delete</a>").appendTo(container);
 	$("<a id='newnote'>add</a>").appendTo(container);
+	$("<div id='notemeta'></div>").appendTo(container);
 	localStorage.clear();
 	setConnectionStatus(true);
 	_confirm = window.confirm;
@@ -43,6 +44,11 @@ module('notabene ui (deletion from existing tiddler)', {
 		});
 	},
 	teardown: uiteardown
+});
+
+test("resetNote", function() {
+	note.resetNote()
+	strictEqual($("#notemeta li").length, 0, "all meta data refreshed");
 });
 
 test("sync without internet connection - issue 25", function() {
@@ -127,6 +133,7 @@ test('test deletion (from server and localStorage)', function() {
 	strictEqual(localStorage.length, 1, "a preloaded tiddler 'bar' should be saved locally.");
 	strictEqual($(".syncButton", container).text(), "1", "a sync button shows up in the ui");
 
+	$("#notemeta").html("<ul><li>foo: bar</li></ul>");
 	// trigger a delete
 	$("#deletenote").click();
 
@@ -134,6 +141,7 @@ test('test deletion (from server and localStorage)', function() {
 	// and it should also delete the local version
 	strictEqual(localStorage.length, 0, "there should no longer be anything in local storage.");
 	strictEqual($(".syncButton", container).text(), "0", "sync button should show 0");
+	strictEqual($("#notemeta li").length, 0, "All meta data cleared for the deleted tiddler");
 });
 
 module('notabene ui (deletion from brand new tiddler)', {
