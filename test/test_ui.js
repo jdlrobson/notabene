@@ -143,6 +143,7 @@ module('notabene ui (deletion from brand new tiddler)', {
 			host: "/",
 			bag: "test_public"
 		});
+		$(".note_text").val("");
 	},
 	teardown:  uiteardown
 });
@@ -156,6 +157,7 @@ test("issue 41", function() {
 test("tag handling", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is #fff\n\nlittle soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
@@ -169,11 +171,12 @@ test("tag handling", function() {
 test("tag handling space", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("#fff little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
 	note.tagHandler(102);
-	note.tagHandler(13); // space
+	note.tagHandler(13); // spac
 	var newTags = note.getNote().tags;
 	strictEqual(newTags.length, 1, "now there is 1 tag");
 	strictEqual(newTags[0], "fff", "check tag is correct");
@@ -182,6 +185,7 @@ test("tag handling space", function() {
 test("tag handling backspace", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is #ff little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
@@ -196,6 +200,7 @@ test("tag handling backspace", function() {
 test("tag handling clearing via backspace", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is # little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // character f
 	note.tagHandler(102);
@@ -211,6 +216,7 @@ test("tag handling clearing via backspace", function() {
 test("tag handling - series of hashes", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("### text").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(35);
 	note.tagHandler(35);
@@ -235,6 +241,7 @@ test("tagging vs list", function() {
 test("#fff#g newline pattern", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
+	$(".note_text", container).val("text is #fff#g\n little soldier").keypress();
 	note.tagHandler(35); // hash symbol
 	note.tagHandler(102); // f symbol
 	note.tagHandler(102);
