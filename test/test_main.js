@@ -3,6 +3,7 @@ var container, note, _notabene;
 function setupNotabeneMock() {
 	_notabene = notabene;
 	notabene = {
+		saveConfig: NOP,
 		watchPosition: function(handler) {
 			handler({ coords: { latitude: 10, longitude: 20 } });
 		},

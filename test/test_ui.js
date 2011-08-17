@@ -17,6 +17,7 @@ function uisetup() {
 	_notabene = notabene;
 	notabene = {
 		watchPosition: NOP,
+		saveConfig: NOP,
 		addRecentChange: notabene.addRecentChange,
 		getRecentChanges: notabene.getRecentChanges
 	};
