@@ -228,6 +228,8 @@ function notes(container, options) {
 		store.get(note, function(tid, msg, xhr) {
 			var is404 = xhr ? xhr.status === 404 : false;
 			if(tid) {
+				delete tid.fields.created;
+				delete tid.fields.modified;
 				note = tid;
 			} else if(!is404) {
 				resetNote();
