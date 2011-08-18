@@ -163,6 +163,17 @@ test("issue 41", function() {
 	strictEqual(tid.title, "Test 45", "the title has been trimmed");
 });
 
+test("issue 64", function() {
+	$(".note_title").val("").blur();
+	var tid = note.getNote();
+	var title1 = tid.title;
+	$(".note_title").val("").blur();
+	var tid2 = note.getNote();
+	var title2 = tid2.title;
+	strictEqual(note.store().title(title2).length, 1, "can find the new note in the store");
+	strictEqual(note.store().title(title1).length, 0, "the old note is gone");
+});
+
 test("tag handling", function() {
 	var initialTags = note.getNote().tags;
 	strictEqual(initialTags.length, 0, "no tags to start with");
