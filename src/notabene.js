@@ -177,10 +177,6 @@ function notes(container, options) {
 			$(document.body).removeClass("validatedNote");
 		}
 
-		$(document).ready(function() {
-			autoResize($("textarea.note_title")[0], { buffer: 0 });
-			autoResize($(".note_text")[0], { minHeight: 250 });
-		});
 		printMetaData(note);
 
 		notabene.watchPosition(function(data) {
@@ -339,9 +335,9 @@ function notes(container, options) {
 
 	function renameNote(newtitle) {
 		var old = note.title;
-		store.add(note);
 		if(newtitle !== old) {
 			note.title = newtitle;
+			store.add(note);
 			store.remove(new tiddlyweb.Tiddler(old, bag));
 		}
 	}
@@ -393,6 +389,10 @@ function notes(container, options) {
 		});
 	}
 
+	$(document).ready(function() {
+	autoResize($("textarea.note_title")[0], { buffer: 0 });
+	autoResize($(".note_text")[0], { minHeight: 250 });
+
 	// on a blur event fix the title.
 	$(".note_title").blur(function(ev){
 		var val = $(ev.target).val();
@@ -409,6 +409,7 @@ function notes(container, options) {
 		if(ev.keyCode === 13) {
 			ev.preventDefault();
 		}
+	});
 	});
 
 	function removeTag(tag) {
