@@ -19,6 +19,11 @@ $(document).ready(function() {
 						$("<a id='editLink' />").attr("href", "/takenote").
 							text("take note").prependTo(place);
 					}
+				} else if(bag == space + "_private") {
+					if($(".tiddler").length > 0) {
+						$("<a id='editLink' />").attr("href", "/takenote#!/quickedit/bags/" + bag + "/tiddler/" + title).
+							text("edit note").prependTo(place);
+					}
 				}
 				if($("#backstage").length === 0) {
 					$(['<ul id="backstage">',
