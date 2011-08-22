@@ -10,7 +10,7 @@ remotes: clean
 	curl -o src/chrjs.js \
 		https://raw.github.com/tiddlyweb/chrjs/master/main.js
 	curl -o src/chrjs-store.js \
-		https://raw.github.com/bengillies/chrjs.store/master/dist/chrjs-store-0.3.0.min.js
+		https://raw.github.com/bengillies/chrjs.store/master/dist/chrjs-store-0.3.7.min.js
 	curl -o src/jquery.min.js \
 		http://code.jquery.com/jquery-1.6.1.min.js
 	curl -o src/jquery-json.min.js \
