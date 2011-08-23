@@ -28,11 +28,11 @@ test("addRecentChange", function() {
 	The first will be the oldest modified, the last the most recently saved.
 	There should be no duplicates.
 	*/
-	strictEqual(recent[0], "hello", "the first note in this list should be this one (see test comments)");
-	strictEqual(recent[1], "goodbye", "check list order");
-	strictEqual(recent[2], "foo", "check list order");
-	strictEqual(recent[3], "thanks", "check list order");
-	strictEqual(recent[4], "bar", "check list order");
+	strictEqual(recent[0].title, "hello", "the first note in this list should be this one (see test comments)");
+	strictEqual(recent[1].title, "goodbye", "check list order");
+	strictEqual(recent[2].title, "foo", "check list order");
+	strictEqual(recent[3].title, "thanks", "check list order");
+	strictEqual(recent[4].title, "bar", "check list order");
 });
 
 module('notabene', {
