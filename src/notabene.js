@@ -328,15 +328,23 @@ function notes(container, options) {
 	}
 
 	// this stores the note locally (but not on the server)
+	function isEmpty(note) {
+		var emptyText = !note.text ? true : false;
+		var noTitle = note.fields && note.fields._title_set ? false : true;
+		return noTitle && emptyText ? true: false;
+	}
+
 	function storeNote() {
 		note.fields._modified = new Date();
-		store.add(note);
+		if(!isEmpty(note)) {
+			store.add(note);
+		}
 		syncStatus();
 	}
 
 	function renameNote(newtitle) {
 		var old = note.title;
-		if(newtitle !== old) {
+		if(newtitle !== old && !isEmpty(note)) {
 			note.title = newtitle;
 			store.add(note);
 			store.remove(new tiddlyweb.Tiddler(old, bag));
@@ -498,7 +506,6 @@ function notes(container, options) {
 	function resetNote() {
 		$("#note").removeClass("active");
 		$(".note_title, .note_text").val("").attr("disabled", false);
-		$(".note_title").focus();
 
 		// reset url
 		window.location.hash = "";
