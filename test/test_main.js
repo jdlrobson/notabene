@@ -11,7 +11,14 @@ function setupNotabeneMock() {
 	};
 }
 
-module('helper functions', {});
+module('helper functions', {
+	setup: function() {
+		localStorage.clear();
+	},
+	teardown: function() {
+		localStorage.clear();
+	}
+});
 
 test("addRecentChange", function() {
 	notabene.addRecentChange("test","foo"); // [foo]
