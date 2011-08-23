@@ -662,6 +662,19 @@ test("issue 46", function() {
 		"the request for tiddler called 500 throws a server error so text is not loaded into the ui");
 });
 
+test("issue 60", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	strictEqual(note.store().dirty().length, 0, "nothing in store at start");
+	$(".note_title").focus().blur();
+	strictEqual(note.store().dirty().length, 0, "has not been saved");
+	$(".note_text").val("!").keydown();
+	var dirty2 = note.store().dirty();
+	strictEqual(dirty2.length, 1, "now it has been saved");
+});
+
 module("unvalidated tiddler", {
 	setup: function() {
 		uisetup();
