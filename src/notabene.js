@@ -665,6 +665,11 @@ function dashboard(container, options) {
 	var list = $("#recentnotes");
 
 	if(list.length > 0) {
+		var sortRecent = function(a, b) {
+			var title1 = typeof(a) === "string" ? a : a.title;
+			var title2 = typeof(b) === "string" ? b : b.title;
+			return title1 < title2 ? -1 : 1;
+		};
 		var recent = options.space ? notabene.getRecentChanges(options.space + "_private").
 			concat(notabene.getRecentChanges(options.space + "_public")) :
 			notabene.getRecentChanges(options.bag);
@@ -684,7 +689,7 @@ function dashboard(container, options) {
 					text(tid.title).appendTo(li);
 			}
 		}
-		printRecentItems(recent.sort());
+		printRecentItems(recent.sort(sortRecent));
 	}
 
 	var throbspeed = 500;
