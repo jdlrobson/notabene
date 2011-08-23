@@ -124,7 +124,7 @@ function notes(container, options) {
 	var store = instance.store;
 	var bag = instance.bag;
 	var host = instance.host;
-	var tiddlers = store().bag(bag.name).sort(function(a, b) {
+	var tiddlers = store().sort(function(a, b) {
 		return a.fields._modified < b.fields._modified ? 1 : -1;
 	});
 	var note, tempTitle;
@@ -223,7 +223,7 @@ function notes(container, options) {
 	// tell the user what the current state of the store is
 	function syncStatus() {
 		var area = $(".syncButton");
-		var unsynced = store().bag(bag.name).dirty();
+		var unsynced = store().dirty();
 		$(area).text(unsynced.length);
 		renderIncomplete(store, bag.name);
 	}
@@ -641,7 +641,7 @@ function backstage() {
 }
 
 function renderIncomplete(store, bagname) {
-	var tiddlers = store().bag(bagname).dirty().sort(function(a, b) {
+	var tiddlers = store().dirty().sort(function(a, b) {
 		return a.title < b.title ? -1 : 1;
 	});
 	var listIncomplete = $("#incomplete").empty()[0];
