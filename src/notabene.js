@@ -269,7 +269,7 @@ function notes(container, options) {
 			printMessage("Syncing to server");
 			var giveFeedback = function(tid) {
 				if(tid) {
-					notabene.addRecentChange(bag.name, tid.title);
+					notabene.addRecentChange(tid.bag.name, tid.title);
 				}
 				if(synced === 0) {
 					if(dirty.length > 0) {
@@ -514,7 +514,7 @@ function notes(container, options) {
 			if(valid) {
 				store.save(note, function(tid, options) {
 					if(tid) {
-						notabene.addRecentChange(bag.name, note.title);
+						notabene.addRecentChange(tid.bag.name, note.title);
 						$("#note").addClass("active");
 						if(quickedit) { // if quick edit has been signalled
 							window.location = "/" + encodeURIComponent(note.title);
