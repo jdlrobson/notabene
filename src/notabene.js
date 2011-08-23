@@ -52,7 +52,8 @@ var notabene = {
 		var recent = notabene.getRecentChanges(bag);
 		var newrecent = [];
 		for(var i = 0; i < recent.length; i++) {
-			if(recent[i] !== title) {
+			var thisTitle = typeof(recent[i]) === "string" ? recent[i] : recent[i].title;
+			if(thisTitle !== title) {
 				newrecent.push(recent[i]);
 			}
 		}

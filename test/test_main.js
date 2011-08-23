@@ -35,6 +35,16 @@ test("addRecentChange", function() {
 	strictEqual(recent[4].title, "bar", "check list order");
 });
 
+test("addRecentChange (repeat for same tiddler)", function() {
+	notabene.addRecentChange("test","foo");
+	notabene.addRecentChange("test","foo");
+	notabene.addRecentChange("test","foo");
+	notabene.addRecentChange("test","foo");
+	var recent = notabene.getRecentChanges("test");
+	strictEqual(recent.length, 1, "there should be 1 recent change");
+	strictEqual(recent[0].title, "foo", "the first note in this list should be this one (see test comments)");
+});
+
 module('notabene', {
 	setup: function() {
 		container = $("<div />").appendTo(document.body)[0];
