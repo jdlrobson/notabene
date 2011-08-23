@@ -92,7 +92,7 @@ test('syncButton present', function() {
 	$(".syncButton", container).click();
 	var recentlist = notabene.getRecentChanges("bag");
 	strictEqual(recentlist.length, 1, "1 recently created note recorded");
-	strictEqual(recentlist[0], "bar", "check the title of bar is recorded properly");
+	strictEqual(recentlist[0].title, "bar", "check the title of bar is recorded properly");
 
 	strictEqual($(".syncButton", container).text(), "1", "it says there is now only the current tiddler requiring syncing.");
 	var dirty = note.store().dirty();
@@ -111,7 +111,7 @@ test('syncButton and successful save', function() {
 		"a successful save will result in the number of notes to be synced to be 0");
 	var recentlist = notabene.getRecentChanges("bag");
 	strictEqual(recentlist.length, 1, "1 recently created note recorded");
-	strictEqual(recentlist[0], "bar", "check the title of bar is recorded properly");
+	strictEqual(recentlist[0].title, "bar", "check the title of bar is recorded properly");
 	// edit text
 	$(".note_text").keydown();
 	strictEqual($(".syncButton", container).text(), "1",

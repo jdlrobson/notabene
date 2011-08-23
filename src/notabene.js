@@ -56,7 +56,7 @@ var notabene = {
 				newrecent.push(recent[i]);
 			}
 		}
-		newrecent.push(title);
+		newrecent.push({ title: title, bag: bag });
 		newrecent = newrecent.length > 5 ?
 			newrecent.slice(newrecent.length - 5) : newrecent;
 		localStorage.setItem("takenote-recent-" + bag, $.toJSON(newrecent));
@@ -664,17 +664,23 @@ function dashboard(container, options) {
 	var list = $("#recentnotes");
 
 	if(list.length > 0) {
-		var recent = notabene.getRecentChanges(options.bag);
+		var recent = options.space ? notabene.getRecentChanges(options.space + "_private").
+			concat(notabene.getRecentChanges(options.space + "_public")) :
+			notabene.getRecentChanges(options.bag);
 		function printRecentItems(recent) {
 			if(recent.length === 0) {
 				$("<li />").text("No recently created notes.").appendTo(list)[0];
 			}
 			for(var i = 0; i < recent.length; i++) {
 				var li = $("<li />").appendTo(list)[0];
-				var name = recent[i];
+				var tid = recent[i];
+				if(typeof(tid) === "string") {
+					tid = { title: tid };
+				}
+				var bag = tid.bag || options.bag;
 				$("<a />").attr("href",
-					"/bags/" + options.bag + "/tiddlers/" + encodeURIComponent(name)).
-					text(name).appendTo(li);
+					"/bags/" + bag + "/tiddlers/" + encodeURIComponent(tid.title)).
+					text(tid.title).appendTo(li);
 			}
 		}
 		printRecentItems(recent.sort());
