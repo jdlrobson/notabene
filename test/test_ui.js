@@ -113,7 +113,7 @@ test('syncButton and successful save', function() {
 	strictEqual(recentlist.length, 1, "1 recently created note recorded");
 	strictEqual(recentlist[0].title, "bar", "check the title of bar is recorded properly");
 	// edit text
-	$(".note_text").keydown();
+	$(".note_text").val("hello").keydown();
 	strictEqual($(".syncButton", container).text(), "1",
 		"Now the number of notes to be synced to be 1 as text has been entered");
 });
@@ -164,6 +164,7 @@ test("issue 41", function() {
 });
 
 test("issue 64", function() {
+	$(".note_text").val("hello").keydown();
 	$(".note_title").val("").blur();
 	var tid = note.getNote();
 	var title1 = tid.title;
@@ -511,6 +512,7 @@ test('renaming to empty string', function() {
 	});
 
 	setConnectionStatus(false);
+	$(".note_text").val("foo").keydown();
 	// set the title without internet
 	$(".note_title", container).val("bar").blur();
 	var tid1 = note.getNote();
@@ -660,6 +662,19 @@ test("issue 46", function() {
 		"the request for tiddler called 500 throws a server error so is not loaded into the ui");
 	strictEqual($(".note_text").val(), "",
 		"the request for tiddler called 500 throws a server error so text is not loaded into the ui");
+});
+
+test("issue 60", function() {
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	strictEqual(note.store().dirty().length, 0, "nothing in store at start");
+	$(".note_title").focus().blur();
+	strictEqual(note.store().dirty().length, 0, "has not been saved");
+	$(".note_text").val("!").keydown();
+	var dirty2 = note.store().dirty();
+	strictEqual(dirty2.length, 1, "now it has been saved");
 });
 
 module("unvalidated tiddler", {
