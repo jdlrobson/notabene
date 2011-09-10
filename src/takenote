@@ -43,6 +43,7 @@
 		<noscript>
 			Takenote requires javascript to work correctly. Sorry!
 		</noscript>
+		<script src="/bags/common/tiddlers/backstage.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bubble.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/chrjs.js" type="text/javascript" charset="utf-8"></script>

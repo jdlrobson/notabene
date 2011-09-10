@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.5.1|
+|''Version''|0.5.2|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
@@ -606,21 +606,6 @@ function notes(container, options) {
 
 function backstage() {
 	var internet, _checking, initialised;
-	function checkUser(status) {
-		var currentSpace = window.location.hostname.split(".")[0];
-		$.ajax({ url: "/spaces/" + currentSpace + "/members", dataType: "json",
-			success: function(members) {
-				$('<li class="status member" />').text("user: " + status.username).appendTo("#backstage");
-			},
-			error: function() {
-				if(status.username === "GUEST") {
-					$('<li class="status" />').html("<a href='/challenge'>login please</a>").appendTo("#backstage");
-				} else {
-					$('<li class="status nonmember" />').text("user: " + status.username).appendTo("#backstage");
-				}
-			}
-		});
-	}
 	function checkConnection() {
 		if(_checking) {
 			return;
@@ -632,7 +617,6 @@ function backstage() {
 					_checking = false;
 					$("body").addClass("online");
 					if(!initialised) {
-						checkUser(status);
 						initialised = true;
 					}
 				},
