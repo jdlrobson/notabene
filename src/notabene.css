@@ -35,7 +35,7 @@ noscript {
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
 	margin: 0;
-	background-image: url(bg.png);
+	background-image: url(/bags/common/tiddlers/HtmlBackground);
 }
 
 #backstage {
