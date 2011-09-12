@@ -84,7 +84,7 @@ dev: meta basesixtyfour
 		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
 		'src/dashboard' 'src/takenote' 'src/jquery-json.min.js'
 
-dist: remotes meta compress
+dist: remotes meta basesixtyfour compress
 	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' \
 		'src/jquery-json.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
