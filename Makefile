@@ -75,18 +75,18 @@ basesixtyfour:
 	python b64.py icon-sync.png 'image/png'
 
 dev: meta basesixtyfour
-	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'tmp_b64/touchicon.png.tid' \
+	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'tmp_b64/touchicon.png.tid' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
 		'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
 		'tmp_b64/cancel.png.tid' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
-		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
+		'src/dashboard' 'src/takenote' 'src/jquery-json.min.js'
 
 dist: remotes meta compress
-	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' 'src/chrjs-store.js' \
-		'src/jquery-json.min.js' 'src/jquery.min.js' 'src/takenote' \
+	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' \
+		'src/jquery-json.min.js' 'src/takenote' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
 		'tmp_b64/cancel.png.tid' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
 		'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
-		'src/dashboard'  'src/chrjs.js' 'tmp_b64/touchicon.png.tid' 'src/manifest.mf'
+		'src/dashboard' 'tmp_b64/touchicon.png.tid' 'src/manifest.mf'
