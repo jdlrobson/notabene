@@ -794,22 +794,18 @@ window.addEventListener('load', function() {
 		};
 
 		bubble.getViewportHeight = function() {
-			window.console.log('Example of how to override getViewportHeight.');
 			return window.innerHeight;
 		};
 
 		bubble.getViewportScrollY = function() {
-			window.console.log('Example of how to override getViewportScrollY.');
 			return window.pageYOffset;
 		};
 
 		bubble.registerScrollHandler = function(handler) {
-			window.console.log('Example of how to override registerScrollHandler.');
 			window.addEventListener('scroll', handler, false);
 		};
 
 		bubble.deregisterScrollHandler = function(handler) {
-			window.console.log('Example of how to override deregisterScrollHandler.');
 			window.removeEventListener('scroll', handler, false);
 		};
 
