@@ -4,7 +4,7 @@ cleanlocal: cleanmeta
 	rm -rf build tmp tmp_b64
 
 cleanremote:
-	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js 
+	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/bubble.js 
 
 remotes: clean
 	curl -o src/chrjs.js \
@@ -15,6 +15,8 @@ remotes: clean
 		http://code.jquery.com/jquery-1.6.1.min.js
 	curl -o src/jquery-json.min.js \
 		http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js
+	curl -o src/bubble.js \
+		http://mobile-bookmark-bubble.googlecode.com/hg/bookmark_bubble.js
 
 devlocal: remotes
 	echo "open http://0.0.0.0:8080/static/edit.html"
