@@ -3,20 +3,19 @@ CACHE MANIFEST
 
 takenote
 dashboard
-require.js
 jquery-ui.css
 jquery-ui.min.js
 notabene.css
 notabene.js
 jquery-json.min.js
-jquery.min.js
-chrjs.js
-chrjs-store.js
+/bags/common/tiddlers/jquery.js
+/bags/tiddlyspace/tiddlers/chrjs
+/bags/common/tiddlers/chrjs-store.js
 touchicon.png
 cancel.png
 saveTiddler.png
 delete.png
-bg.png
+/bags/common/tiddlers/SiteBackground
 icon-search.png
 icon-incomplete.png
 icon-recent.png
