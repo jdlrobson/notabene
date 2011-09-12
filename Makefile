@@ -1,7 +1,7 @@
 clean: cleanlocal cleanremote
 
 cleanlocal: cleanmeta
-	rm -rf build tmp b64
+	rm -rf build tmp tmp_b64
 
 cleanremote:
 	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js 
@@ -41,6 +41,7 @@ cleanmeta:
 	rm -f src/dashboard.meta
 	rm -f src/takenote.meta
 	rm -f src/manifest.mf.meta
+	rm -f src/delete.png.meta
 
 meta:
 	rm -rf build
