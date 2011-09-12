@@ -4,7 +4,7 @@ cleanlocal: cleanmeta
 	rm -rf build tmp b64
 
 cleanremote:
-	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js src/require.js 
+	rm -rf src/chrjs.js src/chrjs-store.js src/jquery.min.js src/jquery-json.min.js 
 
 remotes: clean
 	curl -o src/chrjs.js \
@@ -15,8 +15,6 @@ remotes: clean
 		http://code.jquery.com/jquery-1.6.1.min.js
 	curl -o src/jquery-json.min.js \
 		http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js
-	curl -o src/require.js \
-		http://requirejs.org/docs/release/0.24.0/minified/require.js
 
 devlocal: remotes
 	echo "open http://0.0.0.0:8080/static/edit.html"
@@ -32,7 +30,6 @@ cleanmeta:
 	rm -f src/htmljs-takenoteedit.js.meta
 	rm -f src/chrjs.js.meta
 	rm -f src/chrjs-store.js.meta
-	rm -f src/require.js.meta
 	rm -f src/jquery.min.js.meta
 	rm -f src/bubble.js.meta
 	rm -f src/jquery-json.min.js.meta
@@ -52,7 +49,6 @@ meta:
 	cp src/javascript.meta src/htmljs-takenoteedit.js.meta
 	cp src/javascript.meta src/chrjs.js.meta
 	cp src/javascript.meta src/chrjs-store.js.meta
-	cp src/javascript.meta src/require.js.meta
 	cp src/javascript.meta src/jquery.min.js.meta
 	cp src/javascript.meta src/bubble.js.meta
 	cp src/javascript.meta src/jquery-json.min.js.meta
@@ -80,7 +76,7 @@ basesixtyfour:
 dev: meta basesixtyfour
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'src/chrjs-store.js' 'src/chrjs.js' 'tmp_b64/touchicon.png.tid' \
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
-		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
+		'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
 		'tmp_b64/cancel.png.tid' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
 		'src/dashboard' 'src/takenote' 'src/jquery.min.js' 'src/jquery-json.min.js'
@@ -91,5 +87,5 @@ dist: remotes meta compress
 		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
 		'tmp_b64/cancel.png.tid' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
-		'src/require.js' 'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
+		'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
 		'src/dashboard'  'src/chrjs.js' 'tmp_b64/touchicon.png.tid' 'src/manifest.mf'
