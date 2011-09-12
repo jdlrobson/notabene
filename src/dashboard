@@ -2,7 +2,6 @@
 <html manifest="/manifest.mf">
 	<head>
 		<title>takenote</title>
-		<link type="text/css" rel="stylesheet" href="/reset.css" />
 		<link type="text/css" rel="stylesheet" href="/notabene.css" />
 		<link type="text/css" rel="stylesheet" href="/jquery-ui.css">
 		<link rel="apple-touch-icon" href="/touchicon.png"/>
