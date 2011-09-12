@@ -15,7 +15,7 @@ touchicon.png
 cancel.png
 saveTiddler.png
 delete.png
-/bags/common/tiddlers/SiteBackground
+/bags/common/tiddlers/HtmlBackground
 icon-search.png
 icon-incomplete.png
 icon-recent.png
