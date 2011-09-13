@@ -15,7 +15,7 @@ noscript {
 	-webkit-border-radius: 5px 5px 5px;
 	width: 48px;
 	height: 48px;
-	background-image: url(/icon-sync.png);
+	background-image: url(/bags/common/tiddlers/icon-sync.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	text-indent: -999px;
@@ -140,19 +140,19 @@ a:hover {
 }
 
 .section.searchSection {
-	background-image: url(/icon-search.png);
+	background-image: url(/bags/common/tiddlers/icon-search.png);
 	background-position: 80px 15px;
 	background-repeat: no-repeat;
 }
 
 .section.recentSection {
-	background-image: url(/icon-recent.png);
+	background-image: url(/bags/common/tiddlers/icon-recent.png);
 	background-position: 80px 15px;
 	background-repeat: no-repeat;
 }
 
 .section.incompleteSection {
-	background-image: url(/icon-incomplete.png);
+	background-image: url(/bags/common/tiddlers/icon-incomplete.png);
 	background-position: 80px 15px;
 	background-repeat: no-repeat;
 	min-height: 100px;
@@ -328,7 +328,7 @@ a:hover {
 	right: 4px;
 	padding: 5px;
 	background-repeat: no-repeat;
-	background-image: url(saveTiddler.png);
+	background-image: url(/bags/common/tiddlers/saveTiddler.png);
 }
 
 .notedate {
@@ -415,7 +415,7 @@ a:hover {
 }
 
 .removeTag {
-	background-image: url(delete.png);
+	background-image: url(/bags/common/tiddlers/deleteTiddler.png);
 	background-size: 12px 16px;
 	background-repeat: no-repeat;
 	text-indent: -999px;
@@ -445,7 +445,7 @@ a:hover {
 	position: absolute;
 	top: 4px;
 	left: 4px;
-	background-image: url(delete.png);
+	background-image: url(/bags/common/tiddlers/deleteTiddler.png);
 	background-repeat: no-repeat;
 	height: 30px;
 	width: 20px;
@@ -456,7 +456,7 @@ a:hover {
 	top: 4px;
 	visibility: hidden;
 	right: 235px; /* 500 / 2 - 15px (half width of cancel button) */
-	background-image: url(cancel.png);
+	background-image: url(/bags/common/tiddlers/cancelTiddler.png);
 	background-repeat: no-repeat;
 	height: 30px;
 	width: 30px;
