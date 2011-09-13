@@ -3,7 +3,7 @@
 	<head>
 		<title>takenote</title>
 		<link type="text/css" rel="stylesheet" href="/notabene.css" />
-		<link type="text/css" rel="stylesheet" href="/jquery-ui.css">
+		<link type="text/css" rel="stylesheet" href="/bags/common/tiddlers/jquery-ui.custom.css">
 		<link rel="apple-touch-icon" href="/touchicon.png"/>
 		<link rel="apple-touch-icon-precomposed" href="/touchicon.png"/>
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1.0">
@@ -49,12 +49,12 @@
 			Takenote requires javascript to work correctly. Sorry!
 		</noscript>
 		<script src="/bags/common/tiddlers/backstage.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/bubble.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/bookmark_bubble.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/jquery-ui.custom.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/tiddlyspace/tiddlers/chrjs" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var space = window.location.hostname.split(".")[0];

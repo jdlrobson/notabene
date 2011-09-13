@@ -44,11 +44,11 @@
 			Takenote requires javascript to work correctly. Sorry!
 		</noscript>
 		<script src="/bags/common/tiddlers/backstage.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/bubble.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags.common/tiddlers/bookmark_bubble.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/tiddlyspace/tiddlers/chrjs" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var takenote, space = window.location.hostname.split(".")[0];

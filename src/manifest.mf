@@ -3,11 +3,11 @@ CACHE MANIFEST
 
 takenote
 dashboard
-jquery-ui.css
-jquery-ui.min.js
+/bags/common/tiddlers/jquery-ui.custom.css
+/bags/common/tiddlers/jquery-ui.custom.js
 notabene.css
 notabene.js
-jquery-json.min.js
+/bags/common/tiddlers/jquery-json.js
 /bags/common/tiddlers/jquery.js
 /bags/tiddlyspace/tiddlers/chrjs
 /bags/common/tiddlers/chrjs-store.js
@@ -19,7 +19,7 @@ delete.png
 icon-search.png
 icon-incomplete.png
 icon-recent.png
-bubble.js
+/bags/common/tiddlers/bookmark_bubble.js
 
 NETWORK:
 *
