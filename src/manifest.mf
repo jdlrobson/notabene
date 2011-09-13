@@ -11,14 +11,14 @@ notabene.js
 /bags/common/tiddlers/jquery.js
 /bags/tiddlyspace/tiddlers/chrjs
 /bags/common/tiddlers/chrjs-store.js
-touchicon.png
-cancel.png
-saveTiddler.png
-delete.png
+touchicon_takenote.png
+/bags/common/tiddlers/cancelTiddler.png
+/bags/common/tiddlers/saveTiddler.png
+/bags/common/tiddlers/deleteTiddler.png
 /bags/common/tiddlers/HtmlBackground
-icon-search.png
-icon-incomplete.png
-icon-recent.png
+/bags/common/tiddlers/icon-search.png
+/bags/common/tiddlers/icon-incomplete.png
+/bags/common/tiddlers/icon-recent.png
 /bags/common/tiddlers/bookmark_bubble.js
 
 NETWORK:
