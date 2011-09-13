@@ -57,8 +57,8 @@ dev: meta
 		'src/dashboard' 'src/takenote'
 
 release: meta compress
-	rm -rf dist/newrelease
-	cd dist && mkdir newrelease && cd newrelease && \
+	rm -rf dist/latest
+	cd dist && mkdir latest && cd latest && \
 		cp ../index.recipe . && \
 		cp ../../src/htmljs-takenoteedit.js.meta . && cp ../../src/htmljs-takenoteedit.js . && \
 		cp ../../src/HtmlJavascript.tid . && \
