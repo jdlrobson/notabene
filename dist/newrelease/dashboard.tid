@@ -1,3 +1,6 @@
+tags: excludeLists excludeSearch takenotepackage app
+type: text/html
+
 <!DOCTYPE html>
 <html manifest="/manifest.mf">
 	<head>
