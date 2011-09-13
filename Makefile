@@ -30,65 +30,42 @@ compress:
 cleanmeta:
 	rm -f src/notabene.js.meta
 	rm -f src/htmljs-takenoteedit.js.meta
-	rm -f src/chrjs.js.meta
-	rm -f src/chrjs-store.js.meta
-	rm -f src/jquery.min.js.meta
-	rm -f src/bubble.js.meta
-	rm -f src/jquery-json.min.js.meta
-	rm -f src/jquery-ui.min.js.meta
 	rm -f build/notabene.js.meta
 	rm -f build/notabene.css.meta
 	rm -f src/notabene.css.meta
-	rm -f src/jquery-ui.css.meta
 	rm -f src/dashboard.meta
 	rm -f src/takenote.meta
 	rm -f src/manifest.mf.meta
-	rm -f src/delete.png.meta
 
 meta:
 	rm -rf build
 	mkdir build
 	cp src/javascript.meta src/notabene.js.meta
 	cp src/javascript.meta src/htmljs-takenoteedit.js.meta
-	cp src/javascript.meta src/chrjs.js.meta
-	cp src/javascript.meta src/chrjs-store.js.meta
-	cp src/javascript.meta src/jquery.min.js.meta
-	cp src/javascript.meta src/bubble.js.meta
-	cp src/javascript.meta src/jquery-json.min.js.meta
-	cp src/javascript.meta src/jquery-ui.min.js.meta
 	cp src/javascript.meta build/notabene.js.meta
 	cp src/css.meta build/notabene.css.meta
 	cp src/css.meta src/notabene.css.meta
-	cp src/css.meta src/jquery-ui.css.meta
 	cp src/html.meta src/takenote.meta
 	cp src/html.meta src/dashboard.meta
 	cp src/manifest.meta src/manifest.mf.meta
 
-basesixtyfour:
-	rm -rf tmp_b64
-	mkdir tmp_b64
-	python b64.py cancel.png 'image/png'
-	python b64.py touchicon.png 'image/png'
-	python b64.py saveTiddler.png 'image/png'
-	python b64.py delete.png 'image/png'
-	python b64.py icon-recent.png 'image/png'
-	python b64.py icon-incomplete.png 'image/png'
-	python b64.py icon-search.png 'image/png'
-	python b64.py icon-sync.png 'image/png'
+dev: meta
+	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css'
+		'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
+		'src/dashboard' 'src/takenote'
 
-dev: meta basesixtyfour
-	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' 'tmp_b64/touchicon.png.tid' \
-		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
-		'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
-		'tmp_b64/cancel.png.tid' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
-		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
-		'src/dashboard' 'src/takenote' 'src/jquery-json.min.js'
+release: meta compress
+	rm -rf dist/newrelease
+	cd dist && mkdir newrelease && cd newrelease && \
+		cp ../index.recipe . && \
+		cp ../../src/htmljs-takenoteedit.js.meta . && cp ../../src/htmljs-takenoteedit.js . && \
+		cp ../../src/HtmlJavascript.tid . && \
+		cp ../../src/notabene.js . && cp ../../src/notabene.js.meta . && \
+		cp ../../src/notabene.css .&& cp ../../src/notabene.css.meta . && \
+		cp ../../src/dashboard.meta . && cp ../../src/dashboard . && cp ../../src/takenote . && cp ../../src/takenote.meta . && \
+		cp ../../src/manifest.mf . && cp ../../src/manifest.mf.meta .
 
-dist: remotes meta basesixtyfour compress
+@takenote: meta compress
 	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' \
-		'src/jquery-json.min.js' 'src/takenote' \
-		'src/jquery-ui.css' 'src/jquery-ui.min.js' 'tmp_b64/delete.png.tid' 'tmp_b64/saveTiddler.png.tid' \
-		'tmp_b64/cancel.png.tid' 'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
-		'src/bubble.js' 'tmp_b64/icon-sync.png.tid' \
-		'tmp_b64/icon-search.png.tid' 'tmp_b64/icon-incomplete.png.tid' 'tmp_b64/icon-recent.png.tid' \
-		'src/dashboard' 'tmp_b64/touchicon.png.tid' 'src/manifest.mf'
+		'src/takenote' 'src/dashboard' 'src/manifest.mf' \
+		'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
