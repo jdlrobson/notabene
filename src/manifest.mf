@@ -1,17 +1,18 @@
 CACHE MANIFEST
 # version 0.6.2
 
-takenote
-dashboard
+CACHE:
+/takenote
+/dashboard
 /bags/common/tiddlers/jquery-ui.custom.css
 /bags/common/tiddlers/jquery-ui.custom.js
-notabene.css
-notabene.js
+/notabene.css
+/notabene.js
 /bags/common/tiddlers/jquery-json.js
 /bags/common/tiddlers/jquery.js
 /bags/tiddlyspace/tiddlers/chrjs
 /bags/common/tiddlers/chrjs-store.js
-touchicon_takenote.png
+/touchicon_takenote.png
 /bags/common/tiddlers/cancelTiddler.png
 /bags/common/tiddlers/saveTiddler.png
 /bags/common/tiddlers/deleteTiddler.png
@@ -20,6 +21,5 @@ touchicon_takenote.png
 /bags/common/tiddlers/icon-incomplete.png
 /bags/common/tiddlers/icon-recent.png
 /bags/common/tiddlers/bookmark_bubble.js
-
 NETWORK:
 *
