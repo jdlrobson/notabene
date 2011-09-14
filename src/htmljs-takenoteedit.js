@@ -5,7 +5,7 @@ Updates the html serialization in TiddlySpace to provide routes to the takenote 
 $(document).ready(function() {
 	var place = $("#container").length > 0 ? $("#container")[0] : document.body;
 	var space = window.location.host.split(".")[0]
-	var bag = $($(".bag")[0]).text() || space + "_public";
+	var bag = $(".bag").first().text() || space + "_public";
 	var title = $("#title").text();
 	// add edit link to notabene
 	$.ajax({ url: "/spaces/" + space + "/members",
