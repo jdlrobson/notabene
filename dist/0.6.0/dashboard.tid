@@ -44,7 +44,7 @@ type: text/html
 				</div>
 			</div>
 			<div class='footer'>
-				<span class='version'>v. 0.6.3</span>
+				<span class='version'>v. 0.6.0</span>
 			</div>
 		</div>
 		<noscript>
@@ -56,7 +56,7 @@ type: text/html
 		<script src="/bags/common/tiddlers/jquery-ui.custom.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/tiddlyspace/tiddlers/chrjs" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/jquery-json.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var space = window.location.hostname.split(".")[0];
