@@ -1,5 +1,8 @@
+tags: excludeLists excludeSearch takenotepackage
+type: text/cache-manifest
+
 CACHE MANIFEST
-# version 0.6.1
+# version 0.6.2
 
 takenote
 dashboard
