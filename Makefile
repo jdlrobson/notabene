@@ -47,9 +47,9 @@ meta:
 	cp src/css.meta src/notabene.css.meta
 	cp src/html.meta src/takenote.meta
 	cp src/html.meta src/dashboard.meta
-	cp src/manifest.meta src/manifest.mf.meta
 	cat src/html.meta src/takenote > build/takenote.tid
 	cat src/html.meta src/dashboard > build/dashboard.tid
+	cat src/manifest.meta src/manifest.mf > build/manifest.mf.tid
 
 dev: meta
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' \
@@ -66,7 +66,7 @@ release: meta compress
 		cp ../../src/notabene.js notabene.js.js && cp ../../src/notabene.js.meta notabene.js.js.meta && \
 		cp ../../src/notabene.css .&& cp ../../src/notabene.css.meta . && \
 		cp ../../build/dashboard.tid . && cp ../../build/takenote.tid . && \
-		cp ../../src/manifest.mf . && cp ../../src/manifest.mf.meta .
+		cp ../../build/manifest.mf.tid .
 
 @takenote: meta compress
 	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' \
