@@ -52,7 +52,7 @@ meta:
 	cat src/html.meta src/dashboard > build/dashboard.tid
 
 dev: meta
-	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css'
+	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' \
 		'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'src/dashboard' 'src/takenote'
 
