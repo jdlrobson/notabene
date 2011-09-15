@@ -55,7 +55,7 @@ dev: meta
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' \
 		'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \
 		'dist/touchicon_takenote.png.tid' \
-		'src/dashboard' 'src/takenote' 'src/manifest.mf'
+		'src/dashboard' 'src/takenote'
 
 release: meta compress
 	rm -rf dist/latest
