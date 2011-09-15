@@ -1,3 +1,6 @@
+tags: excludeLists excludeSearch takenotepackage
+type: text/css
+
 noscript {
 	border: 5px solid red;
 	display: block;
