@@ -299,6 +299,31 @@ module('notabene ui refresh', {
 	setup: uisetup, teardown:  uiteardown
 });
 
+test('saving a note removes it from cache (issue ZZZ)', function() {
+	// the setup has loaded the note with the name bar
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	strictEqual(note.store().dirty().length, 0, "no notes are incomplete (dirty)");
+	$(".note_title").val("bar dum").blur().keyup();
+	$(".note_text").val("foo").keyup().blur();
+		
+	// trigger save
+	$("#newnote").click();
+	strictEqual(note.store().dirty().length, 0, "no notes are incomplete (dirty)");
+});
+
+test("chrjs-store test dirty", function() {
+	var tid = new tiddlyweb.Tiddler("bar dum", new tiddlyweb.Bag("bag", "/"));
+	var s = new tiddlyweb.Store();
+	strictEqual(s().dirty().length, 0, "have clean store");
+	s.add(tid);
+	strictEqual(s().dirty().length, 1, "have dirty store");
+	s.save(tid, function() {}, function() {});
+	strictEqual(s().dirty().length, 0, "successful save results in clean store");
+});
+
 test("redirect flag", function() {
 	window.location.hash = "#!/quickedit/tiddler/bar";
 	note = notes(container, {
