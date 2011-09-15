@@ -611,7 +611,7 @@ function backstage() {
 			return;
 		} else {
 			_checking = true;
-			$.ajax({ cache: false, url: "/status",
+			$.ajax({ url: "/status",
 				success: function(status) {
 					internet = true;
 					_checking = false;
