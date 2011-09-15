@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.6.3|
+|''Version''|0.6.4|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
@@ -611,7 +611,7 @@ function backstage() {
 			return;
 		} else {
 			_checking = true;
-			$.ajax({ cache: false, url: "/status",
+			$.ajax({ url: "/status",
 				success: function(status) {
 					internet = true;
 					_checking = false;
@@ -629,7 +629,7 @@ function backstage() {
 		}
 	}
 	checkConnection();
-	window.setInterval(checkConnection, 10000);
+	window.setInterval(checkConnection, 60000);
 }
 
 function renderIncomplete(store, bagname) {
