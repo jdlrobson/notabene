@@ -629,7 +629,7 @@ function backstage() {
 		}
 	}
 	checkConnection();
-	window.setInterval(checkConnection, 10000);
+	window.setInterval(checkConnection, 60000);
 }
 
 function renderIncomplete(store, bagname) {
