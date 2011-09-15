@@ -47,6 +47,7 @@ meta:
 	cp src/css.meta src/notabene.css.meta
 	cp src/html.meta src/takenote.meta
 	cp src/html.meta src/dashboard.meta
+	cat src/css.meta src/notabene.css > build/notabene.css.tid
 	cat src/html.meta src/takenote > build/takenote.tid
 	cat src/html.meta src/dashboard > build/dashboard.tid
 	cat src/manifest.meta src/manifest.mf > build/manifest.mf.tid
@@ -65,7 +66,7 @@ release: meta compress
 		cp ../../src/htmljs-takenoteedit.js htmljs-takenoteedit.js.js && \
 		cp ../../src/HtmlJavascript.tid . && \
 		cp ../../src/notabene.js notabene.js.js && cp ../../src/notabene.js.meta notabene.js.js.meta && \
-		cp ../../src/notabene.css .&& cp ../../src/notabene.css.meta . && \
+		cp ../../build/notabene.css.tid . && \
 		cp ../../build/dashboard.tid . && cp ../../build/takenote.tid . && \
 		cp ../../build/manifest.mf.tid .
 
