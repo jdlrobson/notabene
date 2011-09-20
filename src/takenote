@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="/manifest.mf">
+<html>
 	<head>
 		<title>takenote</title>
 		<link rel="stylesheet" href="/notabene.css" />
