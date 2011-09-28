@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<title>takenote</title>
-		<link rel="stylesheet" href="/notabene.css" />
-		<link rel="apple-touch-icon" href="/touchicon_takenote.png"/>
-		<link rel="apple-touch-icon-precomposed" href="/touchicon_takenote.png"/>
+		<link rel="stylesheet" href="/bags/common/tiddlers/notabene.css" />
+		<link rel="apple-touch-icon" href="/bags/common/tiddlers/touchicon_takenote.png"/>
+		<link rel="apple-touch-icon-precomposed" href="/bags/common/tiddlers/touchicon_takenote.png"/>
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1.0">
 	</head>
 	<body>
@@ -49,7 +49,7 @@
 		<script src="/bags/tiddlyspace/tiddlers/chrjs" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var takenote, space = window.location.hostname.split(".")[0];
 			takenote = notes($(".takenotecontainer")[0], {

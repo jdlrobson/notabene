@@ -61,7 +61,8 @@ dev: meta
 release: meta compress
 	rm -rf dist/latest
 	cd dist && mkdir latest && cd latest && \
-		cp ../index.recipe . && \
+		cp ../common.recipe . && \
+		cp ../tiddlyspace.recipe . && \
 		cp ../../src/htmljs-takenoteedit.js.meta htmljs-takenoteedit.js.js.meta && \
 		cp ../../src/htmljs-takenoteedit.js htmljs-takenoteedit.js.js && \
 		cp ../../src/HtmlJavascript.tid . && \
