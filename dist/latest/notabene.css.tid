@@ -166,7 +166,7 @@ a:hover {
 }
 
 .siteicon {
-	background-image: url(SiteIcon);
+	background-image: url(/SiteIcon);
 	height: 56px;
 	width: 56px;
 	background-repeat: no-repeat;
