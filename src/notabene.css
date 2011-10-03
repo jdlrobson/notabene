@@ -163,6 +163,9 @@ a:hover {
 }
 
 .siteicon {
+	background-color: #fff;
+	background-position: top center;
+	border: solid 1px #eee;
 	background-image: url(SiteIcon);
 	height: 56px;
 	width: 56px;
@@ -171,7 +174,7 @@ a:hover {
 	-moz-border-radius: 10px;
 	-o-border-radius: 10px;
 	border-radius: 10px;
-	background-size: 56px 56px;
+	background-size: 100%;
 	position: absolute;
 	left: 6px;
 	top: 8px;
