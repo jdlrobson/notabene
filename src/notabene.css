@@ -193,12 +193,6 @@ a:hover {
 	border-top: solid 1px #CCC;
 }
 
-.takenotedashboard .footer,
-#note,
-.messageArea {
-	width: 500px;
-}
-
 .note_title {
 	font-family: Georgia;
 	line-height: 48px;
@@ -206,23 +200,34 @@ a:hover {
 	width: 468px; /* 500 - 32 padding */
 }
 
+.takenotedashboard,
 .takenotecontainer {
-	width: 540px;
+	margin: 1em 7em 0em 7em;
+	position: relative;
+	display: none;
+}
+
+.takenotecontainer {
 	background: rgba(255,255,255, 0.7);
 }
 
 .takenotedashboard {
-	width: 540px;
 	background-color: #F0F4F8;
 	padding-bottom: 40px;
 }
 
 .note_title_container {
-	width: 556px;
-	margin-left: -28px;
+	margin-right: -10px;
+	margin-left: -10px;
 	-webkit-box-shadow: 0px 1px 1px rgb(96,106,115);
 	position:relative;
 	background-color: #DCE7F1;
+}
+
+.takenotedashboard .footer,
+#note,
+.messageArea {
+	margin: 1em;
 }
 
 @media all and (min-width: 480px) {
@@ -257,14 +262,6 @@ a:hover {
 	background: none;
 	width: 500px;
 	margin-left: 10px;
-}
-
-.takenotedashboard,
-.takenotecontainer {
-	margin: auto;
-	margin-top: 20px;
-	position: relative;
-	display: none;
 }
 
 .takenotedashboard,
@@ -533,6 +530,8 @@ a:hover {
 	.takenotecontainer {
 		width: 320px;
 		font-size: 0.7em;
+		margin: auto;
+		margin-top: 1em;
 	}
 
 	.header h1 {
@@ -565,6 +564,8 @@ a:hover {
 	.takenotedashboard,
 	.takenotecontainer {
 		width: 480px;
+		margin: auto;
+		margin-top: 1em;
 	}
 
 	.takenotedashboard .footer,
