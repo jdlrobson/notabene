@@ -32,7 +32,7 @@
 				<div>Tips for cleverer notes:
 				''<span class="boldTip">bold</span>'' //<span class="italicTip">italic</span>// _<span class="underlineTip">underline</span>_ #tag</div>
 				<div>[[<a href="http://tiddlyspace.com">Link Name</a>|http://tiddlyspace.com]]
-				[[<a href="/Note title">Note title</a>]] <span class="imageTip">[img[/SiteIcon<img src="/SiteIcon" />]]</span></div>
+				[[<a href="/Note title">Note title</a>]] <span class="imageTip">[img[<canvas id='imageTip'></canvas>]]</span></div>
 				</div>
 				<div id="notemeta"></div>
 				<div style="display:none">
@@ -51,6 +51,17 @@
 		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			var canvas = $("#imageTip").attr("width", 50).attr("height", 32)[0];
+			if(canvas.getContext) {
+				var img = new Image();
+				img.onload = function() {
+					var ctx = canvas.getContext("2d");
+					ctx.drawImage(img, 0, 0, 32, 32);
+					ctx.font = "12px sans-serif";
+					ctx.fillText("/SiteIcon", 0, 16, 0);
+				};
+				img.src = "/SiteIcon";
+			}
 			var takenote, space = window.location.hostname.split(".")[0];
 			takenote = notes($(".takenotecontainer")[0], {
 				bag: space + "_public",
