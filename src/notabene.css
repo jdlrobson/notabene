@@ -448,7 +448,8 @@ a:hover {
 	position: absolute;
 	top: 4px;
 	visibility: hidden;
-	right: 235px; /* 500 / 2 - 15px (half width of cancel button) */
+	right: 50%;
+	margin-left: -15px;
 	background-image: url(/bags/common/tiddlers/cancelTiddler.png);
 	background-repeat: no-repeat;
 	height: 30px;
