@@ -166,7 +166,7 @@ a:hover {
 	background-color: #fff;
 	background-position: top center;
 	border: solid 1px #eee;
-	background-image: url(SiteIcon);
+	background-image: url(/SiteIcon);
 	height: 56px;
 	width: 56px;
 	background-repeat: no-repeat;
