@@ -200,7 +200,15 @@ a:hover {
 	font-family: Georgia;
 	line-height: 48px;
 	color: #4C4A54;
-	width: 468px; /* 500 - 32 padding */
+	border: none;
+	font-size: 3em;
+	outline: none;
+	padding: 0px 16px;
+	text-align: center;
+	text-shadow: 0px 1px 1px white;
+	background: none;
+	width: 90%;
+	margin-left: 5%;
 }
 
 .takenotedashboard,
@@ -259,12 +267,6 @@ a:hover {
 		display: block;
 		width: 0;
 	}
-}
-
-.note_title {
-	background: none;
-	width: 500px;
-	margin-left: 10px;
 }
 
 .takenotedashboard,
@@ -426,15 +428,6 @@ a:hover {
 	margin-left: 8px;
 	margin-right: 8px;
 	cursor: pointer;
-}
-
-.note_title {
-	border: none;
-	font-size: 3em;
-	outline: none;
-	padding: 0px 16px;
-	text-align: center;
-	text-shadow: 0px 1px 1px white;
 }
 
 .note_title:focus {
