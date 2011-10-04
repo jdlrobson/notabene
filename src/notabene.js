@@ -525,7 +525,7 @@ function notes(container, options) {
 						notabene.addRecentChange(tid.bag.name, note.title);
 						$("#note").addClass("active");
 						if(quickedit) { // if quick edit has been signalled
-							window.location = "/" + encodeURIComponent(note.title);
+							window.location = document.referrer || "/" + encodeURIComponent(note.title);
 						} else {
 							printMessage("Saved successfully.", null, true);
 						}
