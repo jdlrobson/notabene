@@ -1,0 +1,64 @@
+tags: excludeLists excludeSearch takenotepackage app
+type: text/html
+
+<!DOCTYPE html>
+<html manifest="/manifest.mf">
+	<head>
+		<title>takenote</title>
+		<link rel="stylesheet" href="/notabene.css" />
+		<link rel="apple-touch-icon" href="/touchicon_takenote.png"/>
+		<link rel="apple-touch-icon-precomposed" href="/touchicon_takenote.png"/>
+		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1.0">
+	</head>
+	<body>
+		<ul id="backstage">
+			<!-- no not add a newline between li elements or you will get a margin with inline blocks -->
+			<li><a href="/dashboard">dashboard</a></li><li><a href="/takenote">takenote</a></li>
+			<li><a class='connectionStatus'></a></li>
+		</ul>
+		<div class="takenotecontainer">
+			<div class='messageArea'></div>
+			<div id="note">
+				<div class="toolbar">
+					<a id="cancelnote" title="cancel this note">cancel</a>
+					<a id="deletenote" title="delete this note">delete</a>
+					<a id="newnote" title="complete this note">complete</a>
+				</div>
+				<div class="note_title_container">
+					<textarea class="note_title" placeholder="Note Title"></textarea>
+				</div>
+				<div id="notebody">
+					<span class="notedate"></span> 
+					<textarea class="note_text" placeholder="Write here..."></textarea>
+				</div>
+				<div id="tips">
+				<div>Tips for cleverer notes:
+				''<span class="boldTip">bold</span>'' //<span class="italicTip">italic</span>// _<span class="underlineTip">underline</span>_ #tag</div>
+				<div>[[<a href="http://tiddlyspace.com">Link Name</a>|http://tiddlyspace.com]]
+				[[<a href="/Note title">Note title</a>]] <span class="imageTip">[img[/SiteIcon<img src="/SiteIcon" />]]</span></div>
+				</div>
+				<div id="notemeta"></div>
+				<div style="display:none">
+				  <a class="syncButton"></a>
+				</div>
+			</div>
+		</div>
+		<noscript>
+			Takenote requires javascript to work correctly. Sorry!
+		</noscript>
+		<script src="/bags/common/tiddlers/backstage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/bookmark_bubble.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/tiddlyspace/tiddlers/chrjs" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var takenote, space = window.location.hostname.split(".")[0];
+			takenote = notes($(".takenotecontainer")[0], {
+				bag: space + "_public",
+				host: "/"
+			});
+		</script>
+	</body>
+</html>
