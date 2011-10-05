@@ -1,12 +1,14 @@
+tags: excludeLists excludeSearch takenotepackage app
+type: text/html
+
 <!DOCTYPE html>
-<html manifest="/takenote_manifest.appcache">
+<html manifest="/manifest.mf">
 	<head>
 		<title>takenote</title>
 		<link type="text/css" rel="stylesheet" href="/notabene.css" />
 		<link type="text/css" rel="stylesheet" href="/bags/common/tiddlers/jquery-ui.custom.css">
 		<link rel="apple-touch-icon" href="/touchicon_takenote.png"/>
 		<link rel="apple-touch-icon-precomposed" href="/touchicon_takenote.png"/>
-		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1.0">
 	</head>
 	<body>
@@ -42,7 +44,7 @@
 				</div>
 			</div>
 			<div class='footer'>
-				<span class='version'>v. 0.6.6</span>
+				<span class='version'>v. 0.6.5</span>
 			</div>
 		</div>
 		<noscript>

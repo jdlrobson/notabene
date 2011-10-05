@@ -1,11 +1,11 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.6.6|
+|''Version''|0.6.5|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
 var APP_PATH = "/takenote";
-var RESERVED_TITLES = ["takenote", "dashboard", "takenote_manifest.appcache",
+var RESERVED_TITLES = ["takenote", "dashboard", "manifest.mf",
 	"notabene.css", "jquery-ui.min.js", "jquery-json.min.js"];
 
 var config;
@@ -169,7 +169,7 @@ function notes(container, options) {
 	function loadNote() {
 		$(".note_text").val(note.text);
 		if(note.title != tempTitle && note.fields._title_set) {
-			$(".note_title").val(note.title).focus();
+			$(".note_title").val(note.title);
 		}
 		if(note.fields._title_validated) {
 			$(".note_title").blur().attr("disabled", true);
@@ -243,8 +243,9 @@ function notes(container, options) {
 			} else if(!is404) {
 				resetNote();
 			}
-			if(store().title(note.title).bag(bag.name).dirty().length === 0) {
-				if(tid) {
+			// TODO: replace with chrjs-store method i.e. store.isPresent(tid)
+			if(!localStorage.getItem(bag.name + "/" + encodeURIComponent(note.title))) {
+				if(is404 || tid) {
 					note.fields._title_validated = "yes";
 				}
 			}
@@ -306,15 +307,15 @@ function notes(container, options) {
 				}
 			});
 		});
-		var currentUrl = window.location.hash;
+		var currentUrl = decodeURIComponent(window.location.hash);
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
 		if(match && match[1]) {
 			var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
-			var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
+			var noteBag = matchbag && matchbag[1] ? matchbag[1] : undefined;
 			if(currentUrl.indexOf("quickedit/") > -1) {
-				$("#newnote,#cancelnote").addClass("quickedit");
+				$("#newnote").addClass("quickedit");
 			}
-			loadServerNote(decodeURIComponent(match[1]), noteBag);
+			loadServerNote(match[1], noteBag);
 		} else {
 			if(tiddlers[0]) {
 				note = tiddlers[0];
@@ -398,26 +399,26 @@ function notes(container, options) {
 	}
 
 	$(document).ready(function() {
-		autoResize($("textarea.note_title")[0], { buffer: 0 });
-		autoResize($(".note_text")[0], { minHeight: 250 });
+	autoResize($("textarea.note_title")[0], { buffer: 0 });
+	autoResize($(".note_text")[0], { minHeight: 250 });
 
-		// on a blur event fix the title.
-		$(".note_title").blur(function(ev){
-			var val = $(ev.target).val();
-			var trimmed = $.trim(val);
-			if(trimmed.length > 0) {
-				note.fields._title_set = "yes";
-				renameNote(trimmed);
-				storeNote();
-			} else {
-				delete note.fields._title_set;
-				renameNote(getTitle());
-			}
-		}).keydown(function(ev) {
-			if(ev.keyCode === 13) {
-				ev.preventDefault();
-			}
-		});
+	// on a blur event fix the title.
+	$(".note_title").blur(function(ev){
+		var val = $(ev.target).val();
+		var trimmed = $.trim(val);
+		if(trimmed.length > 0) {
+			note.fields._title_set = "yes";
+			renameNote(trimmed);
+			storeNote();
+		} else {
+			delete note.fields._title_set;
+			renameNote(getTitle());
+		}
+	}).keydown(function(ev) {
+		if(ev.keyCode === 13) {
+			ev.preventDefault();
+		}
+	});
 	});
 
 	function removeTag(tag) {
@@ -577,12 +578,8 @@ function notes(container, options) {
 	$("#cancelnote").click(function(ev) {
 		var ok = confirm("Cancel editing this note and revert to previous online version?");
 		if(ok) {
-			var quickedit = $(ev.target).hasClass("quickedit");
 			store.remove(note.title);
 			resetNote();
-			if(quickedit) {
-				window.location = document.referrer || "/" + encodeURIComponent(note.title);
-			}
 		}
 	});
 	init();
@@ -776,6 +773,7 @@ function dashboard(container, options) {
 		}
 	});
 
+	// TODO: refactor - some of this code is a repeat of that in the notes function
 	var instance = setup_store(options);
 	renderIncomplete(instance.store, instance.bag.name);
 }
