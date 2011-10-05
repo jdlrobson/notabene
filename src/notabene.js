@@ -5,7 +5,7 @@
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
 var APP_PATH = "/takenote";
-var RESERVED_TITLES = ["takenote", "dashboard", "manifest.mf",
+var RESERVED_TITLES = ["takenote", "dashboard", "takenote_manifest.appcache",
 	"notabene.css", "jquery-ui.min.js", "jquery-json.min.js"];
 
 var config;

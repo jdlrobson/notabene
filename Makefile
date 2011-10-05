@@ -35,7 +35,7 @@ cleanmeta:
 	rm -f src/notabene.css.meta
 	rm -f src/dashboard.meta
 	rm -f src/takenote.meta
-	rm -f src/manifest.mf.meta
+	rm -f src/takenote_manifest.appcache.meta
 
 meta:
 	rm -rf build
@@ -50,7 +50,7 @@ meta:
 	cat src/css.meta src/notabene.css > build/notabene.css.tid
 	cat src/html.meta src/takenote > build/takenote.tid
 	cat src/html.meta src/dashboard > build/dashboard.tid
-	cat src/manifest.meta src/manifest.mf > build/manifest.mf.tid
+	cat src/manifest.meta src/takenote_manifest.appcache > build/takenote_manifest.appcache.tid
 
 dev: meta
 	./upload.sh takenotedev 'src/notabene.js' 'src/notabene.css' \
@@ -68,10 +68,10 @@ release: meta compress
 		cp ../../src/notabene.js notabene.js.js && cp ../../src/notabene.js.meta notabene.js.js.meta && \
 		cp ../../build/notabene.css.tid . && \
 		cp ../../build/dashboard.tid . && cp ../../build/takenote.tid . && \
-		cp ../../build/manifest.mf.tid .
+		cp ../../build/takenote_manifest.appcache.tid .
 
 @takenote: meta compress
 	./upload.sh takenote 'build/notabene.js' 'build/notabene.css' \
-		'build/takenote.tid' 'build/dashboard.tid' 'src/manifest.mf' \
+		'build/takenote.tid' 'build/dashboard.tid' 'src/takenote_manifest.appcache' \
 		'dist/touchicon_takenote.png.tid' \
 		'src/HtmlJavascript.tid' 'src/htmljs-takenoteedit.js' \

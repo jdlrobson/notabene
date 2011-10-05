@@ -22,6 +22,9 @@ do
 		content="text/plain"
 		tiddler=$(basename "$file" .tid)
 		;;
+	*.appcache)
+		content="text/cache-manifest"
+		;;
 	*.mf)
 		content="text/cache-manifest"
 		;;

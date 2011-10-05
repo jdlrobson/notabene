@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="/manifest.mf">
+<html manifest="/takenote_manifest.appcache">
 	<head>
 		<title>takenote</title>
 		<link type="text/css" rel="stylesheet" href="/notabene.css" />
