@@ -42,11 +42,16 @@ var notabene = {
 			return false;
 		}
 	},
-	getRecentChanges: function(bag) {
-		var recentLocalStorageId = "takenote-recent-" + bag;
-		var recent = localStorage.getItem(recentLocalStorageId);
-		recent = recent ? $.parseJSON(recent) : [];
-		return recent;
+	getRecentChanges: function(bag, space) {
+		if(space) {
+			return notabene.getRecentChanges(space + "_private").
+				concat(notabene.getRecentChanges(space + "_public"));
+		} else {
+			var recentLocalStorageId = "takenote-recent-" + bag;
+			var recent = localStorage.getItem(recentLocalStorageId);
+			recent = recent ? $.parseJSON(recent) : [];
+			return recent;
+		}
 	},
 	addRecentChange: function(bag, title) {
 		var recent = notabene.getRecentChanges(bag);
@@ -661,9 +666,15 @@ function dashboard(container, options) {
 			var title2 = typeof(b) === "string" ? b : b.title;
 			return title1 < title2 ? -1 : 1;
 		};
-		var recent = options.space ? notabene.getRecentChanges(options.space + "_private").
-			concat(notabene.getRecentChanges(options.space + "_public")) :
-			notabene.getRecentChanges(options.bag);
+		var bagQuery;
+		if(options.space) {
+			var publicBag = options.space + "_public";
+			var privateBag = options.space + "_private";
+			bagQuery = "bag:" + privateBag + "%20OR%20bag:" + publicBag;
+		} else {
+			bagQuery = "bag:" + options.bag;
+		}
+		var recent = notabene.getRecentChanges(options.bag, options.space);
 		function printRecentItems(recent) {
 			if(recent.length === 0) {
 				$("<li />").text("No recently created notes.").appendTo(list)[0];
@@ -680,7 +691,21 @@ function dashboard(container, options) {
 					text(tid.title).appendTo(li);
 			}
 		}
+		function updateRecentItems() {
+			$.ajax({ dataType: "json",
+				url: "/search?q=(" + bagQuery + ")&sort=-modified&limit=5",
+				success: function(tiddlers) {
+					for(var i = tiddlers.length - 1; i > -1; i--) {
+						var tiddler = tiddlers[i];
+						notabene.addRecentChange(tiddler.bag, tiddler.title);
+					}
+					printRecentItems(notabene.getRecentChanges(options.bag, options.space).
+						sort(sortRecent));
+				}
+			})
+		}
 		printRecentItems(recent.sort(sortRecent));
+		updateRecentItems();
 	}
 
 	var throbspeed = 500;
