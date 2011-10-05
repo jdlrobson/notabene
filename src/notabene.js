@@ -243,8 +243,7 @@ function notes(container, options) {
 			} else if(!is404) {
 				resetNote();
 			}
-			// TODO: replace with chrjs-store method i.e. store.isPresent(tid)
-			if(!localStorage.getItem(bag.name + "/" + encodeURIComponent(note.title))) {
+			if(store().title(note.title).bag(bag.name).dirty().length === 0) {
 				if(is404 || tid) {
 					note.fields._title_validated = "yes";
 				}
@@ -777,7 +776,6 @@ function dashboard(container, options) {
 		}
 	});
 
-	// TODO: refactor - some of this code is a repeat of that in the notes function
 	var instance = setup_store(options);
 	renderIncomplete(instance.store, instance.bag.name);
 }
