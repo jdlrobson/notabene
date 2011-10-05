@@ -291,3 +291,32 @@ test("print with hidden meta data", function() {
 	note.printMetaData(tid);
 	strictEqual($("#notemeta li").length, 2, "the two fields are printed, _hidden is ignored");
 });
+
+module('notabene (as visited from /takenote#!/tiddler/bar%20dum%20%2Ftest)', {
+	setup: function() {
+		localStorage.clear();
+		container = $("<div />").appendTo(document.body)[0];
+		$("<textarea class='note_title' />").appendTo(container);
+		$("<textarea class='note_text' />").appendTo(container);
+		$("<a id='newnote'>save</a>").appendTo(container);
+		$("<div />").attr("id", "notemeta").appendTo(container);
+		setupNotabeneMock();
+		window.location.hash = "#!/tiddler/bar%20dum%20%2F%20test";
+		note = notes(container, {
+			host: "/",
+			bag: "bag"
+		});
+	},
+	teardown: function() {
+		window.location.hash = "";
+		$(container).remove();
+		container = null;
+		note = null;
+		localStorage.clear();
+		notabene = _notabene;
+	}
+});
+
+test('startup behaviour (load a note with preset name not on the server)', function() {
+	strictEqual($(".note_title", container).val(), "bar dum / test", "check the value of title is correct");
+});

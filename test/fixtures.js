@@ -73,6 +73,9 @@ $.ajax = function(options) {
 			}, 4000);
 		},
 		// tiddlers that are not on the server
+		"/bags/bag/tiddlers/bar%20dum%20%2F%20test": function(options) {
+			options.error(xhr404);
+		},
 		"/bags/test_public/tiddlers/Test": function(options) {
 			options.error(xhr404);
 		},

@@ -14,7 +14,7 @@ $(document).ready(function() {
 			if(r) {
 				if(bag == space + "_public") {
 					if(isTiddler) {
-						$("<a id='editLink' />").attr("href", "/takenote#!/quickedit/tiddler/" + title).
+						$("<a id='editLink' />").attr("href", "/takenote#!/quickedit/tiddler/" + encodeURIComponent(title)).
 							text("edit note").prependTo(place);
 					} else { // when viewing a collection add link to create new note in collection
 						$("<a id='editLink' />").attr("href", "/takenote").
