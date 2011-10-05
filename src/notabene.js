@@ -313,7 +313,7 @@ function notes(container, options) {
 			var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
 			var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
 			if(currentUrl.indexOf("quickedit/") > -1) {
-				$("#newnote").addClass("quickedit");
+				$("#newnote,#cancelnote").addClass("quickedit");
 			}
 			loadServerNote(decodeURIComponent(match[1]), noteBag);
 		} else {
@@ -578,8 +578,12 @@ function notes(container, options) {
 	$("#cancelnote").click(function(ev) {
 		var ok = confirm("Cancel editing this note and revert to previous online version?");
 		if(ok) {
+			var quickedit = $(ev.target).hasClass("quickedit");
 			store.remove(note.title);
 			resetNote();
+			if(quickedit) {
+				window.location = document.referrer || "/" + encodeURIComponent(note.title);
+			}
 		}
 	});
 	init();
