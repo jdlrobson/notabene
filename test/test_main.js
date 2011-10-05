@@ -233,7 +233,8 @@ module('notabene (as visited from /takenote#!/tiddler/bar%20dum)', {
 });
 
 test('startup behaviour (load a note with preset name not on the server)', function() {
-	strictEqual($(".note_title", container).attr("disabled"), "disabled", "check title gets accepted thus disabled");
+	strictEqual($(".note_title", container).attr("disabled"), undefined,
+		"the note doesn't exist yet so it should be possible to rename");
 	strictEqual($(".note_text", container).attr("disabled"), undefined, "can still edit the text though");
 	strictEqual($(".note_title", container).val(), "bar dum", "check the value of title is correct");
 });

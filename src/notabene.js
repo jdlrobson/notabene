@@ -169,7 +169,7 @@ function notes(container, options) {
 	function loadNote() {
 		$(".note_text").val(note.text);
 		if(note.title != tempTitle && note.fields._title_set) {
-			$(".note_title").val(note.title);
+			$(".note_title").val(note.title).focus();
 		}
 		if(note.fields._title_validated) {
 			$(".note_title").blur().attr("disabled", true);
@@ -244,7 +244,7 @@ function notes(container, options) {
 				resetNote();
 			}
 			if(store().title(note.title).bag(bag.name).dirty().length === 0) {
-				if(is404 || tid) {
+				if(tid) {
 					note.fields._title_validated = "yes";
 				}
 			}
