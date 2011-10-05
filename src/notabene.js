@@ -399,26 +399,26 @@ function notes(container, options) {
 	}
 
 	$(document).ready(function() {
-	autoResize($("textarea.note_title")[0], { buffer: 0 });
-	autoResize($(".note_text")[0], { minHeight: 250 });
+		autoResize($("textarea.note_title")[0], { buffer: 0 });
+		autoResize($(".note_text")[0], { minHeight: 250 });
 
-	// on a blur event fix the title.
-	$(".note_title").blur(function(ev){
-		var val = $(ev.target).val();
-		var trimmed = $.trim(val);
-		if(trimmed.length > 0) {
-			note.fields._title_set = "yes";
-			renameNote(trimmed);
-			storeNote();
-		} else {
-			delete note.fields._title_set;
-			renameNote(getTitle());
-		}
-	}).keydown(function(ev) {
-		if(ev.keyCode === 13) {
-			ev.preventDefault();
-		}
-	});
+		// on a blur event fix the title.
+		$(".note_title").blur(function(ev){
+			var val = $(ev.target).val();
+			var trimmed = $.trim(val);
+			if(trimmed.length > 0) {
+				note.fields._title_set = "yes";
+				renameNote(trimmed);
+				storeNote();
+			} else {
+				delete note.fields._title_set;
+				renameNote(getTitle());
+			}
+		}).keydown(function(ev) {
+			if(ev.keyCode === 13) {
+				ev.preventDefault();
+			}
+		});
 	});
 
 	function removeTag(tag) {
