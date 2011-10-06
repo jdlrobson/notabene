@@ -10,6 +10,13 @@ var RESERVED_TITLES = ["takenote", "dashboard", "takenote_manifest.appcache",
 
 var config;
 
+if(window.navigator.standalone) {
+	$("#backstage a").click(function(ev) {
+		window.location.href = $(ev.target).attr('href');
+		ev.preventDefault();
+		return false;
+	});
+}
 // some helper functions
 var notabene = {
 	defaultFields: {},
