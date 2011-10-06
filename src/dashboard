@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html manifest="/takenote_manifest.appcache">
+<html manifest="/bags/common/tiddlers/takenote_manifest.appcache">
 	<head>
 		<title>takenote</title>
-		<link type="text/css" rel="stylesheet" href="/notabene.css" />
+		<link type="text/css" rel="stylesheet" href="/bags/common/tiddlers/notabene.css" />
 		<link type="text/css" rel="stylesheet" href="/bags/common/tiddlers/jquery-ui.custom.css">
-		<link rel="apple-touch-icon" href="/touchicon_takenote.png"/>
-		<link rel="apple-touch-icon-precomposed" href="/touchicon_takenote.png"/>
+		<link rel="apple-touch-icon" href="/bags/common/tiddlers/touchicon_takenote.png"/>
+		<link rel="apple-touch-icon-precomposed" href="/bags/common/tiddlers/touchicon_takenote.png"/>
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1.0">
 	</head>
@@ -55,7 +55,7 @@
 		<script src="/bags/tiddlyspace/tiddlers/chrjs" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/notabene.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/bags/common/tiddlers/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var space = window.location.hostname.split(".")[0];
 			dashboard($(".takenotedashboard")[0], {
