@@ -9,13 +9,13 @@ CACHE:
 /dashboard
 /bags/common/tiddlers/jquery-ui.custom.css
 /bags/common/tiddlers/jquery-ui.custom.js
-/notabene.css
-/notabene.js
+/bags/common/tiddlers/notabene.css
+/bags/common/tiddlers/notabene.js
 /bags/common/tiddlers/jquery-json.js
 /bags/common/tiddlers/jquery.js
 /bags/tiddlyspace/tiddlers/chrjs
 /bags/common/tiddlers/chrjs-store.js
-/touchicon_takenote.png
+/bags/common/tiddlers/touchicon_takenote.png
 /bags/common/tiddlers/cancelTiddler.png
 /bags/common/tiddlers/saveTiddler.png
 /bags/common/tiddlers/deleteTiddler.png
