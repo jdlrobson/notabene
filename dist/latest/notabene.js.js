@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.6.6|
+|''Version''|0.6.7|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
@@ -10,6 +10,13 @@ var RESERVED_TITLES = ["takenote", "dashboard", "takenote_manifest.appcache",
 
 var config;
 
+if(window.navigator.standalone) {
+	$("#backstage a").click(function(ev) {
+		window.location.href = $(ev.target).attr('href');
+		ev.preventDefault();
+		return false;
+	});
+}
 // some helper functions
 var notabene = {
 	defaultFields: {},
