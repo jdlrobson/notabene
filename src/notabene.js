@@ -292,6 +292,26 @@ function notes(container, options) {
 		});
 	}
 
+	function loadInitialNote() {
+		var currentUrl = window.location.hash;
+		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
+		if(match && match[1]) {
+			var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
+			var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
+			if(currentUrl.indexOf("quickedit/") > -1) {
+				$("#newnote,#cancelnote").addClass("quickedit");
+			}
+			loadServerNote(decodeURIComponent(match[1]), noteBag);
+		} else {
+			if(tiddlers[0]) {
+				note = tiddlers[0];
+				loadNote();
+			} else {
+				newNote();
+			}
+			$(container).addClass("ready");
+		}
+	}
 	// this initialises notabene, loading either the requested note, the last worked on note or a new note
 	function init() {
 		var syncButton = $(".syncButton");
@@ -342,24 +362,8 @@ function notes(container, options) {
 				}
 			});
 		});
-		var currentUrl = window.location.hash;
-		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
-		if(match && match[1]) {
-			var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
-			var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
-			if(currentUrl.indexOf("quickedit/") > -1) {
-				$("#newnote,#cancelnote").addClass("quickedit");
-			}
-			loadServerNote(decodeURIComponent(match[1]), noteBag);
-		} else {
-			if(tiddlers[0]) {
-				note = tiddlers[0];
-				loadNote();
-			} else {
-				newNote();
-			}
-			$(container).addClass("ready");
-		}
+		window.onhashchange = loadInitialNote;
+		loadInitialNote();
 	}
 
 	// this stores the note locally (but not on the server)
