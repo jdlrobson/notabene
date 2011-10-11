@@ -20,6 +20,35 @@ if(window.navigator.standalone) {
 // some helper functions
 var notabene = {
 	defaultFields: {},
+	getTiddlyLinks: function(text) {
+		var pattern = /\[\[([^\[\]]*)\]\]/gi;
+		var regex = new RegExp(pattern);
+		var links = text.match(regex);
+		var tiddlylinks = [];
+		/// links in form [[foo]], [[foo|bar]]
+		if(links) {
+			for(var i = 0; i < links.length; i++) {
+				var link = links[i];
+				link = new RegExp(pattern).exec(link);
+				link = link[1];
+				var tiddlylink = true;
+				var label = link.match(/([^|]*)\|(.*)/);
+				if(label) {
+					link = label[2];
+					label = label[1];
+					if(link.indexOf("/") === 0) {
+						tiddlylink = false;
+					} else if(link.match(/[^\/]*\:\/\//)) { // starts with protocol
+						tiddlylink = false;
+					}
+				}
+				if(tiddlylink) {
+					tiddlylinks.push(link);
+				}
+			}
+		}
+		return tiddlylinks;
+	},
 	loadConfig: function() {
 		config = localStorage.getItem("_takeNoteConfig") ? JSON.parse(localStorage.getItem("_takeNoteConfig")) : {};
 		if(config.noGeoTiddlers) {
@@ -787,6 +816,17 @@ function dashboard(container, options) {
 	renderIncomplete(instance.store, instance.bag.name);
 }
 
+window.setInterval(function() {
+	var container = $("#linkArea").empty()[0];
+	var links = notabene.getTiddlyLinks($("textarea.note_text").val());
+	if(links.length > 0) {
+		$("<span />").text("This note links to:").appendTo(container)
+	}
+	for(var i = 0; i < links.length; i++) {
+		$("<a />").addClass("button").attr("href", "/takenote#tiddler/" + encodeURIComponent(links[i])).
+			text(links[i]).appendTo(container);
+	}
+}, 5000);
 // show bookmark bubble if supported
 window.addEventListener('load', function() {
 	window.setTimeout(function() {
