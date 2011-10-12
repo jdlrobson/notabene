@@ -28,6 +28,49 @@ noscript {
 	position: absolute;
 }
 
+.button {
+	margin-bottom: 1em;
+	background: #DDD;
+	border: 1px solid #DCE7F1;
+	color: white;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: bold;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	text-align: center;
+	text-shadow: rgba(0, 0, 0, .1) 0 -1px 0;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+#linkArea {
+	overflow: hidden;
+	-webkit-transition-property: max-height, max-width;
+	-webkit-transition-duration: 1s;
+	-webkit-transition-timing-function: ease-in;
+	max-height: 24px;
+	max-width: 24px;
+}
+
+#linkArea:hover {
+	max-height: 100px;
+	max-width: 100%;
+}
+
+#linkArea span {
+	background-image: url(/link.png);
+	background-repeat: no-repeat;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	text-indent: 999px;
+	overflow: hidden;
+}
+
 #note.active #deletenote {
 	display: none;
 }

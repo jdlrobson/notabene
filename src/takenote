@@ -16,6 +16,7 @@
 		</ul>
 		<div class="takenotecontainer">
 			<div class='messageArea'></div>
+			<div id="linkArea"></div>
 			<div id="note">
 				<div class="toolbar">
 					<a id="cancelnote" title="cancel this note">cancel</a>
