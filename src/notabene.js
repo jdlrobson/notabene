@@ -530,10 +530,15 @@ function notes(container, options) {
 					if(tid) {
 						notabene.addRecentChange(tid.bag.name, note.title);
 						$("#note").addClass("active");
+						var encodedTitle = encodeURIComponent(note.title);
 						if(quickedit) { // if quick edit has been signalled
-							window.location = document.referrer || "/" + encodeURIComponent(note.title);
+							window.location = document.referrer || "/" + encodedTitle;
 						} else {
-							printMessage("Saved successfully.", null, true);
+							var url = "/bags/" + tid.bag.name + "/tiddlers/" + encodedTitle;
+							var linkHtml = $("<div />").append(
+								$("<a />").attr("href", url).text(note.title
+								)).html();
+							printMessage("Saved " + linkHtml + " successfully.", null, true);
 						}
 						resetNote();
 					} else {
