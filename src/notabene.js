@@ -440,7 +440,8 @@ function notes(container, options) {
 	}
 	function addTagToCurrentNote(tag) {
 		var tags = note.tags || [];
-		tag = tag.toLowerCase();
+		tag = ["excludeLists", "excludeSearch", "systemConfig", "excludeMissing"].indexOf(tag) > - 1 ? 
+			tag : tag.toLowerCase();
 		if(tags.indexOf(tag) === -1) {
 			tags.push(tag);
 		}
