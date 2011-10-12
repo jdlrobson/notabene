@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.6.7|
+|''Version''|0.6.8|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
@@ -221,7 +221,7 @@ function notes(container, options) {
 		area.attr("class", "messageArea displayed").html("<div>" + html + "</div>");
 		$(".messageArea div").stop(false, false).show();
 		if(fadeout) {
-			$(".messageArea div").css({ opacity: 1 }).fadeOut(3000);
+			$(".messageArea div").css({ opacity: 1 }).fadeOut(5000);
 		}
 		if(className) {
 			$(area).addClass(className);
@@ -440,7 +440,8 @@ function notes(container, options) {
 	}
 	function addTagToCurrentNote(tag) {
 		var tags = note.tags || [];
-		tag = tag.toLowerCase();
+		tag = ["excludeLists", "excludeSearch", "systemConfig", "excludeMissing"].indexOf(tag) > - 1 ? 
+			tag : tag.toLowerCase();
 		if(tags.indexOf(tag) === -1) {
 			tags.push(tag);
 		}
@@ -530,10 +531,15 @@ function notes(container, options) {
 					if(tid) {
 						notabene.addRecentChange(tid.bag.name, note.title);
 						$("#note").addClass("active");
+						var encodedTitle = encodeURIComponent(note.title);
 						if(quickedit) { // if quick edit has been signalled
-							window.location = document.referrer || "/" + encodeURIComponent(note.title);
+							window.location = document.referrer || "/" + encodedTitle;
 						} else {
-							printMessage("Saved successfully.", null, true);
+							var url = "/bags/" + tid.bag.name + "/tiddlers/" + encodedTitle;
+							var linkHtml = $("<div />").append(
+								$("<a />").attr("href", url).text(note.title
+								)).html();
+							printMessage("Saved " + linkHtml + " successfully.", null, true);
 						}
 						resetNote();
 					} else {
