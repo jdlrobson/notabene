@@ -221,7 +221,7 @@ function notes(container, options) {
 		area.attr("class", "messageArea displayed").html("<div>" + html + "</div>");
 		$(".messageArea div").stop(false, false).show();
 		if(fadeout) {
-			$(".messageArea div").css({ opacity: 1 }).fadeOut(3000);
+			$(".messageArea div").css({ opacity: 1 }).fadeOut(5000);
 		}
 		if(className) {
 			$(area).addClass(className);
