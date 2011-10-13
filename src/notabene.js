@@ -332,7 +332,7 @@ function notes(container, options) {
 					loadNote();
 					// TODO: this is a bit hacky - without this the message will not fade out.
 					setTimeout(function() {
-						var html = ["We're restored your last incomplete note for you to finish and save. ", 
+						var html = ["We've restored your last incomplete note for you to finish and save. ", 
 							"<a href='/takenote#tiddler/'>Start a new note</a> if you prefer."].join("");
 						printMessage(html, "", true);
 					}, 500);
