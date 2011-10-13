@@ -341,7 +341,7 @@ function notes(container, options) {
 		}
 		startUp();
 		if(window.addEventListener) {
-			window.addEventListener("hashchange", startUp);
+			window.addEventListener("hashchange", startUp, true);
 		}
 	}
 
