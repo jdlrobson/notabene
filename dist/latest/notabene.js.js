@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.6.8|
+|''Version''|0.6.9|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
@@ -174,6 +174,7 @@ function notes(container, options) {
 
 	// load the current note into the display
 	function loadNote() {
+		$(".note_title").val("");
 		$(".note_text").val(note.text);
 		if(note.title != tempTitle && note.fields._title_set) {
 			$(".note_title").val(note.title).focus();
@@ -313,23 +314,37 @@ function notes(container, options) {
 				}
 			});
 		});
-		var currentUrl = window.location.hash;
-		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
-		if(match && match[1]) {
-			var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
-			var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
-			if(currentUrl.indexOf("quickedit/") > -1) {
-				$("#newnote,#cancelnote").addClass("quickedit");
-			}
-			loadServerNote(decodeURIComponent(match[1]), noteBag);
-		} else {
-			if(tiddlers[0]) {
-				note = tiddlers[0];
-				loadNote();
+
+		function startUp() {
+			var currentUrl = window.location.hash;
+			var match = currentUrl.match(/tiddler\/([^\/]+)$/);
+			var newTiddler = currentUrl.match(/tiddler\/$/);
+			if(match && match[1]) {
+				var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
+				var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
+				if(currentUrl.indexOf("quickedit/") > -1) {
+					$("#newnote,#cancelnote").addClass("quickedit");
+				}
+				loadServerNote(decodeURIComponent(match[1]), noteBag);
 			} else {
-				newNote();
+				if(!newTiddler && tiddlers[0]) {
+					note = tiddlers[0];
+					loadNote();
+					// TODO: this is a bit hacky - without this the message will not fade out.
+					setTimeout(function() {
+						var html = ["We're restored your last incomplete note for you to finish and save. ", 
+							"<a href='/takenote#tiddler/'>Start a new note</a> if you prefer."].join("");
+						printMessage(html, "", true);
+					}, 500);
+				} else {
+					newNote();
+				}
+				$(container).addClass("ready");
 			}
-			$(container).addClass("ready");
+		}
+		startUp();
+		if(window.addEventListener) {
+			window.addEventListener("hashchange", startUp, true);
 		}
 	}
 

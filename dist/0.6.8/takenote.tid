@@ -5,12 +5,11 @@ type: text/html
 <html manifest="/bags/common/tiddlers/takenote_manifest.appcache">
 	<head>
 		<title>takenote</title>
-		<link type="text/css" rel="stylesheet" href="/bags/common/tiddlers/notabene.css" />
-		<link type="text/css" rel="stylesheet" href="/bags/common/tiddlers/jquery-ui.custom.css">
+		<link rel="stylesheet" href="/bags/common/tiddlers/notabene.css" />
 		<link rel="apple-touch-icon" href="/bags/common/tiddlers/touchicon_takenote.png"/>
 		<link rel="apple-touch-icon-precomposed" href="/bags/common/tiddlers/touchicon_takenote.png"/>
-		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=0,initial-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
 	</head>
 	<body>
 		<ul id="backstage">
@@ -18,34 +17,31 @@ type: text/html
 			<li><a href="/dashboard">dashboard</a></li><li><a href="/takenote">takenote</a></li>
 			<li><a class='connectionStatus'></a></li>
 		</ul>
-		<div class="takenotedashboard">
-		  <div class='messageArea'></div>
-			<div class="header">
-				<div class="siteheading">
-					<h1>Dashboard</h1>
+		<div class="takenotecontainer">
+			<div class='messageArea'></div>
+			<div id="note">
+				<div class="toolbar">
+					<a id="cancelnote" title="cancel this note">cancel</a>
+					<a id="deletenote" title="delete this note">delete</a>
+					<a id="newnote" title="complete this note">complete</a>
 				</div>
-				<div class='siteicon'></div>
-			</div>
-			<div class="toolpanel viewer">
-				<div class='section searchSection requiresConnection'>
-					<h2>find note:</h2>
-					<input class="findnote" type="search" placeholder="type search term" />
-					<ul>
-						<li>Access all your notes from <a href="/tiddlers?select=tag:!excludeLists">tiddlers</a></li>
-					</ul>
+				<div class="note_title_container">
+					<textarea class="note_title" placeholder="Note Title"></textarea>
 				</div>
-				<div class="section incompleteSection">
-					<h2>Incomplete notes:</h2>
-					<ul id="incomplete"></ul>
-					<a class='syncButton' title="save all notes in the list to the web">sync these notes</a>
+				<div id="notebody">
+					<span class="notedate"></span> 
+					<textarea class="note_text" placeholder="Write here..."></textarea>
 				</div>
-				<div class="section recentSection">
-					<h2>Recently created</h2>
-					<ul id="recentnotes"></ul>
+				<div id="tips">
+				<div>Tips for cleverer notes:
+				''<span class="boldTip">bold</span>'' //<span class="italicTip">italic</span>// _<span class="underlineTip">underline</span>_ #tag</div>
+				<div>[[<a href="http://tiddlyspace.com">Link Name</a>|http://tiddlyspace.com]]
+				[[<a href="/Note title">Note title</a>]] <span class="imageTip">[img[/SiteIcon<img src="/SiteIcon" />]]</span></div>
 				</div>
-			</div>
-			<div class='footer'>
-				<span class='version'>v. 0.6.9</span>
+				<div id="notemeta"></div>
+				<div style="display:none">
+				  <a class="syncButton"></a>
+				</div>
 			</div>
 		</div>
 		<noscript>
@@ -54,15 +50,13 @@ type: text/html
 		<script src="/bags/common/tiddlers/backstage.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/bookmark_bubble.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/bags/common/tiddlers/jquery-ui.custom.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/tiddlyspace/tiddlers/chrjs" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/chrjs-store.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			var space = window.location.hostname.split(".")[0];
-			dashboard($(".takenotedashboard")[0], {
-			  space: space,
+			var takenote, space = window.location.hostname.split(".")[0];
+			takenote = notes($(".takenotecontainer")[0], {
 				bag: space + "_public",
 				host: "/"
 			});

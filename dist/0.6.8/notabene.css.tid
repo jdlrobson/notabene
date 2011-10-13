@@ -14,9 +14,6 @@ noscript {
 	font-size: 2em;
 	border: solid 1px #CCC;
 	padding: 5px;
-	border-radius: 5px 5px 5px;
-	-ms-border-radius: 5px 5px 5px;
-	-o-border-radius: 5px 5px 5px;
 	-moz-border-radius: 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px;
 	width: 48px;
@@ -179,7 +176,6 @@ a:hover {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-o-border-radius: 10px;
-	-ms-border-radius: 10px;
 	border-radius: 10px;
 	background-size: 100%;
 	position: absolute;
@@ -239,10 +235,6 @@ a:hover {
 	width: 556px;
 	margin-left: -28px;
 	-webkit-box-shadow: 0px 1px 1px rgb(96,106,115);
-	-moz-box-shadow: 0px 1px 1px rgb(96,106,115);
-	-o-box-shadow: 0px 1px 1px rgb(96,106,115);
-	-ms-box-shadow: 0px 1px 1px rgb(96,106,115);
-	box-shadow: 0px 1px 1px rgb(96,106,115);
 	position:relative;
 	background-color: #DCE7F1;
 }
@@ -321,10 +313,6 @@ a:hover {
 .messageArea.displayed {
 	opacity: 1;
 	-webkit-transition: opacity 0.4s ease-in;
-	-moz-transition: opacity 0.4s ease-in;
-	-ms-transition: opacity 0.4s ease-in;
-	-o-transition: opacity 0.4s ease-in;
-	transition: opacity 0.4s ease-in;
 }
 
 .takenotecontainer h1 {
@@ -498,10 +486,6 @@ a:hover {
 	display: block;
 	position: relative;
 	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	-ms-border-radius: 5px;
-	border-radius: 5px;
 	background-color: red;
 }
 
