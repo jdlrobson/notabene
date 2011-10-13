@@ -315,6 +315,7 @@ function notes(container, options) {
 		});
 		var currentUrl = window.location.hash;
 		var match = currentUrl.match(/tiddler\/([^\/]*)$/);
+		var newTiddler = currentUrl.match(/tiddler\/$/);
 		if(match && match[1]) {
 			var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
 			var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
@@ -323,7 +324,7 @@ function notes(container, options) {
 			}
 			loadServerNote(decodeURIComponent(match[1]), noteBag);
 		} else {
-			if(tiddlers[0]) {
+			if(!newTiddler && tiddlers[0]) {
 				note = tiddlers[0];
 				loadNote();
 				var html = ["We're restored your last incomplete note for you to finish and save. ", 

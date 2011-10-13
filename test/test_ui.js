@@ -715,6 +715,16 @@ module("unvalidated tiddler", {
 	}
 });
 
+test('force new note when note in cache', function() {
+	window.location.hash = "#tiddler/";
+	note = notes(container, {
+		host: "/",
+		bag: "bag"
+	});
+	strictEqual($(".note_title", container).val(), "", "note title is blank");
+	strictEqual($(".note_text", container).val(), "", "note text is blank");
+});
+
 test("issue 42", function() {
 	note = notes(container, {
 		host: "/",
