@@ -330,9 +330,12 @@ function notes(container, options) {
 				if(!newTiddler && tiddlers[0]) {
 					note = tiddlers[0];
 					loadNote();
-					var html = ["We're restored your last incomplete note for you to finish and save. ", 
-						"<a href='/takenote#tiddler/'>Start a new note</a> if you prefer."].join("");
-					printMessage(html, "", true);
+					// TODO: this is a bit hacky - without this the message will not fade out.
+					setTimeout(function() {
+						var html = ["We're restored your last incomplete note for you to finish and save. ", 
+							"<a href='/takenote#tiddler/'>Start a new note</a> if you prefer."].join("");
+						printMessage(html, "", true);
+					}, 500);
 				} else {
 					newNote();
 				}
