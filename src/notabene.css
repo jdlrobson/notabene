@@ -570,4 +570,16 @@ a:hover {
 		width: 100%;
 		margin: auto;
 	}
+	
+	.toolpanel .section {
+		background-position: 5% 25%;
+		padding: 24px 0;
+	}
+	
+	.toolpanel .info,
+	.toolpanel input,
+	.toolpanel h2,
+	.toolpanel ul {
+		margin-left: 20%;
+	}
 }
