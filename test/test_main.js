@@ -11,7 +11,7 @@ function setupNotabeneMock() {
 	};
 }
 
-module('helper functions', {
+module('test_main.js > helper functions', {
 	setup: function() {
 		localStorage.clear();
 	},
@@ -52,7 +52,7 @@ test("addRecentChange (repeat for same tiddler)", function() {
 	strictEqual(recent[0].title, "foo", "the first note in this list should be this one (see test comments)");
 });
 
-module('notabene', {
+module('test_main.js > notabene', {
 	setup: function() {
 		container = $("<div />").appendTo(document.body)[0];
 		$("<textarea class='note_title' />").appendTo(container);
@@ -137,7 +137,7 @@ test('loadServerNote (specify bag)', function() {
 		"The correct text was loaded via ajax into the current note");
 });
 
-module('notabene (notes in cache)', {
+module('test_main.js > notabene (notes in cache)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
@@ -178,7 +178,7 @@ test('test geo with existing geodata', function() {
 });
 
 
-module('notabene (as visited from /takenote#!/tiddler/bar)', {
+module('test_main.js > notabene (as visited from /takenote#!/tiddler/bar)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
@@ -207,7 +207,7 @@ test('startup behaviour (load a note on the server NOT in cache)', function() {
 		"The correct text is loaded from the server via ajax");
 });
 
-module('notabene (as visited from /takenote#!/tiddler/bar%20dum)', {
+module('test_main.js > notabene (as visited from /takenote#!/tiddler/bar%20dum)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
@@ -293,7 +293,7 @@ test("print with hidden meta data", function() {
 	strictEqual($("#notemeta li").length, 2, "the two fields are printed, _hidden is ignored");
 });
 
-module('notabene (as visited from /takenote#!/tiddler/bar%20dum%20%2Ftest)', {
+module('test_main.js > notabene (as visited from /takenote#!/tiddler/bar%20dum%20%2Ftest)', {
 	setup: function() {
 		localStorage.clear();
 		container = $("<div />").appendTo(document.body)[0];
