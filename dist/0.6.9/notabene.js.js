@@ -1,13 +1,12 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.7.0|
+|''Version''|0.6.9|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
 var APP_PATH = "/takenote";
 var RESERVED_TITLES = ["takenote", "dashboard", "takenote_manifest.appcache",
 	"notabene.css", "jquery-ui.min.js", "jquery-json.min.js"];
-var RECENT_STORAGE_ID = "takenote-recent";
 
 var config;
 
@@ -50,28 +49,25 @@ var notabene = {
 			return false;
 		}
 	},
-	clearRecentChanges: function() {
-		localStorage.removeItem(RECENT_STORAGE_ID);
-	},
-	getRecentChanges: function() {
-		var recent = localStorage.getItem(RECENT_STORAGE_ID);
+	getRecentChanges: function(bag) {
+		var recentLocalStorageId = "takenote-recent-" + bag;
+		var recent = localStorage.getItem(recentLocalStorageId);
 		recent = recent ? $.parseJSON(recent) : [];
 		return recent;
 	},
 	addRecentChange: function(bag, title) {
-		var recent = notabene.getRecentChanges();
+		var recent = notabene.getRecentChanges(bag);
 		var newrecent = [];
 		for(var i = 0; i < recent.length; i++) {
-			var tiddler = recent[i];
-			tiddler = typeof(tiddler) === "string" ? { title: tiddler } : tiddler;
-			if(tiddler.title !== title) {
-				newrecent.push(tiddler);
+			var thisTitle = typeof(recent[i]) === "string" ? recent[i] : recent[i].title;
+			if(thisTitle !== title) {
+				newrecent.push(recent[i]);
 			}
 		}
 		newrecent.push({ title: title, bag: bag });
 		newrecent = newrecent.length > 5 ?
 			newrecent.slice(newrecent.length - 5) : newrecent;
-		localStorage.setItem(RECENT_STORAGE_ID, $.toJSON(newrecent));
+		localStorage.setItem("takenote-recent-" + bag, $.toJSON(newrecent));
 	}
 };
 notabene.loadConfig();
@@ -335,27 +331,15 @@ function notes(container, options) {
 					note = tiddlers[0];
 					loadNote();
 					// TODO: this is a bit hacky - without this the message will not fade out.
-					if($(".takenotedashboard").length === 0) {
-						setTimeout(function() {
-							var html = ["We've restored your last incomplete note for you to finish and save. ", 
-								"<a href='/takenote#tiddler/'>Start a new note</a> if you prefer."].join("");
-							printMessage(html, "", true);
-						}, 500);
-					}
+					setTimeout(function() {
+						var html = ["We've restored your last incomplete note for you to finish and save. ", 
+							"<a href='/takenote#tiddler/'>Start a new note</a> if you prefer."].join("");
+						printMessage(html, "", true);
+					}, 500);
 				} else {
 					newNote();
 				}
 				$(container).addClass("ready");
-			}
-			if(options.space) {
-				$.ajax({
-					url: "/spaces/" + options.space + "/members",
-					error: function() {
-						var html = ["You are not a member of this space. ",
-							"Any notes you create will not be saved to the server. "].join("");
-						printMessage(html, "error", false)
-					}
-				})
 			}
 		}
 		startUp();
@@ -703,9 +687,15 @@ function dashboard(container, options) {
 	var list = $("#recentnotes");
 
 	if(list.length > 0) {
-		var recent = notabene.getRecentChanges();
+		var sortRecent = function(a, b) {
+			var title1 = typeof(a) === "string" ? a : a.title;
+			var title2 = typeof(b) === "string" ? b : b.title;
+			return title1 < title2 ? -1 : 1;
+		};
+		var recent = options.space ? notabene.getRecentChanges(options.space + "_private").
+			concat(notabene.getRecentChanges(options.space + "_public")) :
+			notabene.getRecentChanges(options.bag);
 		function printRecentItems(recent) {
-			$(list).empty();
 			if(recent.length === 0) {
 				$("<li />").text("No recently created notes.").appendTo(list)[0];
 			}
@@ -721,24 +711,7 @@ function dashboard(container, options) {
 					text(tid.title).appendTo(li);
 			}
 		}
-		function updateRecentItems() {
-			$.ajax({
-				url: "/tiddlers?select=tag:!excludeLists&sort=-created&limit=5",
-				dataType: "json",
-				success: function(tiddlers) {
-					notabene.clearRecentChanges();
-					// add in reverse (oldest first)
-					for(var i = tiddlers.length - 1; i > -1; i--) {
-						var tiddler = tiddlers[i];
-						notabene.addRecentChange(tiddler.bag, tiddler.title);
-					}
-					recent = notabene.getRecentChanges();
-					printRecentItems(recent.reverse());
-				}
-			});
-		}
-		updateRecentItems();
-		printRecentItems(recent.reverse());
+		printRecentItems(recent.sort(sortRecent));
 	}
 
 	var throbspeed = 500;
@@ -793,7 +766,7 @@ function dashboard(container, options) {
 				success: function(r) {
 					el.removeClass("searching").css({ opacity: 1 });
 					var data = [];
-					var exclude = matchNotes(term, exclude);
+					var exclude = [];
 					for(var i = 0; i < r.length; i++) {
 						var tiddler = r[i];
 						var bag = tiddler.bag;
@@ -806,6 +779,7 @@ function dashboard(container, options) {
 							data.push({ value: tiddler.title, label: tiddler.title, bag: tiddler.bag })
 						}
 					}
+					data = data.concat(matchNotes(term, exclude));
 					if(data.length === 0) {
 						data.push({ label: "No notes found" });
 					}

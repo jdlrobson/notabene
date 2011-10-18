@@ -182,7 +182,7 @@ a:hover {
 	-ms-border-radius: 10px;
 	border-radius: 10px;
 	background-size: 100%;
-	position: relative;
+	position: absolute;
 	left: 6px;
 	top: 8px;
 }

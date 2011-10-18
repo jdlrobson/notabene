@@ -58,7 +58,6 @@ type: text/html
 			var takenote, space = window.location.hostname.split(".")[0];
 			takenote = notes($(".takenotecontainer")[0], {
 				bag: space + "_public",
-				space: space,
 				host: "/"
 			});
 		</script>
