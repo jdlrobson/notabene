@@ -778,7 +778,7 @@ function dashboard(container, options) {
 				success: function(r) {
 					el.removeClass("searching").css({ opacity: 1 });
 					var data = [];
-					var exclude = [];
+					var exclude = matchNotes(term, exclude);
 					for(var i = 0; i < r.length; i++) {
 						var tiddler = r[i];
 						var bag = tiddler.bag;
@@ -791,7 +791,6 @@ function dashboard(container, options) {
 							data.push({ value: tiddler.title, label: tiddler.title, bag: tiddler.bag })
 						}
 					}
-					data = data.concat(matchNotes(term, exclude));
 					if(data.length === 0) {
 						data.push({ label: "No notes found" });
 					}
