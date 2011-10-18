@@ -16,11 +16,8 @@
 			<li><a class='connectionStatus'></a></li>
 		</ul>
 		<div class="takenotedashboard">
-		  <div class='messageArea'></div>
+		  <div class='messageArea' style="display: none;"></div>
 			<div class="header">
-				<div class="siteheading">
-					<h1>Dashboard</h1>
-				</div>
 				<div class='siteicon'></div>
 			</div>
 			<div class="toolpanel viewer">
