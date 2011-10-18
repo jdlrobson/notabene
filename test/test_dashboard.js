@@ -1,9 +1,9 @@
 var store;
 module('test_dashboard.js > notabene dashboard - 2 tiddlers in store', {
 	setup: function() {
+		notabene.addRecentChange("bar", "test with spaces!>");
 		notabene.addRecentChange("bar", "foo");
 		notabene.addRecentChange("bar", "bar");
-		notabene.addRecentChange("bar", "test with spaces!>");
 		store = new tiddlyweb.Store();
 		var tid = new tiddlyweb.Tiddler("foo", new tiddlyweb.Bag("bar"));
 		tid.fields = { _modified: new Date() };
@@ -36,8 +36,8 @@ test('print recent notes (there are recent notes)', function() {
 	var links = $("#recentnotes li a");
 	var firstLink = $(links[0]);
 	var thirdLink = $(links[2]);
-	strictEqual(firstLink.text(), "bar", "the recent notes are sorted alphabetically");
-	strictEqual(thirdLink.text(), "test with spaces!>", "the recent notes are sorted alphabetically");
+	strictEqual(firstLink.text(), "bar", "the recent notes are sorted by created");
+	strictEqual(thirdLink.text(), "test with spaces!>", "the recent notes are sorted by created");
 	strictEqual(thirdLink.attr("href"), "/bags/bar/tiddlers/test%20with%20spaces!%3E",
 		"link correct and properly encoded");
 });
