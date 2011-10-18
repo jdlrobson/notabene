@@ -40,6 +40,21 @@ var _oldAjax = $.ajax;
 $.ajax = function(options) {
 	ajaxRequests.push(options);
 	var handlers = {
+		"/?limit=1": function(options) {
+
+		},
+		"/status": function(options) {
+
+		},
+		"/bags/bar/tiddlers?select=tag:!excludeLists": function(options) {
+
+		},
+		"/tiddlers?select=tag:!excludeLists&sort=-created&limit=5": function(options) {
+
+		},
+		"/bags/test_public/tiddlers/bar": function(options) {
+			options.error(xhr404);
+		},
 		// tiddlers that live on the server and result in successful ajax
 		"/bags/bag/tiddlers/bar": function(options) {
 			var tid = { title: "bar", text: "The correct text",
