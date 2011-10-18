@@ -38,7 +38,6 @@ noscript {
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
 	margin: 0;
-	background-image: url(/bags/common/tiddlers/HtmlBackground);
 }
 
 #backstage {
@@ -140,24 +139,20 @@ a:hover {
 	border-top: 1px solid #F8F8F8;
 	padding: 24px;
 	position: relative;
+	background-position: 80px 15px;
+	background-repeat: no-repeat;
 }
 
 .section.searchSection {
 	background-image: url(/bags/common/tiddlers/icon-search.png);
-	background-position: 80px 15px;
-	background-repeat: no-repeat;
 }
 
 .section.recentSection {
 	background-image: url(/bags/common/tiddlers/icon-recent.png);
-	background-position: 80px 15px;
-	background-repeat: no-repeat;
 }
 
 .section.incompleteSection {
 	background-image: url(/bags/common/tiddlers/icon-incomplete.png);
-	background-position: 80px 15px;
-	background-repeat: no-repeat;
 	min-height: 100px;
 }
 
@@ -244,7 +239,11 @@ a:hover {
 	background-color: #DCE7F1;
 }
 
-@media all and (min-width: 480px) {
+@media all and (min-width: 500px) {
+	body {
+		background-image: url(/bags/common/tiddlers/HtmlBackground);
+	}
+	
 	.note_title_container:before {
 		content: "";
 		position: absolute;
@@ -531,9 +530,8 @@ a:hover {
 	display: block;
 }
 
-
-/* iphone mode */
-@media screen and (orientation:portrait) and (max-width: 320px) {
+/* Below 500px - mobile devices */
+@media screen and (max-width:500px) {
 	.note_title {
 		padding: 0px;
 	}
@@ -544,8 +542,13 @@ a:hover {
 
 	.takenotedashboard,
 	.takenotecontainer {
-		width: 320px;
+		width: 100%;
 		font-size: 0.7em;
+		margin-top: 0;
+	}
+	
+	.takenotecontainer {
+		background: #D0D2D3;
 	}
 
 	.header h1 {
@@ -555,44 +558,28 @@ a:hover {
 	.takenotedashboard .footer,
 	#note,
 	.messageArea {
-		width: 300px;
+		width: 93.75%;
 	}
 
 	#cancelnote {
-		right: 145px; /* 320 / 2 - 15px (half width of cancel button) - 16px (padding on note_title) */
+		right: 45%; /* 320 / 2 - 15px (half width of cancel button) - 16px (padding on note_title) ~= 145px */
 	}
-
+	
 	.note_title,
 	.note_title_container {
-		width: 300px;
+		width: 100%;
 		margin: auto;
 	}
-}
-
-/* portrait mode */
-@media screen and (orientation:portrait) and (min-width: 480px) {
-	.note_title {
-		padding: 0px;
+	
+	.toolpanel .section {
+		background-position: 5% 25%;
+		padding: 24px 0;
 	}
-
-	.takenotedashboard,
-	.takenotecontainer {
-		width: 480px;
-	}
-
-	.takenotedashboard .footer,
-	#note,
-	.messageArea {
-		width: 460px;
-	}
-
-	#cancelnote {
-		right: 199px; /* 460 / 2 - 15px (half width of cancel button) - 16px (padding on note_title) */
-	}
-
-	.note_title,
-	.note_title_container {
-		width: 460px;
-		margin: auto;
+	
+	.toolpanel .info,
+	.toolpanel input,
+	.toolpanel h2,
+	.toolpanel ul {
+		margin-left: 20%;
 	}
 }
