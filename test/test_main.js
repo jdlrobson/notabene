@@ -42,6 +42,21 @@ test("addRecentChange", function() {
 	strictEqual(recent[4].title, "bar", "check list order");
 });
 
+test("clearRecentChange", function() {
+	notabene.clearRecentChanges(); // run to check no exception thrown
+	notabene.addRecentChange("test_public","foo"); // [foo]
+	notabene.addRecentChange("test_public","bar"); // [foo,bar]
+	notabene.addRecentChange("test_public","dum"); // [foo,bar,dum]
+	notabene.addRecentChange("test_public","hello"); // [foo,bar,dum,hello]
+	notabene.addRecentChange("test_private","goodbye"); // [foo,bar,dum,hello,goodbye]
+	notabene.addRecentChange("test_private","what"); // [foo,bar,dum,hello,goodbye]
+	var recent = notabene.getRecentChanges();
+	notabene.clearRecentChanges();
+	var recentAfter = notabene.getRecentChanges();
+	strictEqual(recent.length, 5);
+	strictEqual(recentAfter.length, 0);
+});
+
 test("addRecentChange (repeat for same tiddler)", function() {
 	notabene.addRecentChange("test","foo");
 	notabene.addRecentChange("test","foo");
