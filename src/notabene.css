@@ -139,24 +139,20 @@ a:hover {
 	border-top: 1px solid #F8F8F8;
 	padding: 24px;
 	position: relative;
+	background-position: 80px 15px;
+	background-repeat: no-repeat;
 }
 
 .section.searchSection {
 	background-image: url(/bags/common/tiddlers/icon-search.png);
-	background-position: 80px 15px;
-	background-repeat: no-repeat;
 }
 
 .section.recentSection {
 	background-image: url(/bags/common/tiddlers/icon-recent.png);
-	background-position: 80px 15px;
-	background-repeat: no-repeat;
 }
 
 .section.incompleteSection {
 	background-image: url(/bags/common/tiddlers/icon-incomplete.png);
-	background-position: 80px 15px;
-	background-repeat: no-repeat;
 	min-height: 100px;
 }
 
