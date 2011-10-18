@@ -710,6 +710,7 @@ function dashboard(container, options) {
 		};
 		var recent = notabene.getRecentChanges();
 		function printRecentItems(recent) {
+			$(list).empty();
 			if(recent.length === 0) {
 				$("<li />").text("No recently created notes.").appendTo(list)[0];
 			}
