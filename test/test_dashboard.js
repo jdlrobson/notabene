@@ -1,5 +1,5 @@
 var store;
-module('notabene dashboard - 2 tiddlers in store', {
+module('test_dashboard.js > notabene dashboard - 2 tiddlers in store', {
 	setup: function() {
 		notabene.addRecentChange("bar", "foo");
 		notabene.addRecentChange("bar", "bar");
@@ -42,7 +42,7 @@ test('print recent notes (there are recent notes)', function() {
 		"link correct and properly encoded");
 });
 
-module('notabene dashboard - empty store', {
+module('test_dashboard.js > notabene dashboard - empty store', {
 	setup: function() {
 		store = new tiddlyweb.Store();
 		$("<ul id='incomplete' />").appendTo(document.body);

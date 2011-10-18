@@ -35,7 +35,7 @@ function uiteardown() {
 	ajaxRequests = [];
 }
 
-module('notabene ui (deletion from existing tiddler)', {
+module('test_ui.js > notabene ui (deletion from existing tiddler)', {
 	setup: function() {
 		uisetup();
 		window.location.hash = "#!/tiddler/bar";
@@ -145,7 +145,7 @@ test('test deletion (from server and localStorage)', function() {
 	strictEqual($("#notemeta li").length, 0, "All meta data cleared for the deleted tiddler");
 });
 
-module('notabene ui (deletion from brand new tiddler)', {
+module('test_ui.js > notabene ui (deletion from brand new tiddler)', {
 	setup: function() {
 		uisetup();
 		note = notes(container, {
@@ -295,7 +295,7 @@ test('test deletion (from local storage)', function() {
 	strictEqual($(".note_title").attr("disabled"), undefined, "note title should no longer be disabled");
 });
 
-module('notabene ui refresh', {
+module('test_ui.js > notabene ui refresh', {
 	setup: uisetup, teardown:  uiteardown
 });
 
@@ -667,7 +667,7 @@ test('issue 38', function() {
 	strictEqual(tid.fields._title_validated, undefined, "The title should not be validated.");
 });
 
-module("500 tiddler", {
+module("test_ui.js > 500 tiddler", {
 	setup: function() {
 		uisetup();
 		window.location.hash = "#/tiddler/500";
@@ -702,7 +702,7 @@ test("issue 60", function() {
 	strictEqual(dirty2.length, 1, "now it has been saved");
 });
 
-module("unvalidated tiddler", {
+module("test_ui.js > unvalidated tiddler", {
 	setup: function() {
 		uisetup();
 		localStorage.setItem("bag/bar",
