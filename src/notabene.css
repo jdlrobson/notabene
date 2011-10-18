@@ -38,7 +38,6 @@ noscript {
 body {
 	font: 14px/1.4 "Helvetica Neue", "Lucida Grande", "Arial";
 	margin: 0;
-	background-image: url(/bags/common/tiddlers/HtmlBackground);
 }
 
 #backstage {
@@ -245,6 +244,10 @@ a:hover {
 }
 
 @media all and (min-width: 500px) {
+	body {
+		background-image: url(/bags/common/tiddlers/HtmlBackground);
+	}
+	
 	.note_title_container:before {
 		content: "";
 		position: absolute;
@@ -545,6 +548,11 @@ a:hover {
 	.takenotecontainer {
 		width: 100%;
 		font-size: 0.7em;
+		margin-top: 0;
+	}
+	
+	.takenotecontainer {
+		background: #D0D2D3;
 	}
 
 	.header h1 {
