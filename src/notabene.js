@@ -703,11 +703,6 @@ function dashboard(container, options) {
 	var list = $("#recentnotes");
 
 	if(list.length > 0) {
-		var sortRecent = function(a, b) {
-			var title1 = typeof(a) === "string" ? a : a.title;
-			var title2 = typeof(b) === "string" ? b : b.title;
-			return title1 < title2 ? -1 : 1;
-		};
 		var recent = notabene.getRecentChanges();
 		function printRecentItems(recent) {
 			$(list).empty();
@@ -728,7 +723,7 @@ function dashboard(container, options) {
 		}
 		function updateRecentItems() {
 			$.ajax({
-				url: "/tiddlers?select=tag:!excludeLists&sort=-modified&limit=5",
+				url: "/tiddlers?select=tag:!excludeLists&sort=-created&limit=5",
 				dataType: "json",
 				success: function(tiddlers) {
 					notabene.clearRecentChanges();
@@ -738,12 +733,12 @@ function dashboard(container, options) {
 						notabene.addRecentChange(tiddler.bag, tiddler.title);
 					}
 					recent = notabene.getRecentChanges();
-					printRecentItems(recent.sort(sortRecent));
+					printRecentItems(recent.reverse());
 				}
 			});
 		}
 		updateRecentItems();
-		printRecentItems(recent.sort(sortRecent));
+		printRecentItems(recent.reverse());
 	}
 
 	var throbspeed = 500;
