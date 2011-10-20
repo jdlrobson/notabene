@@ -128,11 +128,9 @@ function init(container, options, callback) {
 	} else if(!options.bag && !options.space) {
 		var s = new tiddlyweb.Store();
 		s.getDefaults(function(defaults) {
-			console.log(defaults);
 			var bag = defaults.pushTo.name;
 			options.space = bag && bag.split("_").length == 2 ? bag.split("_")[0] : "frontpage";
 			options.bag = bag;
-			console.log(options.space);
 			localStorage.setItem("DEFAULT_SPACE", options.space);
 			callback(options);
 		});

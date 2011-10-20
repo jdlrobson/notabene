@@ -66,7 +66,7 @@ release: meta compress
 		cp ../../src/htmljs-takenoteedit.js.meta htmljs-takenoteedit.js.js.meta && \
 		cp ../../src/htmljs-takenoteedit.js htmljs-takenoteedit.js.js && \
 		cp ../../src/HtmlJavascript.tid . && \
-		cp ../../src/notabene.js notabene.js.js && cp ../../src/notabene.js.meta notabene.js.js.meta && \
+		cp ../../build/notabene.js notabene.js.js && cp ../../src/notabene.js.meta notabene.js.js.meta && \
 		cp ../../build/notabene.css.tid . && \
 		cp ../../build/dashboard.tid . && cp ../../build/takenote.tid . && \
 		cp ../../build/takenote_manifest.appcache.tid .
