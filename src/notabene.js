@@ -721,7 +721,7 @@ function renderIncomplete(store, bagname) {
 }
 
 function dashboard(container, options) {
-	return init(container, options, function(options) {
+	return notes(container, options, function(options) {
 
 	var list = $("#recentnotes");
 
