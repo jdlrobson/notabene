@@ -459,7 +459,7 @@ function notes(container, options) {
 	}
 
 	$(document).ready(function() {
-		autoResize($("textarea.note_title")[0], { buffer: 0 });
+		autoResize($("textarea.note_title")[0], { buffer: 0, minHeight: 60 });
 		autoResize($(".note_text")[0], { minHeight: 250 });
 
 		// on a blur event fix the title.
