@@ -54,10 +54,7 @@
 		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			var space = window.location.hostname.split(".")[0];
 			dashboard($(".takenotedashboard")[0], {
-			  space: space,
-				bag: space + "_public",
 				host: "/"
 			});
 		</script>

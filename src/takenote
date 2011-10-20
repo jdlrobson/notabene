@@ -52,10 +52,8 @@
 		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			var takenote, space = window.location.hostname.split(".")[0];
+			var takenote;
 			takenote = notes($(".takenotecontainer")[0], {
-				bag: space + "_public",
-				space: space,
 				host: "/"
 			});
 		</script>
