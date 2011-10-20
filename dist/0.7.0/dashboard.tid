@@ -1,3 +1,6 @@
+tags: excludeLists excludeSearch takenotepackage app
+type: text/html
+
 <!DOCTYPE html>
 <html manifest="/bags/common/tiddlers/takenote_manifest.appcache">
 	<head>
@@ -39,7 +42,7 @@
 				</div>
 			</div>
 			<div class='footer'>
-				<span class='version'>v. 0.7.1</span>
+				<span class='version'>v. 0.7.0</span>
 			</div>
 		</div>
 		<noscript>
@@ -54,7 +57,10 @@
 		<script src="/bags/common/tiddlers/jquery-json.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/bags/common/tiddlers/notabene.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			var space = window.location.hostname.split(".")[0];
 			dashboard($(".takenotedashboard")[0], {
+			  space: space,
+				bag: space + "_public",
 				host: "/"
 			});
 		</script>

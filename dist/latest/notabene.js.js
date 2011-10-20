@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.7.0|
+|''Version''|0.7.1|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/
@@ -120,7 +120,30 @@ function setup_store(options) {
 	}
 }
 
+function init(container, options, callback) {
+	if(localStorage.getItem("DEFAULT_SPACE")) {
+		options.space = localStorage.getItem("DEFAULT_SPACE");
+		options.bag = options.space + "_public";
+		callback(options);
+	} else if(!options.bag && !options.space) {
+		var s = new tiddlyweb.Store();
+		s.getDefaults(function(defaults) {
+			console.log(defaults);
+			var bag = defaults.pushTo.name;
+			options.space = bag && bag.split("_").length == 2 ? bag.split("_")[0] : "frontpage";
+			options.bag = bag;
+			console.log(options.space);
+			localStorage.setItem("DEFAULT_SPACE", options.space);
+			callback(options);
+		});
+	} else {
+		// Return for testing purposes
+		return callback(options);
+	}
+}
+
 function notes(container, options) {
+	return init(container, options, function(options) {
 	backstage();
 
 	// setup onleave event
@@ -187,6 +210,7 @@ function notes(container, options) {
 			$(".note_title").blur().attr("disabled", true);
 			$(document.body).addClass("validatedNote");
 		} else {
+			$(".note_title").attr("disabled", false);
 			$(document.body).removeClass("validatedNote");
 		}
 
@@ -436,7 +460,7 @@ function notes(container, options) {
 	}
 
 	$(document).ready(function() {
-		autoResize($("textarea.note_title")[0], { buffer: 0 });
+		autoResize($("textarea.note_title")[0], { buffer: 0, minHeight: 60 });
 		autoResize($(".note_text")[0], { minHeight: 250 });
 
 		// on a blur event fix the title.
@@ -649,6 +673,7 @@ function notes(container, options) {
 		tempTitle: tempTitle,
 		loadServerNote: loadServerNote
 	};
+	});
 }
 
 function backstage() {
@@ -698,7 +723,7 @@ function renderIncomplete(store, bagname) {
 }
 
 function dashboard(container, options) {
-	notes(container, options);
+	return init(container, options, function(options) {
 
 	var list = $("#recentnotes");
 
@@ -832,6 +857,7 @@ function dashboard(container, options) {
 
 	var instance = setup_store(options);
 	renderIncomplete(instance.store, instance.bag.name);
+	});
 }
 
 // show bookmark bubble if supported
