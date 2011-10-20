@@ -46,6 +46,12 @@ $.ajax = function(options) {
 		"/status": function(options) {
 
 		},
+		"/bags/slow/tiddlers/bar": function() {
+			
+		},
+		"/bags/bar/tiddlers/bar": function() {
+			
+		},
 		"/bags/bar/tiddlers?select=tag:!excludeLists": function(options) {
 
 		},
@@ -107,6 +113,6 @@ $.ajax = function(options) {
 	if (options && handlers[options.url]) {
 		handlers[options.url](options);
 	} else {
-		_oldAjax.apply(this, arguments);
+		throw "failed to access " + options.url;
 	}
 };
