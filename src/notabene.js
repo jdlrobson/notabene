@@ -210,6 +210,7 @@ function notes(container, options) {
 			$(".note_title").blur().attr("disabled", true);
 			$(document.body).addClass("validatedNote");
 		} else {
+			$(".note_title").attr("disabled", false);
 			$(document.body).removeClass("validatedNote");
 		}
 
