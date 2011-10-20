@@ -721,7 +721,6 @@ function renderIncomplete(store, bagname) {
 }
 
 function dashboard(container, options) {
-	return notes(container, options, function(options) {
 
 	var list = $("#recentnotes");
 
@@ -763,6 +762,7 @@ function dashboard(container, options) {
 		updateRecentItems();
 		printRecentItems(recent.reverse());
 	}
+	return notes(container, options, function(options) {
 
 	var throbspeed = 500;
 	var throb = window.setInterval(function() {
