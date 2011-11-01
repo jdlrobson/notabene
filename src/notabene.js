@@ -140,8 +140,9 @@ function init(container, options, callback) {
 	}
 }
 
-function notes(container, options) {
+function notes(container, options, callback) {
 	return init(container, options, function(options) {
+	callback(options);
 	backstage();
 
 	// setup onleave event
