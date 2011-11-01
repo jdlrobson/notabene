@@ -1,5 +1,8 @@
+tags: excludeLists excludeSearch takenotepackage
+type: text/cache-manifest
+
 CACHE MANIFEST
-# version 0.7.2
+# version 0.7.1
 
 CACHE:
 /takenote

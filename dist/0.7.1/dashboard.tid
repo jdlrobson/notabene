@@ -1,3 +1,6 @@
+tags: excludeLists excludeMissing excludeSearch takenotepackage app
+type: text/html
+
 <!DOCTYPE html>
 <html manifest="/bags/common/tiddlers/takenote_manifest.appcache">
 	<head>
@@ -39,7 +42,7 @@
 				</div>
 			</div>
 			<div class='footer'>
-				<span class='version'>v. 0.7.2</span>
+				<span class='version'>v. 0.7.1</span>
 			</div>
 		</div>
 		<noscript>
