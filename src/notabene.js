@@ -10,6 +10,7 @@ var RESERVED_TITLES = ["takenote", "dashboard", "takenote_manifest.appcache",
 var RECENT_STORAGE_ID = "takenote-recent";
 
 var config;
+var firstTime = true;
 
 if(window.navigator.standalone) {
 	$("#backstage a").click(function(ev) {
@@ -360,7 +361,7 @@ function notes(container, options, callback) {
 					note = tiddlers[0];
 					loadNote();
 					// TODO: this is a bit hacky - without this the message will not fade out.
-					if($(".takenotedashboard").length === 0) {
+					if($(".takenotedashboard").length === 0 && firstTime) {
 						setTimeout(function() {
 							var html = ["We've restored your last incomplete note for you to finish and save. ", 
 								"<a href='/takenote#tiddler/'>Start a new note</a> if you prefer."].join("");
@@ -382,6 +383,7 @@ function notes(container, options, callback) {
 					}
 				})
 			}
+			firstTime = false;
 		}
 		startUp();
 		if(window.addEventListener) {
