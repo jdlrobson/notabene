@@ -767,6 +767,13 @@ function dashboard(container, options) {
 	}
 	return notes(container, options, function(options) {
 
+	if(options.space) {
+		var bag = options.space + "_private";
+		$('<li><a href="/takenote#tiddler/New%20Note" class="button">take public note</a></li>').
+			appendTo("#createNotes");
+		$('<li><a href="/takenote#/bags/' + bag + '/tiddler/New%20Note" class="button">take private note</a></li>').
+			appendTo("#createNotes");
+	}
 	var throbspeed = 500;
 	var throb = window.setInterval(function() {
 		var searching = $(".searching");
