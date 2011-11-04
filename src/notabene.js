@@ -771,9 +771,9 @@ function dashboard(container, options) {
 
 	if(options.space) {
 		var bag = options.space + "_private";
-		$('<li><a href="/takenote#tiddler/New%20Note" class="button">take public note</a></li>').
+		$('<li><a href="/takenote#tiddler/New%20Public%20Note" class="button">take public note</a></li>').
 			appendTo("#createNotes");
-		$('<li><a href="/takenote#/bags/' + bag + '/tiddler/New%20Note" class="button">take private note</a></li>').
+		$('<li><a href="/takenote#/bags/' + bag + '/tiddler/New%20Private%20Note" class="button">take private note</a></li>').
 			appendTo("#createNotes");
 	}
 	var throbspeed = 500;
