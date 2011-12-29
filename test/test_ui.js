@@ -637,10 +637,8 @@ test('deleting validated tiddler without internet connection', function() {
 
 	// attempt delete
 	$("#deletenote").click();
-	strictEqual(note.store().dirty().length, 1,
-		"the note is still dirty as we failed to delete it off server (no 404 or success)");
-	strictEqual($(".messageArea", container).hasClass("warning"), true, "warning message printed");
-	strictEqual($(".note_title", container).val(), "", "note title has now been reset");
+	strictEqual(note.store().dirty().length, 0,
+		"the note is local and did not come from the server so is now deleted");
 });
 
 test("retain title on slow validation", function() {

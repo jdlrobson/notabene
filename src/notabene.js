@@ -627,7 +627,7 @@ function notes(container, options, callback) {
 		printMessage("Deleting note...");
 		if(note) {
 			var _server = note.fields._title_validated ? true : false;
-			store.remove({ tiddler: note, server: _server }, function(tid, msg, xhr) {
+			store.destroy(note, function(tid, msg, xhr) {
 				syncStatus();
 				if(xhr && xhr.status === 0) {
 					printMessage("Could not delete from server at current time.", "warning", true);
