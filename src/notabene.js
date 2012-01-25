@@ -1,6 +1,6 @@
 /*!
 |''Name''|notabene|
-|''Version''|0.7.4|
+|''Version''|0.7.5|
 |''License''|BSD (http://en.wikipedia.org/wiki/BSD_licenses)|
 |''Source''|https://github.com/jdlrobson/notabene/blob/master/src/notabene.js|
 !*/

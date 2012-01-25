@@ -28,7 +28,7 @@ type: text/html
 					<h2>All Notes</h2>
 					<input class="findnote" type="search" placeholder="type search term" />
 					<ul>
-						<li>Access all notes in this space from <a href="/tiddlers?select=tag:!excludeLists">/tiddlers</a></li>
+						<li>Access all your notes from <a href="/tiddlers?select=tag:!excludeLists">tiddlers</a></li>
 					</ul>
 				</div>
 				<div class="section incompleteSection">
@@ -44,7 +44,7 @@ type: text/html
 				</div>
 			</div>
 			<div class='footer'>
-				<span class='version'>v. 0.7.5</span>
+				<span class='version'>v. 0.7.4</span>
 			</div>
 		</div>
 		<noscript>
