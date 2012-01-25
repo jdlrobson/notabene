@@ -353,7 +353,7 @@ function notes(container, options, callback) {
 				var matchbag = currentUrl.match(/bags\/([^\/]*)\//);
 				var noteBag = matchbag && decodeURIComponent(matchbag[1]) ? matchbag[1] : undefined;
 				if(currentUrl.indexOf("quickedit/") > -1) {
-					$("#newnote,#cancelnote").addClass("quickedit");
+					$("#newnote,#cancelnote,#deletenote").addClass("quickedit");
 				}
 				loadServerNote(decodeURIComponent(match[1]), noteBag);
 			} else {
