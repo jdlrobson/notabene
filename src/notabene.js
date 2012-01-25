@@ -377,6 +377,7 @@ function notes(container, options, callback) {
 				$.ajax({
 					url: "/spaces/" + options.space + "/members",
 					error: function() {
+						$(document.body).addClass("non-member");
 						var html = ["You are not a member of this space. ",
 							"Any notes you create will not be saved to the server. "].join("");
 						printMessage(html, "error", false)

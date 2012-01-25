@@ -156,6 +156,10 @@ a:hover {
 	min-height: 100px;
 }
 
+.non-member .incompleteSection {
+	display: none;
+}
+
 .toolpanel .section ul {
 	list-style: none;
 }
