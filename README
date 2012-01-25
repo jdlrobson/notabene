@@ -21,3 +21,14 @@ To develop on takenote
 		./make dev
 	# then take a note.
 	# Note the dev version doesn't deploy a cache manifest. make dist does
+
+To release
+	# edit src/notabene.js and src/dashboard to have latest release number
+	# Rename folder dist/latest to dist/<old release number>
+	# run
+	
+			git rm dist/latest -r
+			git add dist/<old release number>
+			make release
+			git add dist/latest
+			git commit
